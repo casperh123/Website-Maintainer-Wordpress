@@ -6,6 +6,9 @@
 
 *migrations
 
+#Dotnet tool manifest
+*.config
+
 # Logs
 Logs/
 
