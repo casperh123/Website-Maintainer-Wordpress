@@ -1,6 +1,7 @@
 using EnhanceSiteUpdater.Service;
 using EnhanceSiteUpdater.Service.Database;
 using EnhanceSiteUpdater.Web.Components;
+using Microsoft.AspNetCore.Identity;
 using Radzen;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,14 @@ builder.Services.AddHttpClient();
 builder.Services.AddDbContext<SiteUpdaterDbContext>();
 builder.Services.AddScoped<UpdateService>();
 
+builder.Services.AddAuthorization();
+    
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<SiteUpdaterDbContext>();
+
 WebApplication app = builder.Build();
+
+app.MapIdentityApi<IdentityUser>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
