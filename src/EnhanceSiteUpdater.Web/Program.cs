@@ -9,7 +9,6 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddScoped<ThemeService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
