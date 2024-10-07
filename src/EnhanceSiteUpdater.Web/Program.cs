@@ -1,3 +1,5 @@
+using EnhanceSiteUpdater.Service;
+using EnhanceSiteUpdater.Service.Database;
 using EnhanceSiteUpdater.Web.Components;
 using Radzen;
 
@@ -8,8 +10,11 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<ThemeService>();
+builder.Services.AddHttpClient();
+builder.Services.AddDbContext<SiteUpdaterDbContext>();
+builder.Services.AddScoped<UpdateService>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

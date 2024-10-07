@@ -2,6 +2,10 @@
 [Bb]in/
 [Oo]bj/
 
+#Ef Core
+
+*migrations
+
 # Logs
 Logs/
 
