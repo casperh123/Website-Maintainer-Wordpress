@@ -89,9 +89,8 @@
     private async Task SaveUserDetails()
     {
         await ValidateControlPanelUrl();
-        
-        User.OrganizationId = Guid.Parse(_organizationId);
-        User.ApiKey = _apiKey;
+        await ValidateOrganizationId();
+        await ValidateApiKey();
         
         await UserRepository.UpdateUser(User);
     }
