@@ -4,13 +4,11 @@
 <div class="rz-p-sm-12">
     <RadzenMenu>
         <RadzenMenuItem Text="Home" Path="/" />
-        <RadzenMenuItem Text="Counter" Path="counter" />
-        <RadzenMenuItem Text="Weather" Path ="weather" />
-        <RadzenMenuItem Text="Auth Required" Path ="auth" />
         
         <AuthorizeView>
             <Authorized>
-                <RadzenMenuItem Text="@context.User.Identity?.Name" Path ="Account/Manage"/>
+                <RadzenMenuItem Text="Control Panel Settings" Path ="control-panel-settings" />
+                <RadzenMenuItem Text="@context.User.Identity?.Name" Path="Account/Manage"/>
                 <div class="nav-item px-3">
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken/>
@@ -21,6 +19,7 @@
                     </form>
                 </div>
             </Authorized>
+            
             <NotAuthorized>
                 <RadzenMenuItem Text="Register" path="Account/register" />
                 <RadzenMenuItem Text="Login" path="Account/login" />

@@ -1,9 +1,8 @@
-﻿@page "/auth"
+﻿@page "/control-panel-settings"
 
 @using System.Security.Claims
 @using EnhanceSiteUpdater.Core.Entities
 @using EnhanceSiteUpdater.Core.Repository
-@using EnhanceSiteUpdater.Service.Data
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
@@ -28,6 +27,8 @@
             <RadzenTextBox bind-Value="@_apiKey"/>
         </RadzenFormField>
     </RadzenStack>
+    
+    <RadzenButton Click="@SaveUserDetails" />
 </AuthorizeView>
 
 @code {
@@ -60,5 +61,7 @@
         User.ControlPanelUrl = new Uri(_controlPanelUrl);
         User.OrganizationId = Guid.Parse(_organizationId);
         User.ApiKey = _apiKey;
+
+        await UserRepository.UpdateUser(User);
     }
 }
