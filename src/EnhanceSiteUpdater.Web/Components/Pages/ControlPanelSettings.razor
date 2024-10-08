@@ -38,8 +38,14 @@
             </RadzenFormField>
             <RadzenFormField Text="Api Key" Variant="Variant.Text">
                 <ChildContent>
-                    <RadzenTextBox Name="ApiKey" @bind-Value="@_apiKey" Visible="!_apiKeyHidden"/>
-                    <RadzenPassword Name="ApiKeyPassword" @bind-Value="@_apiKey" Visible="_apiKeyHidden"/>
+                    @if (_apiKeyHidden)
+                    {
+                        <RadzenPassword Name="ApiKeyPassword" @bind-Value="@_apiKey" Visible="_apiKeyHidden"/>
+                    }
+                    else
+                    {
+                        <RadzenTextBox Name="ApiKey" @bind-Value="@_apiKey" Visible="!_apiKeyHidden"/>
+                    }
                 </ChildContent>
                 <End>
                     <RadzenButton Click="@ToggleApiKeyVisibility" Icon="@(_apiKeyHidden ? "visibility" : "visibility_off")"/>
@@ -88,14 +94,14 @@
 
     private async Task SaveUserDetails()
     {
-        await ValidateControlPanelUrl();
-        await ValidateOrganizationId();
-        await ValidateApiKey();
+        ValidateControlPanelUrl();
+        ValidateOrganizationId();
+        ValidateApiKey();
         
         await UserRepository.UpdateUser(User);
     }
 
-    private async Task ValidateControlPanelUrl()
+    private void ValidateControlPanelUrl()
     {
         _panelUrlErrorMessage = string.Empty;
         
@@ -106,11 +112,11 @@
         catch (UriFormatException e)
         {
             _panelUrlErrorMessage = e.Message;
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
     }
 
-    private async Task ValidateOrganizationId()
+    private void ValidateOrganizationId()
     {
         _organizationIdErrorMessage = string.Empty;
 
@@ -121,17 +127,18 @@
         catch (FormatException e)
         {
             _organizationIdErrorMessage = e.Message;
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
         }
     }
 
-    private async Task ValidateApiKey()
+    private void ValidateApiKey()
     {
         _apiKeyErrorMessage = string.Empty;
 
         if (string.IsNullOrEmpty(_apiKey))
         {
             _apiKeyErrorMessage = "Api Key is empty";
+            StateHasChanged();
         }
         else
         {
@@ -139,7 +146,7 @@
         }
     }
 
-    private async Task ToggleApiKeyVisibility()
+    private void ToggleApiKeyVisibility()
     {
         _apiKeyHidden = !_apiKeyHidden;
     }
