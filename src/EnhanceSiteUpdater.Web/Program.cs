@@ -7,9 +7,10 @@ using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
 using EnhanceSiteUpdater.Service.Data;
 using EnhanceSiteUpdater.Service.Repository;
+using EnhanceSiteUpdaer.Web.Components;
 using Radzen;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -31,9 +32,10 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                          throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+                          throw new InvalidOperationException("Connection string 'DefaultConnection' not found in appsettings.json.");
 builder.Services.AddDbContext<SiteUpdaterDbContext>(options =>
     options.UseSqlite(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -45,7 +47,7 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

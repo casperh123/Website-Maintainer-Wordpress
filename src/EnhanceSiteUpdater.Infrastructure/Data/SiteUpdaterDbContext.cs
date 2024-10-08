@@ -4,8 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnhanceSiteUpdater.Service.Data;
 
-public class SiteUpdaterDbContext(DbContextOptions<SiteUpdaterDbContext> options)
-    : IdentityDbContext<ApplicationUser>(options)
+public class SiteUpdaterDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<ApplicationUser> Users { get; set; }
+
+    public SiteUpdaterDbContext(DbContextOptions<SiteUpdaterDbContext> options) : base(options)
+    {
+    }
 }

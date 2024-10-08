@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>EnhanceSiteUpdater.Service</RootNamespace>
+        <RootNamespace>EnhanceSiteUpdater.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

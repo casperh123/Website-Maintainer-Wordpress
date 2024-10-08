@@ -30,4 +30,9 @@
       <ProjectReference Include="..\EnhanceSiteUpdater.Infrastructure\EnhanceSiteUpdater.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\Helper\" />
+      <Folder Include="Data\" />
+    </ItemGroup>
+
 </Project>

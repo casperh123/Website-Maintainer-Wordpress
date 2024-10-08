@@ -28,8 +28,8 @@ To contribute to this project, you should have your local tool manifest setup co
 
 Make sure the database has the correct schema applied to it, you will need to create and update the project migrations.
 
-    dotnet ef migrations add MigrationName -p src/EnhanceSiteUpdater.Service -s src/EnhanceSiteUpdater.Web
-    dotnet ef database update -p src/EnhanceSiteUpdater.Service -s src/EnhanceSiteUpdater.Web
+    dotnet ef migrations add MigrationName -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
+    dotnet ef database update -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
 
 ### Running the application
 

@@ -13,34 +13,49 @@
 
 <PageTitle>Control Panel Settings</PageTitle>
 
-<h1>You are authenticated</h1>
+<h1>Control Panel Details</h1>
+
+<p>On this page you can define settings used to connect to your Enhance Control Panel.</p>
 
 <AuthorizeView>
-    <RadzenStack Orientation="Orientation.Vertical">
-        <RadzenFormField Text="Control Panel Url" Variant="Variant.Text">
-            <RadzenTextBox bind-Value="@_controlPanelUrl"/>
-        </RadzenFormField>
-        <RadzenFormField Text="Organization Id" Variant="Variant.Text">
-            <RadzenTextBox Name="" bind-Value="@_organizationId"/>
-        </RadzenFormField>
-        <RadzenFormField Text="Api Key" Variant="Variant.Text">
-            <RadzenTextBox bind-Value="@_apiKey"/>
-        </RadzenFormField>
-    </RadzenStack>
-    
-    <RadzenButton Click="@SaveUserDetails" />
+        <RadzenStack Orientation="Orientation.Vertical" Style="padding: 20px 0">
+            <RadzenFormField Text="Control Panel Url" Variant="Variant.Text">
+                <ChildContent>
+                    <RadzenTextBox Name="ControlPanelUrl" @bind-Value="@_controlPanelUrl" />
+                </ChildContent>
+                <Helper>
+                 
+                </Helper>
+            </RadzenFormField>
+            <RadzenFormField Text="Organization Id" Variant="Variant.Text" >
+                <RadzenTextBox @bind-Value="@_organizationId"/>
+            </RadzenFormField>
+            <RadzenFormField Text="Api Key" Variant="Variant.Text">
+                <ChildContent>
+                    <RadzenTextBox Name="ApiKey" @bind-Value="@_apiKey" Visible="!_apiKeyHidden"/>
+                    <RadzenPassword Name="ApiKeyPassword" @bind-Value="@_apiKey" Visible="_apiKeyHidden"/>
+                </ChildContent>
+                <End>
+                    <RadzenButton Click="@ToggleApiKeyVisibility" Icon="@(_apiKeyHidden ? "visibility" : "visibility_off")"/>
+                </End>
+            </RadzenFormField>
+        </RadzenStack>
+
+    <RadzenButton Click="@SaveUserDetails" Text="Save Settings"/>
 </AuthorizeView>
 
 @code {
 
     [Inject] 
     public IUserRepository UserRepository { get; set; }
-    
-    private string _controlPanelUrl = string.Empty;
+
+    public ApplicationUser? User;
+
+    private bool _apiKeyHidden = true;
+
+    private string _controlPanelUrl = "https://";
     private string _organizationId = string.Empty;
     private string _apiKey = string.Empty;
-
-    private ApplicationUser? User;
 
     protected override async Task OnInitializedAsync()
     {
@@ -50,18 +65,24 @@
 
         if (SignInManager.IsSignedIn(claimsPrincipal))
         {
-            _controlPanelUrl = User?.ControlPanelUrl?.ToString() ?? "";
-            _organizationId = User?.OrganizationId?.ToString() ?? "";
-            _apiKey = User?.ApiKey ?? "";
+            _controlPanelUrl = User.ControlPanelUrl.ToString();
+            _organizationId = User.OrganizationId.ToString();
+            _apiKey = User.ApiKey;
+
         }
     }
 
-    public async Task SaveUserDetails()
+    private async Task SaveUserDetails()
     {
         User.ControlPanelUrl = new Uri(_controlPanelUrl);
         User.OrganizationId = Guid.Parse(_organizationId);
         User.ApiKey = _apiKey;
-
+        
         await UserRepository.UpdateUser(User);
+    }
+
+    private async Task ToggleApiKeyVisibility()
+    {
+        _apiKeyHidden = !_apiKeyHidden;
     }
 }
