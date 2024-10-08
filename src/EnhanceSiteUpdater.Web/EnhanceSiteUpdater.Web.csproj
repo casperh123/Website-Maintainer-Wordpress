@@ -31,8 +31,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Helper\" />
       <Folder Include="Data\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Pages\ControlPanelSettings.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Components\Pages\ControlPanelSettings.cs" />
     </ItemGroup>
 
 </Project>

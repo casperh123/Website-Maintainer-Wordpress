@@ -5,6 +5,7 @@
 @using EnhanceSiteUpdater.Core.Repository
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
+@using EnhanceSiteUpdaer.Web.Components.Notification
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -21,14 +22,19 @@
         <RadzenStack Orientation="Orientation.Vertical" Style="padding: 20px 0">
             <RadzenFormField Text="Control Panel Url" Variant="Variant.Text">
                 <ChildContent>
-                    <RadzenTextBox Name="ControlPanelUrl" @bind-Value="@_controlPanelUrl" />
+                    <RadzenTextBox Name="ControlPanelUrl" @bind-Value="@_controlPanelUrl"/>
                 </ChildContent>
                 <Helper>
-                 
+                    <ErrorMessage Message="@_panelUrlErrorMessage"/>
                 </Helper>
             </RadzenFormField>
-            <RadzenFormField Text="Organization Id" Variant="Variant.Text" >
-                <RadzenTextBox @bind-Value="@_organizationId"/>
+            <RadzenFormField Text="Organization Id" Variant="Variant.Text">
+                <ChildContent>
+                    <RadzenTextBox @bind-Value="@_organizationId"/>
+                </ChildContent>
+                <Helper>
+                    <ErrorMessage Message="@_organizationIdErrorMessage"/>
+                </Helper>
             </RadzenFormField>
             <RadzenFormField Text="Api Key" Variant="Variant.Text">
                 <ChildContent>
@@ -38,10 +44,14 @@
                 <End>
                     <RadzenButton Click="@ToggleApiKeyVisibility" Icon="@(_apiKeyHidden ? "visibility" : "visibility_off")"/>
                 </End>
+                <Helper>
+                    <ErrorMessage Message="@_apiKeyErrorMessage"/>
+                </Helper>
             </RadzenFormField>
         </RadzenStack>
 
-    <RadzenButton Click="@SaveUserDetails" Text="Save Settings"/>
+        
+        <RadzenButton Click="@SaveUserDetails" Text="Save Settings"/>
 </AuthorizeView>
 
 @code {
@@ -57,6 +67,10 @@
     private string _organizationId = string.Empty;
     private string _apiKey = string.Empty;
 
+    private string _panelUrlErrorMessage = string.Empty;
+    private string _organizationIdErrorMessage = string.Empty;
+    private string _apiKeyErrorMessage = string.Empty;
+    
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -74,11 +88,56 @@
 
     private async Task SaveUserDetails()
     {
-        User.ControlPanelUrl = new Uri(_controlPanelUrl);
+        await ValidateControlPanelUrl();
+        
         User.OrganizationId = Guid.Parse(_organizationId);
         User.ApiKey = _apiKey;
         
         await UserRepository.UpdateUser(User);
+    }
+
+    private async Task ValidateControlPanelUrl()
+    {
+        _panelUrlErrorMessage = string.Empty;
+        
+        try
+        {
+            User.ControlPanelUrl = new Uri(_controlPanelUrl);
+        }
+        catch (UriFormatException e)
+        {
+            _panelUrlErrorMessage = e.Message;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task ValidateOrganizationId()
+    {
+        _organizationIdErrorMessage = string.Empty;
+
+        try
+        {
+            User.OrganizationId = Guid.Parse(_organizationId);
+        }
+        catch (FormatException e)
+        {
+            _organizationIdErrorMessage = e.Message;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task ValidateApiKey()
+    {
+        _apiKeyErrorMessage = string.Empty;
+
+        if (string.IsNullOrEmpty(_apiKey))
+        {
+            _apiKeyErrorMessage = "Api Key is empty";
+        }
+        else
+        {
+            User.ApiKey = _apiKey;
+        }
     }
 
     private async Task ToggleApiKeyVisibility()
