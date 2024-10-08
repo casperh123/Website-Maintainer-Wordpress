@@ -5,10 +5,8 @@
 @using EnhanceSiteUpdater.Core.Repository
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
-@using EnhanceSiteUpdaer.Web.Components.Notification
 @using EnhanceSiteUpdaer.Web.Components.Inputs
 @inject UserManager<ApplicationUser> UserManager
-@inject SignInManager<ApplicationUser> SignInManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 @attribute [Authorize]
@@ -19,30 +17,12 @@
 
 <p>On this page you can define settings used to connect to your Enhance Control Panel.</p>
 
-<AuthorizeView>
-    <RadzenStack Orientation="Orientation.Vertical" Style="padding: 20px 0">
-        <RadzenFormField Text="Control Panel Url" Variant="Variant.Text">
-            <ChildContent>
-                <RadzenTextBox Name="ControlPanelUrl" @bind-Value="@_controlPanelUrl"/>
-            </ChildContent>
-            <Helper>
-                <ErrorMessage Message="@_panelUrlErrorMessage"/>
-            </Helper>
-        </RadzenFormField>
-        <RadzenFormField Text="Organization Id" Variant="Variant.Text">
-            <ChildContent>
-                <RadzenTextBox @bind-Value="@_organizationId"/>
-            </ChildContent>
-            <Helper>
-                <ErrorMessage Message="@_organizationIdErrorMessage"/>
-            </Helper>
-        </RadzenFormField>
-        <HiddenPasswordToggler Name="ApiKey" @bind-Password="@_apiKey" Message="@_apiKeyErrorMessage"/>
-    </RadzenStack>
-
-        
-    <RadzenButton Click="@SaveUserDetails" Text="Save Settings"/>
-</AuthorizeView>
+<RadzenStack Orientation="Orientation.Vertical" Style="padding: 20px 0">
+    <ErrorMessageInput Name="Control Panel Url" @bind-Text="@_controlPanelUrl" Message="@_ControlPanelUrlErrorMessage"/>
+    <ErrorMessageInput Name="Organization Id" @bind-Text="@_organizationId" Message="@_organizationIdErrorMessage"/>
+    <HiddenPasswordToggler Name="ApiKey" @bind-Password="@_apiKey" Message="@_apiKeyErrorMessage"/>
+</RadzenStack>
+<RadzenButton Click="@SaveUserDetails" Text="Save Settings"/>
 
 @code {
 
@@ -53,10 +33,10 @@
     
     private string _controlPanelUrl = "https://";
     private string _organizationId = string.Empty;
-    protected string _apiKey = string.Empty;
+    private string _apiKey = string.Empty;
 
-    private string _panelUrlErrorMessage = string.Empty;
-    private string _organizationIdErrorMessage = string.Empty;
+    public string _ControlPanelUrlErrorMessage = string.Empty;
+    public string _organizationIdErrorMessage = string.Empty;
     public string _apiKeyErrorMessage = string.Empty;
     
     protected override async Task OnInitializedAsync()
@@ -65,13 +45,9 @@
         ClaimsPrincipal claimsPrincipal = authenticationState.User;
         User = await UserManager.GetUserAsync(claimsPrincipal);
 
-        if (SignInManager.IsSignedIn(claimsPrincipal))
-        {
-            _controlPanelUrl = User.ControlPanelUrl.ToString();
-            _organizationId = User.OrganizationId.ToString();
-            _apiKey = User.ApiKey;
-
-        }
+        _controlPanelUrl = User.ControlPanelUrl.ToString();
+        _organizationId = User.OrganizationId.ToString();
+        _apiKey = User.ApiKey;
     }
 
     private async Task SaveUserDetails()
@@ -85,7 +61,7 @@
 
     private async Task ValidateControlPanelUrl()
     {
-        _panelUrlErrorMessage = string.Empty;
+        _ControlPanelUrlErrorMessage = string.Empty;
         
         try
         {
@@ -93,7 +69,7 @@
         }
         catch (UriFormatException e)
         {
-            _panelUrlErrorMessage = e.Message;
+            _ControlPanelUrlErrorMessage = e.Message;
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -109,7 +85,7 @@
         catch (FormatException e)
         {
             _organizationIdErrorMessage = e.Message;
-            InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
         }
     }
 
