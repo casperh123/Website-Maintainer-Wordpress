@@ -1,13 +1,51 @@
 ﻿@page "/auth"
 
+@using System.Security.Claims
+@using EnhanceSiteUpdater.Service.Data
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @attribute [Authorize]
 
-<PageTitle>Auth</PageTitle>
+<PageTitle>Control Panel Settings</PageTitle>
 
 <h1>You are authenticated</h1>
 
 <AuthorizeView>
-    Hello @context.User.Identity?.Name!
+    <RadzenRow>
+        <RadzenFormField>
+            <RadzenTextBox bind-Value="@_controlPanelUrl"/>
+        </RadzenFormField>
+        <RadzenFormField>
+            <RadzenTextBox bind-Value="@_organizationId"/>
+        </RadzenFormField>
+        <RadzenFormField>
+            <RadzenTextBox bind-Value="@_apiKey"/>
+        </RadzenFormField>
+    </RadzenRow>
 </AuthorizeView>
+
+@code {
+    private string? _controlPanelUrl;
+    private string? _organizationId;
+    private string? _apiKey;
+
+    private ApplicationUser? User;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        ClaimsPrincipal claimsPrincipal = authenticationState.User;
+        User = await UserManager.GetUserAsync(claimsPrincipal);
+
+        if (SignInManager.IsSignedIn(claimsPrincipal))
+        {
+            _controlPanelUrl = User?.ControlPanelUrl?.ToString() ?? "";
+            _organizationId = User?.OrganizationId?.ToString() ?? "";
+            _apiKey = User?.ApiKey ?? "";
+        }
+    }
+}

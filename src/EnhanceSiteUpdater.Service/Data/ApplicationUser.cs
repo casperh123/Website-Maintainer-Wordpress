@@ -12,7 +12,12 @@ public class ApplicationUser : IdentityUser
         ApiKey = apiKey;
     }
 
-    public Uri ControlPanelUrl { get; set; }
-    public Guid OrganizationId { get; set; }
-    public string ApiKey { get; set; }
+    public ApplicationUser()
+    {
+        
+    }
+
+    public Uri? ControlPanelUrl { get; set; }
+    public Guid? OrganizationId { get; set; }
+    public string? ApiKey { get; set; }
 }
