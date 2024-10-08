@@ -1,6 +1,8 @@
 ﻿@page "/auth"
 
 @using System.Security.Claims
+@using EnhanceSiteUpdater.Core.Entities
+@using EnhanceSiteUpdater.Core.Repository
 @using EnhanceSiteUpdater.Service.Data
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
@@ -29,9 +31,13 @@
 </AuthorizeView>
 
 @code {
-    private string? _controlPanelUrl;
-    private string? _organizationId;
-    private string? _apiKey;
+
+    [Inject] 
+    public IUserRepository UserRepository { get; set; }
+    
+    private string _controlPanelUrl = string.Empty;
+    private string _organizationId = string.Empty;
+    private string _apiKey = string.Empty;
 
     private ApplicationUser? User;
 
@@ -51,6 +57,8 @@
 
     public async Task SaveUserDetails()
     {
-        
+        User.ControlPanelUrl = new Uri(_controlPanelUrl);
+        User.OrganizationId = Guid.Parse(_organizationId);
+        User.ApiKey = _apiKey;
     }
 }

@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
+using EnhanceSiteUpdater.Core.Entities;
+using EnhanceSiteUpdater.Core.Repository;
 using EnhanceSiteUpdater.Service.Data;
+using EnhanceSiteUpdater.Service.Repository;
 using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +42,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

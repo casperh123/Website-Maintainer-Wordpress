@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using EnhanceSiteUpdaer.Web.Components.Account.Pages;
 using EnhanceSiteUpdaer.Web.Components.Account.Pages.Manage;
+using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Service.Data;
 
 namespace Microsoft.AspNetCore.Routing;

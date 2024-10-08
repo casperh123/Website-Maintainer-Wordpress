@@ -1,3 +1,4 @@
+using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Service.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

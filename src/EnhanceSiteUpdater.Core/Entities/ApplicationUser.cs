@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace EnhanceSiteUpdater.Service.Data;
+namespace EnhanceSiteUpdater.Core.Entities;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
     public ApplicationUser(string userName, Uri controlPanelUrl, Guid organizationId, string apiKey) : base(userName)
