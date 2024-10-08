@@ -6,7 +6,7 @@
 
 Migrations
 
-*.db
+*.db*
 
 #Dotnet tool manifest
 *.config
