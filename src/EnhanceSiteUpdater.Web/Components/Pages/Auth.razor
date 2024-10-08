@@ -15,17 +15,17 @@
 <h1>You are authenticated</h1>
 
 <AuthorizeView>
-    <RadzenRow>
-        <RadzenFormField>
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenFormField Text="Control Panel Url" Variant="Variant.Text">
             <RadzenTextBox bind-Value="@_controlPanelUrl"/>
         </RadzenFormField>
-        <RadzenFormField>
-            <RadzenTextBox bind-Value="@_organizationId"/>
+        <RadzenFormField Text="Organization Id" Variant="Variant.Text">
+            <RadzenTextBox Name="" bind-Value="@_organizationId"/>
         </RadzenFormField>
-        <RadzenFormField>
+        <RadzenFormField Text="Api Key" Variant="Variant.Text">
             <RadzenTextBox bind-Value="@_apiKey"/>
         </RadzenFormField>
-    </RadzenRow>
+    </RadzenStack>
 </AuthorizeView>
 
 @code {
@@ -47,5 +47,10 @@
             _organizationId = User?.OrganizationId?.ToString() ?? "";
             _apiKey = User?.ApiKey ?? "";
         }
+    }
+
+    public async Task SaveUserDetails()
+    {
+        
     }
 }

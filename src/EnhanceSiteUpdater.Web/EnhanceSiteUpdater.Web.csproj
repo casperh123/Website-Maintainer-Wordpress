@@ -27,11 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EnhanceSiteUpdater.Service\EnhanceSiteUpdater.Service.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\" />
+      <ProjectReference Include="..\EnhanceSiteUpdater.Infrastructure\EnhanceSiteUpdater.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
