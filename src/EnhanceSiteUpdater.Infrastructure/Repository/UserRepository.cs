@@ -1,9 +1,8 @@
 using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
-using EnhanceSiteUpdater.Service.Data;
-using Microsoft.EntityFrameworkCore;
+using EnhanceSiteUpdater.Infrastructure.Data;
 
-namespace EnhanceSiteUpdater.Service.Repository;
+namespace EnhanceSiteUpdater.Infrastructure.Repository;
 
 public class UserRepository(SiteUpdaterDbContext context) : BaseRepository(context), IUserRepository
 {

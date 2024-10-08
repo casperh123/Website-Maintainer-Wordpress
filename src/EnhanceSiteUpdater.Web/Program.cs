@@ -5,9 +5,9 @@ using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
 using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
-using EnhanceSiteUpdater.Service.Data;
-using EnhanceSiteUpdater.Service.Repository;
 using EnhanceSiteUpdaer.Web.Components;
+using EnhanceSiteUpdater.Infrastructure.Data;
+using EnhanceSiteUpdater.Infrastructure.Repository;
 using Radzen;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

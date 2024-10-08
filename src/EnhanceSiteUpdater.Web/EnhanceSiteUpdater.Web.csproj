@@ -27,6 +27,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Watch Include="**\*.razor;**\*.cshtml;**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\EnhanceSiteUpdater.Infrastructure\EnhanceSiteUpdater.Infrastructure.csproj" />
     </ItemGroup>
 
@@ -37,9 +41,4 @@
     <ItemGroup>
       <AdditionalFiles Include="Components\Pages\ControlPanelSettings.razor" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Components\Pages\ControlPanelSettings.cs" />
-    </ItemGroup>
-
 </Project>

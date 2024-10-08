@@ -1,4 +1,4 @@
-namespace EnhanceSiteUpdater.Service.Authentication;
+namespace EnhanceSiteUpdater.Infrastructure.Authentication;
 
 public record EnhanceAuthentication
 {

@@ -1,6 +1,6 @@
-﻿using EnhanceSiteUpdater.Service.Data;
+﻿using EnhanceSiteUpdater.Infrastructure.Data;
 
-namespace EnhanceSiteUpdater.Service;
+namespace EnhanceSiteUpdater.Infrastructure;
 
 public class UpdateService(SiteUpdaterDbContext dbContext, HttpClient httpClient)
 {

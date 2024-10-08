@@ -2,7 +2,7 @@ using EnhanceSiteUpdater.Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnhanceSiteUpdater.Service.Data;
+namespace EnhanceSiteUpdater.Infrastructure.Data;
 
 public class SiteUpdaterDbContext : IdentityDbContext<ApplicationUser>
 {

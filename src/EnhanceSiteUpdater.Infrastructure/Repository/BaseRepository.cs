@@ -1,6 +1,6 @@
-using EnhanceSiteUpdater.Service.Data;
+using EnhanceSiteUpdater.Infrastructure.Data;
 
-namespace EnhanceSiteUpdater.Service.Repository;
+namespace EnhanceSiteUpdater.Infrastructure.Repository;
 
 public class BaseRepository(SiteUpdaterDbContext context)
 {
