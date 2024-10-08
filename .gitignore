@@ -4,7 +4,9 @@
 
 #Ef Core
 
-*migrations
+Migrations
+
+*.db
 
 #Dotnet tool manifest
 *.config
