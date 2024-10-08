@@ -1,7 +1,15 @@
 # EnhanceSiteUpdater
-A web application from which you can update your Enhance websites in a safe and efficient way.
+_Enhance Site Updater_ helps you to efficiently manage your WordPress sites hosted with an Enhance Control Panel.
+It gives you a way to safely and efficiently update WordPress sites within your control panel.
 
-## Getting started
+Add your sites to the control panel, manage which ones are mantained by you, to which degree care should be taken
+when updating the site, and update them from a single dashboard.
+
+Sites will be backed up, updated, automatically reviewed and then manually reviewed to ensure nothing is broken. This is all done in bulk
+or for single sites that are chosen by the user. Websites that are maintained by you are added to a persistent database, and more websites
+can be added through our API integration with Enhance Control Panel. 
+
+## Start Developing
 
 The project is shipped with a local SQLite database, and uses Asp.Net Individual authentication.
 
