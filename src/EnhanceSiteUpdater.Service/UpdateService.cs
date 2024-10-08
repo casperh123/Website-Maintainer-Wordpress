@@ -1,5 +1,4 @@
-﻿using EnhanceSiteUpdater.Service.Authentication;
-using EnhanceSiteUpdater.Service.Database;
+﻿using EnhanceSiteUpdater.Service.Data;
 
 namespace EnhanceSiteUpdater.Service;
 
