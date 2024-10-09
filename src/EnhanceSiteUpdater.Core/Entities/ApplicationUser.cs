@@ -19,4 +19,6 @@ public class ApplicationUser : IdentityUser
     public Uri? ControlPanelUrl { get; set; }
     public Guid? OrganizationId { get; set; }
     public string? ApiKey { get; set; }
+    
+    public string BearerApiKey => $"Bearer {ApiKey}";
 }

@@ -8,31 +8,32 @@
 @using Microsoft.Kiota.Abstractions
 @using Microsoft.Kiota.Abstractions.Authentication
 @using Microsoft.Kiota.Http.HttpClientLibrary
+@using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options
 @inject UserManager<ApplicationUser> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject HttpClient HttpClient
+@inject IHttpClientFactory HttpClientFactory
 
 
 @attribute [Authorize]
 
 <h3>EnhanceMaintenance</h3>
 
-<!--
-@foreach (Website website in _websites)
+
+@foreach (Setting setting in _settings.Items)
 {
     <RadzenCard>
         <RadzenHeader>
-            @website.Domain
+            @setting.Name
         </RadzenHeader>
-        <RadzenText>
-            @website.Id
-        </RadzenText>
     </RadzenCard>
-}-->
+}
+
+
 
 @code {
 
     private ApplicationUser _user;
+    private SettingsFullListing _settings;
     private List<Website> _websites;
     private EnhanceClient _client;
     
@@ -41,10 +42,23 @@
         AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         _user = await UserManager.GetUserAsync(authenticationState.User);
 
-        _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.ApiKey, HttpClient);
-
-       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync();
+        HttpClient httpClient = HttpClientFactory.CreateClient("client");
+        
+        _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.BearerApiKey, httpClient);
+        
+        var headersInspectionHandlerOption = new HeadersInspectionHandlerOption()
+        {
+            InspectResponseHeaders = true // specific you wish to collect reponse headers
+        };
+        //use the key to get the header.
+        
+       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync(requestConfiguration => requestConfiguration.Options.Add(headersInspectionHandlerOption));
+       
+       var locationHeader = headersInspectionHandlerOption.ResponseHeaders["Authorization"];
+       Console.WriteLine(locationHeader);
        _websites = websites.Items;
+
+       _settings = await _client.Settings.GetAsync();
        
        Console.Write(websites);
     }
