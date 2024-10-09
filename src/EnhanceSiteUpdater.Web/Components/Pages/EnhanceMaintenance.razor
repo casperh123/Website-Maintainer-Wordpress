@@ -1,0 +1,51 @@
+@page "/enhance-maintenance"
+@using Enhance.Client
+@using Enhance.Client.Models
+@using EnhanceSiteUpdater.Core.Entities
+@using EnhanceSiteUpdater.Infrastructure.ClientBuilder
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Kiota.Abstractions
+@using Microsoft.Kiota.Abstractions.Authentication
+@using Microsoft.Kiota.Http.HttpClientLibrary
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient HttpClient
+
+
+@attribute [Authorize]
+
+<h3>EnhanceMaintenance</h3>
+
+<!--
+@foreach (Website website in _websites)
+{
+    <RadzenCard>
+        <RadzenHeader>
+            @website.Domain
+        </RadzenHeader>
+        <RadzenText>
+            @website.Id
+        </RadzenText>
+    </RadzenCard>
+}-->
+
+@code {
+
+    private ApplicationUser _user;
+    private List<Website> _websites;
+    private EnhanceClient _client;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _user = await UserManager.GetUserAsync(authenticationState.User);
+
+        _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.ApiKey, HttpClient);
+
+       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync();
+       _websites = websites.Items;
+       
+       Console.Write(websites);
+    }
+}

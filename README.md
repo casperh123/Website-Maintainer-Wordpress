@@ -48,7 +48,7 @@ To enable _Hot-readling_ while developing, run the application with
 To add new Api clients to the project, we make use of Kiota.
 
     sudo dotnet tool restore
-    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=./src/EnhanceSiteUpdater.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance
+    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=src/EnhanceSiteUpdater.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance --ebc false --co true
 
 
 ## License

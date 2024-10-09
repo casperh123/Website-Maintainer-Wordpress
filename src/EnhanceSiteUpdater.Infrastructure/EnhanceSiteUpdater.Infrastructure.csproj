@@ -31,4 +31,10 @@
       <Folder Include="Clients\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.Kiota.Http.HttpClientLibrary">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.kiota.http.httpclientlibrary\1.13.0\lib\net8.0\Microsoft.Kiota.Http.HttpClientLibrary.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
