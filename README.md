@@ -23,6 +23,8 @@ To contribute to this project, you should have your local tool manifest setup co
 
     dotnet new tool-manifest   
     dotnet tool install --local dotnet-ef
+    dotnet tool install --local Microsoft.OpenApi.Kiota
+
 
 ### Create and apply migrations
 
@@ -40,6 +42,14 @@ Run the application through .NET CLI
 To enable _Hot-readling_ while developing, run the application with
 
     dotnet run --project src/EnhanceSiteUpdater.Web
+
+### Adding Api Clients to the project
+
+To add new Api clients to the project, we make use of Kiota.
+
+    sudo dotnet tool restore
+    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=./src/EnhanceSiteUpdater.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance
+
 
 ## License
 
