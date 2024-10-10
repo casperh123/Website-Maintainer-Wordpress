@@ -1,0 +1,65 @@
+@page "/enhance-maintenance"
+@using Enhance.Client
+@using Enhance.Client.Models
+@using EnhanceSiteUpdater.Core.Entities
+@using EnhanceSiteUpdater.Infrastructure.ClientBuilder
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Kiota.Abstractions
+@using Microsoft.Kiota.Abstractions.Authentication
+@using Microsoft.Kiota.Http.HttpClientLibrary
+@using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpClientFactory HttpClientFactory
+
+
+@attribute [Authorize]
+
+<h3>EnhanceMaintenance</h3>
+
+
+@foreach (Setting setting in _settings.Items)
+{
+    <RadzenCard>
+        <RadzenHeader>
+            @setting.Name
+        </RadzenHeader>
+    </RadzenCard>
+}
+
+
+
+@code {
+
+    private ApplicationUser _user;
+    private SettingsFullListing _settings;
+    private List<Website> _websites;
+    private EnhanceClient _client;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _user = await UserManager.GetUserAsync(authenticationState.User);
+
+        HttpClient httpClient = HttpClientFactory.CreateClient("client");
+        
+        _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.BearerApiKey, httpClient);
+        
+        var headersInspectionHandlerOption = new HeadersInspectionHandlerOption()
+        {
+            InspectResponseHeaders = true // specific you wish to collect reponse headers
+        };
+        //use the key to get the header.
+        
+       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync(requestConfiguration => requestConfiguration.Options.Add(headersInspectionHandlerOption));
+       
+       var locationHeader = headersInspectionHandlerOption.ResponseHeaders["Authorization"];
+       Console.WriteLine(locationHeader);
+       _websites = websites.Items;
+
+       _settings = await _client.Settings.GetAsync();
+       
+       Console.Write(websites);
+    }
+}

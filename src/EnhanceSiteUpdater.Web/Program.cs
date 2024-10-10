@@ -1,3 +1,5 @@
+using System.Net;
+using System.Security.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -5,9 +7,9 @@ using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
 using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
-using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdater.Infrastructure.Data;
 using EnhanceSiteUpdater.Infrastructure.Repository;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 using Radzen;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -21,8 +23,11 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddScoped<KiotaDebugger>();
+
+builder.Services.AddHttpClient<HttpClient>("client")
+    .AddHttpMessageHandler<KiotaDebugger>();
 
 builder.Services.AddAuthentication(options =>
     {

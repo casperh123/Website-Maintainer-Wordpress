@@ -17,28 +17,12 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Kiota.Abstractions" Version="1.13.0" />
+        <PackageReference Include="Microsoft.Kiota.Http.HttpClientLibrary" Version="1.13.0" />
         <PackageReference Include="Radzen.Blazor" Version="5.2.10" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Watch Include="**\*.razor;**\*.cshtml;**\*.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\EnhanceSiteUpdater.Infrastructure\EnhanceSiteUpdater.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Components\Pages\ControlPanelSettings.razor" />
     </ItemGroup>
 </Project>

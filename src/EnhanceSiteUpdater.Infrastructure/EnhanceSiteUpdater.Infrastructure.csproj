@@ -15,10 +15,26 @@
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0-rc.1.24451.1" />
+      <PackageReference Include="Microsoft.Kiota.Abstractions" Version="1.13.0" />
+      <PackageReference Include="Microsoft.Kiota.Serialization.Form" Version="1.13.0" />
+      <PackageReference Include="Microsoft.Kiota.Serialization.Json" Version="1.13.0" />
+      <PackageReference Include="Microsoft.Kiota.Serialization.Multipart" Version="1.13.0" />
+      <PackageReference Include="Microsoft.Kiota.Serialization.Text" Version="1.13.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\EnhanceSiteUpdater.Core\EnhanceSiteUpdater.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ApiSpecifications\" />
+      <Folder Include="Clients\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Kiota.Http.HttpClientLibrary">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.kiota.http.httpclientlibrary\1.13.0\lib\net8.0\Microsoft.Kiota.Http.HttpClientLibrary.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
