@@ -45,9 +45,9 @@
         ClaimsPrincipal claimsPrincipal = authenticationState.User;
         User = await UserManager.GetUserAsync(claimsPrincipal);
 
-        _controlPanelUrl = User.ControlPanelUrl.ToString();
-        _organizationId = User.OrganizationId.ToString();
-        _apiKey = User.ApiKey;
+        _controlPanelUrl = User.ControlPanelUrl?.ToString() ?? string.Empty;
+        _organizationId = User.OrganizationId?.ToString() ?? string.Empty;
+        _apiKey = User.ApiKey ?? string.Empty;
     }
 
     private async Task SaveUserDetails()
