@@ -1,0 +1,15 @@
+@using Enhance.Client.Models
+@using EnhanceSiteUpdaer.Web.Components.Badge
+
+<RadzenCard>
+        <RadzenText TextStyle="TextStyle.H4">
+            @website.Domain.Domain
+        </RadzenText>
+        <EnhanceWebsiteKindBadge Kind="@website.Kind"/>
+</RadzenCard>
+
+@code {
+    
+    [Parameter]
+    public Website website { get; set; }
+}
