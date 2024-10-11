@@ -1,7 +1,3 @@
-using System.Net.Http.Headers;
-
-namespace EnhanceSiteUpdater.Infrastructure.ClientBuilder;
-
 public class KiotaDebugger : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(

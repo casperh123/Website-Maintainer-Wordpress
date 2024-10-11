@@ -1,0 +1,29 @@
+@using Enhance.Client.Models
+
+@switch (Kind)
+{
+    case WebsiteKind.Normal:
+        <RadzenBadge BadgeStyle="BadgeStyle.Success">@WebsiteKindString</RadzenBadge>
+        break;
+    case WebsiteKind.Staging:
+        <RadzenBadge BadgeStyle="BadgeStyle.Info">@WebsiteKindString</RadzenBadge>
+        break;
+    default:
+        <RadzenBadge BadgeStyle="BadgeStyle.Danger">@WebsiteKindString</RadzenBadge>
+        break;
+}
+
+@code {
+
+    [Parameter] 
+    public WebsiteKind? Kind { get; set; }
+
+    private string WebsiteKindString => Kind switch {
+        WebsiteKind.Normal => "Normal",
+        WebsiteKind.Roundcube => "Round Cube",
+        WebsiteKind.Staging => "Staging",
+        WebsiteKind.ControlPanel => "Control Panel",
+        WebsiteKind.PhpMyAdmin => "PHPMyAdmin",
+        WebsiteKind.ServerHostname => "Server Host Name",
+    };
+}

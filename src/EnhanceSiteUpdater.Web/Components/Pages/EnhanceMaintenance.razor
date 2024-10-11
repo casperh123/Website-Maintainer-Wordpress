@@ -9,6 +9,7 @@
 @using Microsoft.Kiota.Abstractions.Authentication
 @using Microsoft.Kiota.Http.HttpClientLibrary
 @using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options
+@using EnhanceSiteUpdaer.Web.Components.Cards
 @inject UserManager<ApplicationUser> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpClientFactory HttpClientFactory
@@ -16,25 +17,17 @@
 
 @attribute [Authorize]
 
-<h3>EnhanceMaintenance</h3>
+<h2>Websites</h2>
 
-
-@foreach (Setting setting in _settings.Items)
+@foreach (Website website in websites)
 {
-    <RadzenCard>
-        <RadzenHeader>
-            @setting.Name
-        </RadzenHeader>
-    </RadzenCard>
+    <EnhanceWebsiteCard Website="@website"/>
 }
-
-
 
 @code {
 
     private ApplicationUser _user;
-    private SettingsFullListing _settings;
-    private List<Website> _websites;
+    public List<Website> websites = [];
     private EnhanceClient _client;
     
     protected override async Task OnInitializedAsync()
@@ -46,19 +39,9 @@
         
         _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.BearerApiKey, httpClient);
         
-        var headersInspectionHandlerOption = new HeadersInspectionHandlerOption()
-        {
-            InspectResponseHeaders = true // specific you wish to collect reponse headers
-        };
-        //use the key to get the header.
-        
-       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync(requestConfiguration => requestConfiguration.Options.Add(headersInspectionHandlerOption));
+       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync();
        
-       var locationHeader = headersInspectionHandlerOption.ResponseHeaders["Authorization"];
-       Console.WriteLine(locationHeader);
-       _websites = websites.Items;
-
-       _settings = await _client.Settings.GetAsync();
+       this.websites = websites.Items;
        
        Console.Write(websites);
     }
