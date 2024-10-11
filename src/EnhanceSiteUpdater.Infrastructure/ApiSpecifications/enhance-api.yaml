@@ -1524,6 +1524,56 @@ paths:
         "403":
           description: Insufficient privileges
 
+  /servers/{server_id}/appcd/screenshot/config:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the screenshot config of the running appcd
+      description: >-
+        Returns the screenshot config of the running appcd instance on this server.
+      operationId: getAppcdScreenshotConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScreenshotConfig"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    patch:
+      tags:
+        - servers
+      summary: Update the screenshot config of the running appcd
+      description: >-
+        Update the screenshot config of the running appcd instance on this server.
+      operationId: updateAppcdScreenshotConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScreenshotConfigUpdate"
+      responses:
+        "200":
+          description: Query successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
   /servers/{server_id}/domains:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -13794,7 +13844,7 @@ components:
         enable:
           type: boolean
         interval:
-          type: int
+          type: integer
           minimum: 60
     ScreenshotConfig:
       type: object
@@ -13804,7 +13854,7 @@ components:
         isEnabled:
           type: boolean
         interval:
-          type: int
+          type: integer
     ModSecStatus:
       type: object
       required:

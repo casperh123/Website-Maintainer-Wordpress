@@ -1,9 +1,7 @@
 using Enhance.Client;
 using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Http.HttpClientLibrary;
-using Microsoft.Kiota.Serialization.Json;
 
 namespace EnhanceSiteUpdater.Infrastructure.ClientBuilder;
 

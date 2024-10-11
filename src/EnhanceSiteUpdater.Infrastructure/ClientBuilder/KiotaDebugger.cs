@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+
 public class KiotaDebugger : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(
