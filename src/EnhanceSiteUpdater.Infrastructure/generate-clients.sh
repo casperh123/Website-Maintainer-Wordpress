@@ -1,0 +1,1 @@
+$enhance_api_docs = curl https://apidocs.enhance.com/spec/oas3-api.yaml

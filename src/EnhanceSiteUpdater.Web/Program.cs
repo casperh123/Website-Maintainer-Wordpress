@@ -1,5 +1,3 @@
-using System.Net;
-using System.Security.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +5,9 @@ using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
 using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
+using EnhanceSiteUpdater.Infrastructure.ClientBuilder;
 using EnhanceSiteUpdater.Infrastructure.Data;
 using EnhanceSiteUpdater.Infrastructure.Repository;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 using Radzen;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
