@@ -33,6 +33,10 @@ Make sure the database has the correct schema applied to it, you will need to cr
     dotnet ef migrations add MigrationName -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
     dotnet ef database update -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
 
+To delete these clients, use
+
+sudo rm -rf src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance
+
 ### Running the application
 
 Run the application through .NET CLI
