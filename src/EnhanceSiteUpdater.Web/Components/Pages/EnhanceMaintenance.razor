@@ -17,7 +17,7 @@
 @if (_websites.Count is 0 || _addWebsites)
 {
     <RadzenButton Click="@AddWebsites">Close</RadzenButton>
-    <EnhanceSiteSelector User="@_user" Websites="_websites"/>
+    <EnhanceSiteSelector User="@_user" Websites="_websites" WebsiteChanged="@WebsiteChanged"/>
 }
 else
 {
@@ -50,5 +50,23 @@ else
     private void AddWebsites()
     {
         _addWebsites = !_addWebsites;
+    }
+
+    protected async Task WebsiteChanged(UpdaterWebsite website)
+    {
+        if (website.MaintenanceType is MaintenanceType.None)
+        {
+            await WebsiteRepository.Delete(website);
+            _websites.Remove(website);
+        }
+        else
+        {
+            await WebsiteRepository.AddOrUpdate(website);
+
+            if (!_websites.Contains(website))
+            {
+                _websites.Add(website);
+            }
+        }
     }
 }

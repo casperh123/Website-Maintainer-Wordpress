@@ -43,7 +43,7 @@
     public Website EnhanceWebsite { get; set; }
     
     [Parameter]
-    public List<UpdaterWebsite> Websites { get; set; }
+    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
     
     private UpdaterWebsite _website { get; set; }
     private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
@@ -60,20 +60,6 @@
 
     private async Task MaintenanceChanged()
     {
-        if (_website.MaintenanceType is MaintenanceType.None)
-        {
-            await WebsiteRepository.Delete(_website);
-            Websites.Remove(_website);
-        }
-        else
-        {
-            await WebsiteRepository.AddOrUpdate(_website);
-
-            if (!Websites.Contains(_website))
-            {
-                Websites.Add(_website);
-            }
-        }
-        
+        await WebsiteChanged.InvokeAsync(_website);
     }
 }
