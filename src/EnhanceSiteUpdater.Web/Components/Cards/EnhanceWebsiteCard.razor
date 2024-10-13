@@ -1,15 +1,42 @@
 @using Enhance.Client.Models
 @using EnhanceSiteUpdaer.Web.Components.Badge
+@using EnhanceSiteUpdater.Core.Entities
+@using EnhanceSiteUpdater.Core.Repository
+@using EnhanceSiteUpdater.Infrastructure.EntityHelpers
+@inject IWebsiteRepository WebsiteRepository
 
-<RadzenCard>
+<RadzenCard >
+    <RadzenColumn>
         <RadzenText TextStyle="TextStyle.H4">
-            @website.Domain.Domain
+            @EnhanceWebsite.Domain.Domain
         </RadzenText>
-        <EnhanceWebsiteKindBadge Kind="@website.Kind"/>
+        <EnhanceWebsiteKindBadge Kind="@EnhanceWebsite.Kind"/>
+    </RadzenColumn>
+    
+    <RadzenStack>
+        <RadzenText TextStyle="TextStyle.Body1">
+            Maintenance Plan:
+        </RadzenText>
+        <RadzenDropDown @bind-Value="@_website.MaintenanceType" Data="_maintenanceTypes"></RadzenDropDown>
+    </RadzenStack>
 </RadzenCard>
 
 @code {
     
     [Parameter]
-    public Website website { get; set; }
+    public Website EnhanceWebsite { get; set; }
+    
+    private UpdaterWebsite _website { get; set; }
+
+    private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _website = await WebsiteRepository.GetWebsite(EnhanceWebsite.Domain.Domain) ?? 
+                  new UpdaterWebsite(
+                      EnhanceWebsite.Domain.Domain, 
+                      KindConverter.FromEnhance(EnhanceWebsite.Kind ?? WebsiteKind.Normal), 
+                      MaintenanceType.None
+                  );
+    }
 }

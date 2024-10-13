@@ -1,15 +1,16 @@
+
+
 using System.Net;
-using System.Security.Authentication;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Enhance.Client.Models;
 using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
 using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
 using EnhanceSiteUpdater.Infrastructure.Data;
 using EnhanceSiteUpdater.Infrastructure.Repository;
-using Microsoft.Kiota.Http.HttpClientLibrary;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Radzen;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,14 @@ builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuth
 
 builder.Services.AddScoped<KiotaDebugger>();
 
-builder.Services.AddHttpClient<HttpClient>("client")
+builder.Services.AddHttpClient<HttpClient>("client", client =>
+    {
+        client.DefaultRequestVersion = HttpVersion.Version30;
+        client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
+        client.Timeout = TimeSpan.FromSeconds(15);
+        client.DefaultRequestHeaders.ConnectionClose = false;
+        client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip, deflate, br");
+    })
     .AddHttpMessageHandler<KiotaDebugger>();
 
 builder.Services.AddAuthentication(options =>
@@ -51,6 +59,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWebsiteRepository, WebsiteRepository>();
 
 WebApplication app = builder.Build();
 
@@ -64,6 +73,21 @@ else
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IServiceProvider services = scope.ServiceProvider;
+    SiteUpdaterDbContext context = services.GetRequiredService<SiteUpdaterDbContext>();
+
+    try
+    {
+        context.Database.Migrate();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
 }
 
 app.UseHttpsRedirection();
