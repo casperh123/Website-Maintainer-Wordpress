@@ -19,10 +19,12 @@
 
 <h2>Websites</h2>
 
-@foreach (Website website in websites)
-{
-    <EnhanceWebsiteCard Website="@website"/>
-}
+<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+    @foreach (Website website in websites)
+    {
+        <EnhanceWebsiteCard Website="@website"/>
+    }
+</RadzenStack>
 
 @code {
 

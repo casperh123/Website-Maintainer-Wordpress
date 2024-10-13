@@ -1,6 +1,7 @@
 
 
 using System.Net;
+using Enhance.Client.Models;
 using EnhanceSiteUpdaer.Web.Components;
 using EnhanceSiteUpdaer.Web.Components.Account;
 using EnhanceSiteUpdater.Core.Entities;
@@ -58,6 +59,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWebsiteRepository, WebsiteRepository>();
 
 WebApplication app = builder.Build();
 
