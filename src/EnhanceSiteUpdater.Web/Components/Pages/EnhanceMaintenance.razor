@@ -22,14 +22,14 @@
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
     @foreach (Website website in websites)
     {
-        <EnhanceWebsiteCard Website="@website"/>
+        <EnhanceWebsiteCard EnhanceWebsite="@website"/>
     }
 </RadzenStack>
 
 @code {
 
     private ApplicationUser _user;
-    public List<Website> websites = [];
+    private List<Website> websites = [];
     private EnhanceClient _client;
     
     protected override async Task OnInitializedAsync()
