@@ -1,0 +1,29 @@
+@using EnhanceSiteUpdater.Core.Entities
+
+@switch (WebsiteKind)
+{
+    case Kind.Normal:
+        <RadzenBadge BadgeStyle="BadgeStyle.Success">@WebsiteKindString</RadzenBadge>
+        break;
+    case Kind.Staging:
+        <RadzenBadge BadgeStyle="BadgeStyle.Info">@WebsiteKindString</RadzenBadge>
+        break;
+    default:
+        <RadzenBadge BadgeStyle="BadgeStyle.Danger">@WebsiteKindString</RadzenBadge>
+        break;
+}
+
+@code {
+
+    [Parameter] 
+    public Kind? WebsiteKind { get; set; }
+
+    private string WebsiteKindString => WebsiteKind switch {
+        Kind.Normal => "Normal",
+        Kind.Roundcube => "Round Cube",
+        Kind.Staging => "Staging",
+        Kind.ControlPanel => "Control Panel",
+        Kind.PhpMyAdmin => "PHPMyAdmin",
+        Kind.ServerHostname => "Server Host Name",
+    };
+}

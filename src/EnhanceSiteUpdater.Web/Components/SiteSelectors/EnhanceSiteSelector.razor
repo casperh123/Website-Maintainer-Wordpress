@@ -1,0 +1,42 @@
+@using Enhance.Client
+@using Enhance.Client.Models
+@using EnhanceSiteUpdater.Core.Entities
+@using EnhanceSiteUpdater.Infrastructure.ClientBuilder
+@using Microsoft.AspNetCore.Authorization
+@using EnhanceSiteUpdaer.Web.Components.Cards
+@inject IHttpClientFactory HttpClientFactory
+
+@attribute [Authorize]
+
+<h3>Add Enhance Site</h3>
+
+<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+    @foreach (Website website in websites)
+    {
+        <EnhanceWebsiteCard EnhanceWebsite="@website" Websites="@Websites"/>
+    }
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public ApplicationUser User { get; set; }
+    
+    [Parameter]
+    public List<UpdaterWebsite> Websites { get; set; }
+    
+    private List<Website> websites = [];
+    private EnhanceClient _client;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        HttpClient httpClient = HttpClientFactory.CreateClient("client");
+        
+        _client = EnhanceClientBuilder.Build(User.ControlPanelUrl, User.BearerApiKey, httpClient);
+        
+        WebsitesListing websites = await _client.Orgs[User.OrganizationId.Value].Websites.GetAsync(website => website.QueryParameters.RecursionAsRecursion = Recursion.Infinite);
+       
+        this.websites = websites.Items;
+       
+        Console.Write(websites);
+    }
+}

@@ -1,50 +1,54 @@
 @page "/enhance-maintenance"
-@using Enhance.Client
-@using Enhance.Client.Models
 @using EnhanceSiteUpdater.Core.Entities
-@using EnhanceSiteUpdater.Infrastructure.ClientBuilder
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
-@using Microsoft.Kiota.Abstractions
-@using Microsoft.Kiota.Abstractions.Authentication
-@using Microsoft.Kiota.Http.HttpClientLibrary
-@using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options
 @using EnhanceSiteUpdaer.Web.Components.Cards
+@using EnhanceSiteUpdaer.Web.Components.SiteSelectors
+@using EnhanceSiteUpdater.Core.Repository
 @inject UserManager<ApplicationUser> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IHttpClientFactory HttpClientFactory
-
+@inject IWebsiteRepository WebsiteRepository
 
 @attribute [Authorize]
+
+<h1>Enhance Website Maintenance Panel</h1>
+
+<h2>Add Websites</h2>
+@if (_websites.Count is 0 || _addWebsites)
+{
+    <RadzenButton Click="@AddWebsites">Close</RadzenButton>
+    <EnhanceSiteSelector User="@_user" Websites="_websites"/>
+}
+else
+{
+    <RadzenButton Click="@AddWebsites">Add Websites</RadzenButton>
+}
 
 <h2>Websites</h2>
 
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @foreach (Website website in websites)
+    @foreach (UpdaterWebsite website in _websites)
     {
-        <EnhanceWebsiteCard EnhanceWebsite="@website"/>
+        <UpdaterWebsiteCard Website="@website"/>
     }
 </RadzenStack>
 
 @code {
+    private ApplicationUser _user { get; set; }
+    private List<UpdaterWebsite> _websites = [];
 
-    private ApplicationUser _user;
-    private List<Website> websites = [];
-    private EnhanceClient _client;
+    private bool _addWebsites { get; set; } = false;
     
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         _user = await UserManager.GetUserAsync(authenticationState.User);
 
-        HttpClient httpClient = HttpClientFactory.CreateClient("client");
-        
-        _client = EnhanceClientBuilder.Build(_user.ControlPanelUrl, _user.BearerApiKey, httpClient);
-        
-       WebsitesListing websites = await _client.Orgs[_user.OrganizationId.Value].Websites.GetAsync();
-       
-       this.websites = websites.Items;
-       
-       Console.Write(websites);
+        _websites = await WebsiteRepository.GetAllAsync();
+    }
+
+    private void AddWebsites()
+    {
+        _addWebsites = !_addWebsites;
     }
 }

@@ -31,4 +31,20 @@ public class WebsiteRepository(SiteUpdaterDbContext context) : BaseRepository(co
     {
         return await context.Websites.FindAsync(domain);
     }
+
+    public async Task<bool> Exists(UpdaterWebsite website)
+    {
+        return await context.Websites.ContainsAsync(website);
+    }
+
+    public async Task Delete(UpdaterWebsite website)
+    {
+        context.Remove(website);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task<List<UpdaterWebsite>> GetAllAsync()
+    {
+        return await context.Websites.ToListAsync();
+    }
 }
