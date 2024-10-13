@@ -6,18 +6,20 @@
 @inject IWebsiteRepository WebsiteRepository
 
 <RadzenCard >
-    <RadzenColumn>
-        <RadzenText TextStyle="TextStyle.H4">
-            @EnhanceWebsite.Domain.Domain
-        </RadzenText>
-        <EnhanceWebsiteKindBadge Kind="@EnhanceWebsite.Kind"/>
-    </RadzenColumn>
-    
-    <RadzenStack>
-        <RadzenText TextStyle="TextStyle.Body1">
-            Maintenance Plan:
-        </RadzenText>
-        <RadzenDropDown @bind-Value="@_website.MaintenanceType" Data="_maintenanceTypes"></RadzenDropDown>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.H4">
+                @EnhanceWebsite.Domain.Domain
+            </RadzenText>
+            <EnhanceWebsiteKindBadge Kind="@EnhanceWebsite.Kind"/>
+        </RadzenColumn>
+
+        <RadzenStack>
+            <RadzenText TextStyle="TextStyle.Body1">
+                Maintenance Plan:
+            </RadzenText>
+            <RadzenDropDown @bind-Value="@_website.MaintenanceType" Data="_maintenanceTypes" Change="@MaintenanceChanged"></RadzenDropDown>
+        </RadzenStack>
     </RadzenStack>
 </RadzenCard>
 
@@ -32,11 +34,16 @@
     
     protected override async Task OnInitializedAsync()
     {
-        _website = await WebsiteRepository.GetWebsite(EnhanceWebsite.Domain.Domain) ?? 
+        _website = await WebsiteRepository.Get(EnhanceWebsite.Domain.Domain) ?? 
                   new UpdaterWebsite(
                       EnhanceWebsite.Domain.Domain, 
                       KindConverter.FromEnhance(EnhanceWebsite.Kind ?? WebsiteKind.Normal), 
                       MaintenanceType.None
                   );
+    }
+
+    private async Task MaintenanceChanged()
+    {
+        await WebsiteRepository.AddOrUpdate(_website);
     }
 }

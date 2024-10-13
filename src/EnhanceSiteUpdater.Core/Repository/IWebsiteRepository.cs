@@ -5,6 +5,7 @@ namespace EnhanceSiteUpdater.Core.Repository;
 
 public interface IWebsiteRepository
 {
-    Task AddWebsite(UpdaterWebsite website);
-    Task<UpdaterWebsite?> GetWebsite(string domain);
+    Task Add(UpdaterWebsite website);
+    Task AddOrUpdate(UpdaterWebsite website);
+    Task<UpdaterWebsite?> Get(string domain);
 }
