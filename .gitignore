@@ -6,6 +6,7 @@
 
 Migrations
 
+/Clients
 *.db*
 
 #Dotnet tool manifest
