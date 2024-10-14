@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnhanceSiteUpdater.Core.Entities;
 
-public class UpdaterWebsite
+public class UpdaterWebsite : IEquatable<UpdaterWebsite>
 {
     public string Domain { get; set; }
     public Kind Kind { get; set; }
@@ -13,6 +13,14 @@ public class UpdaterWebsite
         Domain = domain;
         Kind = kind;
         MaintenanceType = maintenanceType;
+    }
+
+    public bool Equals(UpdaterWebsite? other)
+    {
+        if (other == null)
+            return false;
+
+        return string.Equals(Domain, other.Domain, StringComparison.OrdinalIgnoreCase);
     }
 
     public override bool Equals(object? obj)

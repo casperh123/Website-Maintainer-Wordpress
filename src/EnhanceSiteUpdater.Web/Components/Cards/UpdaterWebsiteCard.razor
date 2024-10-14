@@ -29,7 +29,11 @@
             <RadzenText TextStyle="TextStyle.Body1">
                 Maintenance Plan:
             </RadzenText>
-            <RadzenDropDown @bind-Value="@Website.MaintenanceType" Data="_maintenanceTypes" Change="@MaintenanceChanged"></RadzenDropDown>
+            <RadzenDropDown TValue="MaintenanceType"
+                            Value="@Website.MaintenanceType"
+                            ValueChanged="MaintenanceChanged"
+                            Data="_maintenanceTypes">
+            </RadzenDropDown>
         </RadzenStack>
     </RadzenRow>
 </RadzenCard>
@@ -43,8 +47,8 @@
     
     private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
     
-    public async Task MaintenanceChanged()
+    public async Task MaintenanceChanged(MaintenanceType newValue)
     {
-        await WebsiteChanged.InvokeAsync(Website);
-    }
+        Website.MaintenanceType = newValue;
+        await WebsiteChanged.InvokeAsync(Website);    }
 }
