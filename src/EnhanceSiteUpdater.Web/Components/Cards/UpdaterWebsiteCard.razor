@@ -39,18 +39,14 @@
 @code {
     [Parameter]
     public UpdaterWebsite Website { get; set; }
+    
+    [Parameter]
+    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+    
     private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
     
     private async Task MaintenanceChanged()
     {
-        if (Website.MaintenanceType is MaintenanceType.None)
-        {
-            await WebsiteRepository.Delete(Website);
-        }
-        else
-        {
-            await WebsiteRepository.AddOrUpdate(Website);
-        }
-        
+        await WebsiteChanged.InvokeAsync(Website);
     }
 }

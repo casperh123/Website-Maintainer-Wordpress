@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using EnhanceSiteUpdaer.Web.Components.Cards
 @using EnhanceSiteUpdater.Core.Repository
+@using EnhanceSiteUpdater.Infrastructure.EntityHelpers
 @inject IHttpClientFactory HttpClientFactory
 @inject IWebsiteRepository WebsiteRepository
 
@@ -13,9 +14,9 @@
 <h3>Add Enhance Site</h3>
 
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @foreach (Website website in websites)
+    @foreach (UpdaterWebsite website in _newWebsites)
     {
-        <EnhanceWebsiteCard EnhanceWebsite="@website" WebsiteChanged="@WebsiteAdded"/>
+        <UpdaterWebsiteCard Website="@website"  WebsiteChanged="@WebsiteAdded"/>
     }
 </RadzenStack>
 
@@ -29,7 +30,7 @@
     [Parameter]
     public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
     
-    private List<Website> websites = [];
+    private List<UpdaterWebsite> _newWebsites = [];
     private EnhanceClient _client;
     
     protected override async Task OnInitializedAsync()
@@ -40,8 +41,7 @@
         
         WebsitesListing websites = await _client.Orgs[User.OrganizationId.Value].Websites.GetAsync(website => website.QueryParameters.RecursionAsRecursion = Recursion.Infinite);
        
-        this.websites = websites.Items;
-
+        _newWebsites = websites.Items.ConvertAll(website => EnhanceToCore.EnhanceWebsite(website));
     }
 
     public async Task WebsiteAdded(UpdaterWebsite website)
