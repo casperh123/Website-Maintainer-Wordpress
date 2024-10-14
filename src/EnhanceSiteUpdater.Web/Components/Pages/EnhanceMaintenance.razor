@@ -29,7 +29,7 @@ else
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
     @foreach (UpdaterWebsite website in _websites)
     {
-        <UpdaterWebsiteCard Website="@website"/>
+        <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
     }
 </RadzenStack>
 

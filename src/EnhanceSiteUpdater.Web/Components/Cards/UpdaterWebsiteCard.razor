@@ -1,8 +1,6 @@
-@using Enhance.Client.Models
 @using EnhanceSiteUpdaer.Web.Components.Badge
 @using EnhanceSiteUpdater.Core.Entities
 @using EnhanceSiteUpdater.Core.Repository
-@using EnhanceSiteUpdater.Infrastructure.EntityHelpers
 @inject IWebsiteRepository WebsiteRepository
 
 <RadzenCard >
@@ -45,7 +43,7 @@
     
     private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
     
-    private async Task MaintenanceChanged()
+    public async Task MaintenanceChanged()
     {
         await WebsiteChanged.InvokeAsync(Website);
     }

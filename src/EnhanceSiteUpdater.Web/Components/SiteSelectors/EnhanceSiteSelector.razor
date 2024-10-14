@@ -41,7 +41,7 @@
         
         WebsitesListing websites = await _client.Orgs[User.OrganizationId.Value].Websites.GetAsync(website => website.QueryParameters.RecursionAsRecursion = Recursion.Infinite);
        
-        _newWebsites = websites.Items.ConvertAll(website => EnhanceToCore.EnhanceWebsite(website));
+        _newWebsites = websites.Items.ConvertAll(website => EnhanceToCore.EnhanceWebsite(website)).Where(website => !Websites.Contains(website)).ToList();
     }
 
     public async Task WebsiteAdded(UpdaterWebsite website)
