@@ -17,7 +17,7 @@
 @if (_websites.Count is 0 || _addWebsites)
 {
     <RadzenButton Click="@AddWebsites">Close</RadzenButton>
-    <EnhanceSiteSelector User="@_user" Websites="_websites" WebsiteChanged="@WebsiteChanged"/>
+    <EnhanceSiteSelector User="@_user" ExistingWebsites="_websites" WebsiteChanged="@WebsiteChanged"/>
 }
 else
 {
@@ -37,7 +37,7 @@ else
     private ApplicationUser _user { get; set; }
     private List<UpdaterWebsite> _websites = [];
 
-    private bool _addWebsites { get; set; } = false;
+    private bool _addWebsites { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -62,7 +62,7 @@ else
         else
         {
             await WebsiteRepository.AddOrUpdate(website);
-
+            
             if (!_websites.Contains(website))
             {
                 _websites.Add(website);

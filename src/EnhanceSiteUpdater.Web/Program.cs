@@ -4,6 +4,7 @@ using EnhanceSiteUpdater.Core.Entities;
 using EnhanceSiteUpdater.Core.Repository;
 using EnhanceSiteUpdater.Infrastructure.Data;
 using EnhanceSiteUpdater.Infrastructure.Repository;
+using EnhanceSiteUpdater.Infrastructure.Services;
 using EnhanceSiteUpdater.Web.Components;
 using EnhanceSiteUpdater.Web.Components.Account;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -58,6 +59,9 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IWebsiteRepository, WebsiteRepository>();
+
+
+builder.Services.AddScoped<IEnhanceService, EnhanceService>();
 
 WebApplication app = builder.Build();
 

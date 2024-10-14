@@ -30,11 +30,13 @@ public class UpdaterWebsite : IEquatable<UpdaterWebsite>
 
         UpdaterWebsite? other = obj as UpdaterWebsite;
 
-        return string.Equals(Domain, other?.Domain, StringComparison.OrdinalIgnoreCase);
+        return Equals(other);
     }
 
     public override int GetHashCode()
     {
-        return Domain.ToLowerInvariant().GetHashCode();
+        return Domain != null
+            ? StringComparer.OrdinalIgnoreCase.GetHashCode(Domain)
+            : 0;
     }
 }

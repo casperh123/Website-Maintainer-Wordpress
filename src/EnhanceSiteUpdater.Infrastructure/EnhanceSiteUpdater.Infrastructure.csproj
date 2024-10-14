@@ -32,6 +32,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Http">
+        <HintPath>..\..\..\..\.dotnet\shared\Microsoft.AspNetCore.App\8.0.7\Microsoft.Extensions.Http.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.Kiota.Http.HttpClientLibrary">
         <HintPath>..\..\..\..\.nuget\packages\microsoft.kiota.http.httpclientlibrary\1.13.0\lib\net8.0\Microsoft.Kiota.Http.HttpClientLibrary.dll</HintPath>
       </Reference>

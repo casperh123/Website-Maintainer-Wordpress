@@ -6,7 +6,7 @@ public class ApplicationUser : IdentityUser
 {
     public ApplicationUser(string userName, Uri controlPanelUrl, Guid organizationId, string apiKey) : base(userName)
     {
-        ControlPanelUrl = controlPanelUrl;
+        ControlPanelUrl = new Uri(controlPanelUrl, "/api/");
         OrganizationId = organizationId;
         ApiKey = apiKey;
     }

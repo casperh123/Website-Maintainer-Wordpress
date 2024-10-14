@@ -11,20 +11,13 @@
             </RadzenText>
             <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
         </RadzenColumn>
-        <RadzenColumn>
-            <RadzenText>
+        @if (Website.MaintenanceType is MaintenanceType.None)
+        {
+            <RadzenColumn>
                 Added:
-            </RadzenText>
-            @if (Website.MaintenanceType != MaintenanceType.None)
-            {
-                <RadzenIcon Icon="done" IconColor="@Colors.Success" />
-            }
-            else
-            {
                 <RadzenIcon Icon="dangerous" IconColor="@Colors.Danger" />
-            }
-        </RadzenColumn>
-        
+            </RadzenColumn>   
+        }
         <RadzenStack>
             <RadzenText TextStyle="TextStyle.Body1">
                 Maintenance Plan:
