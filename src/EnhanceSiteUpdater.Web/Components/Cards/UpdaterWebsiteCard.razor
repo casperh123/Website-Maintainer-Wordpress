@@ -52,20 +52,17 @@
     {
         Website.MaintenanceType = newValue;
         await WebsiteChanged.InvokeAsync(Website);
-        await InvokeAsync(StateHasChanged);
     }
 
     private async Task AddWebsite()
     {
         Website.MaintenanceType = MaintenanceType.Regular;
         await WebsiteChanged.InvokeAsync(Website);
-        await InvokeAsync(StateHasChanged);
     }
 
     private async Task RemoveWebsite()
     {
         Website.MaintenanceType = MaintenanceType.None;
         await WebsiteChanged.InvokeAsync(Website);
-        await InvokeAsync(StateHasChanged);
     }
 }
