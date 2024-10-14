@@ -14,4 +14,19 @@ public class UpdaterWebsite
         Kind = kind;
         MaintenanceType = maintenanceType;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || obj.GetType() != GetType())
+            return false;
+
+        UpdaterWebsite? other = obj as UpdaterWebsite;
+
+        return string.Equals(Domain, other?.Domain, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public override int GetHashCode()
+    {
+        return Domain.ToLowerInvariant().GetHashCode();
+    }
 }

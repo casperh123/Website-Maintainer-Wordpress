@@ -52,7 +52,7 @@ else
         _addWebsites = !_addWebsites;
     }
 
-    protected async Task WebsiteChanged(UpdaterWebsite website)
+    private async Task WebsiteChanged(UpdaterWebsite website)
     {
         if (website.MaintenanceType is MaintenanceType.None)
         {
