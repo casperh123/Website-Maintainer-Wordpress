@@ -12,8 +12,7 @@
     {
         <p>No websites found.</p>
     }
-    @foreach (UpdaterWebsite website in _enhanceWebsites.Where(website => !ExistingWebsites.Contains(website))
-        .ToList())
+    @foreach (UpdaterWebsite website in _filteredWebsites)
     {
         <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteAdded"/>
     }
@@ -30,6 +29,8 @@
     public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
 
     private List<UpdaterWebsite> _enhanceWebsites = [];
+    private List<UpdaterWebsite> _filteredWebsites = [];
+    
     private EnhanceClient _client;
 
     protected override async Task OnInitializedAsync()
@@ -37,18 +38,21 @@
         _enhanceWebsites = await EnhanceService.GetWebsites(User);
     }
 
+    protected override void OnParametersSet()
+    {
+        FilterWebsites();
+    }
+
     public async Task WebsiteAdded(UpdaterWebsite website)
     {
         await WebsiteChanged.InvokeAsync(website);
+    }
 
-        if (website.MaintenanceType is MaintenanceType.None)
-        {
-            _enhanceWebsites.Add(website);
-        }
-        else
-        {
-            _enhanceWebsites.Remove(website);
-        }
+    private void FilterWebsites()
+    {
+        _filteredWebsites = _enhanceWebsites
+            .Where(website => !ExistingWebsites.Contains(website))
+            .ToList();
     }
 
 }

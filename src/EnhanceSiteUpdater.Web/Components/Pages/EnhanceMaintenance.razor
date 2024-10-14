@@ -35,6 +35,7 @@ else
 
 @code {
     private ApplicationUser _user { get; set; }
+    
     private List<UpdaterWebsite> _websites = [];
 
     private bool _addWebsites { get; set; }
@@ -43,7 +44,8 @@ else
     {
         AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         _user = await UserManager.GetUserAsync(authenticationState.User);
-
+        
+        
         _websites = await WebsiteRepository.GetAllAsync();
     }
 

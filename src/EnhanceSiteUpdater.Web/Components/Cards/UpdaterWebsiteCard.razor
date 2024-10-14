@@ -3,7 +3,7 @@
 @using EnhanceSiteUpdater.Core.Repository
 @inject IWebsiteRepository WebsiteRepository
 
-<RadzenCard >
+<RadzenCard>
     <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
         <RadzenColumn>
             <RadzenText TextStyle="TextStyle.H4">
@@ -11,23 +11,33 @@
             </RadzenText>
             <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
         </RadzenColumn>
-        @if (Website.MaintenanceType is MaintenanceType.None)
+        @if (Website.IsAdded)
         {
             <RadzenColumn>
-                Added:
-                <RadzenIcon Icon="dangerous" IconColor="@Colors.Danger" />
-            </RadzenColumn>   
+                <RadzenText TextStyle="TextStyle.Body1">
+                    Maintenance Plan:
+                </RadzenText>
+                <RadzenDropDown TValue="MaintenanceType"
+                                Value="@Website.MaintenanceType"
+                                ValueChanged="MaintenanceChanged"
+                                Data="@Website.AddedMaintenanceTypes">
+                </RadzenDropDown>
+            </RadzenColumn>
         }
-        <RadzenStack>
-            <RadzenText TextStyle="TextStyle.Body1">
-                Maintenance Plan:
-            </RadzenText>
-            <RadzenDropDown TValue="MaintenanceType"
-                            Value="@Website.MaintenanceType"
-                            ValueChanged="MaintenanceChanged"
-                            Data="_maintenanceTypes">
-            </RadzenDropDown>
-        </RadzenStack>
+        <RadzenColumn>
+            @if (Website.IsAdded)
+            {
+                <RadzenButton Click="@RemoveWebsite">
+                    Remove
+                </RadzenButton>
+            }
+            else
+            {
+                <RadzenButton Click="@AddWebsite">
+                    Add
+                </RadzenButton>
+            }
+        </RadzenColumn>
     </RadzenRow>
 </RadzenCard>
 
@@ -38,10 +48,24 @@
     [Parameter]
     public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
     
-    private List<MaintenanceType> _maintenanceTypes = Enum.GetValues<MaintenanceType>().ToList();
-    
     public async Task MaintenanceChanged(MaintenanceType newValue)
     {
         Website.MaintenanceType = newValue;
-        await WebsiteChanged.InvokeAsync(Website);    }
+        await WebsiteChanged.InvokeAsync(Website);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task AddWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.Regular;
+        await WebsiteChanged.InvokeAsync(Website);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task RemoveWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.None;
+        await WebsiteChanged.InvokeAsync(Website);
+        await InvokeAsync(StateHasChanged);
+    }
 }

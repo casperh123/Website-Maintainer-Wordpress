@@ -15,6 +15,14 @@ public class UpdaterWebsite : IEquatable<UpdaterWebsite>
         MaintenanceType = maintenanceType;
     }
 
+    public bool IsAdded => MaintenanceType switch
+    {
+        MaintenanceType.None => false,
+        _ => true
+    };
+
+    public List<MaintenanceType> AddedMaintenanceTypes => [MaintenanceType.Regular, MaintenanceType.Care];
+
     public bool Equals(UpdaterWebsite? other)
     {
         if (other == null)

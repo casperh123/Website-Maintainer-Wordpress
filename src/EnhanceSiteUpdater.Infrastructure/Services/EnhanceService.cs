@@ -1,7 +1,6 @@
 using Enhance.Client;
 using Enhance.Client.Models;
 using EnhanceSiteUpdater.Core.Entities;
-using EnhanceSiteUpdater.Infrastructure.ClientBuilder;
 using EnhanceSiteUpdater.Infrastructure.EntityHelpers;
 using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Authentication;
