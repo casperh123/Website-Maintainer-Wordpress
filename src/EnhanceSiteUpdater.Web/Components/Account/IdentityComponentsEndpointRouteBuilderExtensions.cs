@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
-using EnhanceSiteUpdaer.Web.Components.Account.Pages;
-using EnhanceSiteUpdaer.Web.Components.Account.Pages.Manage;
 using EnhanceSiteUpdater.Core.Entities;
+using EnhanceSiteUpdater.Web.Components.Account.Pages;
+using EnhanceSiteUpdater.Web.Components.Account.Pages.Manage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
-namespace EnhanceSiteUpdaer.Web.Components.Account;
+namespace EnhanceSiteUpdater.Web.Components.Account;
 
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {

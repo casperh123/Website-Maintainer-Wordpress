@@ -1,7 +1,7 @@
 using EnhanceSiteUpdater.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace EnhanceSiteUpdaer.Web.Components.Account;
+namespace EnhanceSiteUpdater.Web.Components.Account;
 
 internal sealed class IdentityUserAccessor(
     UserManager<ApplicationUser> userManager,

@@ -2,7 +2,7 @@ using EnhanceSiteUpdater.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace EnhanceSiteUpdaer.Web.Components.Account;
+namespace EnhanceSiteUpdater.Web.Components.Account;
 
 // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
 internal sealed class IdentityNoOpEmailSender : IEmailSender<ApplicationUser>

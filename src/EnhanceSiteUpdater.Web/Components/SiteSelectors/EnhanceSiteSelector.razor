@@ -3,49 +3,49 @@
 @using EnhanceSiteUpdater.Core.Entities
 @using EnhanceSiteUpdater.Infrastructure.ClientBuilder
 @using Microsoft.AspNetCore.Authorization
-@using EnhanceSiteUpdaer.Web.Components.Cards
+@using EnhanceSiteUpdater.Web.Components.Cards
 @using EnhanceSiteUpdater.Core.Repository
 @using EnhanceSiteUpdater.Infrastructure.EntityHelpers
 @inject IHttpClientFactory HttpClientFactory
-@inject IWebsiteRepository WebsiteRepository
 
 @attribute [Authorize]
 
-<h3>Add Enhance Site</h3>
-
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+    @if (!_newWebsites.Any())
+    {
+        <p>No websites found.</p>
+    }
     @foreach (UpdaterWebsite website in _newWebsites)
     {
-        <UpdaterWebsiteCard Website="@website"  WebsiteChanged="@WebsiteAdded"/>
+        <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteAdded"/>
     }
 </RadzenStack>
 
 @code {
-    [Parameter]
-    public ApplicationUser User { get; set; }
-    
-    [Parameter]
-    public List<UpdaterWebsite> Websites { get; set; }
-    
-    [Parameter]
-    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
-    
+    [Parameter] public ApplicationUser User { get; set; }
+
+    [Parameter] public List<UpdaterWebsite> Websites { get; set; }
+
+    [Parameter] public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+
     private List<UpdaterWebsite> _newWebsites = [];
     private EnhanceClient _client;
-    
+
     protected override async Task OnInitializedAsync()
     {
         HttpClient httpClient = HttpClientFactory.CreateClient("client");
-        
+
         _client = EnhanceClientBuilder.Build(User.ControlPanelUrl, User.BearerApiKey, httpClient);
-        
+
         WebsitesListing websites = await _client.Orgs[User.OrganizationId.Value].Websites.GetAsync(website => website.QueryParameters.RecursionAsRecursion = Recursion.Infinite);
-       
-        _newWebsites = websites.Items.ConvertAll(website => EnhanceToCore.EnhanceWebsite(website)).Where(website => !Websites.Contains(website)).ToList();
+
+        _newWebsites = websites?.Items?.ConvertAll(EnhanceToCore.EnhanceWebsite).Where(website => !Websites.Contains(website)).ToList() ?? [];
+
     }
 
     public async Task WebsiteAdded(UpdaterWebsite website)
     {
         await WebsiteChanged.InvokeAsync(website);
     }
+
 }

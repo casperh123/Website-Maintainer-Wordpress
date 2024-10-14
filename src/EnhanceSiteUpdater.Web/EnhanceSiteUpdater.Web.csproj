@@ -4,9 +4,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>aspnet-EnhanceSiteUpdaer.Web-8fbaa44c-ebb4-40e5-954a-87dbfd000b21</UserSecretsId>
+        <UserSecretsId>aspnet-EnhanceSiteUpdater.Web-8fbaa44c-ebb4-40e5-954a-87dbfd000b21</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>EnhanceSiteUpdaer.Web</RootNamespace>
+        <RootNamespace>EnhanceSiteUpdater.Web</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
