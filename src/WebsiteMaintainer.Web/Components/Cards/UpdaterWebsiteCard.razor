@@ -1,0 +1,68 @@
+@using WebsiteMaintainer.Web.Components.Badge
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Core.Repository
+@inject IWebsiteRepository WebsiteRepository
+
+<RadzenCard>
+    <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.H4">
+                @Website.Domain
+            </RadzenText>
+            <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
+        </RadzenColumn>
+        @if (Website.IsAdded)
+        {
+            <RadzenColumn>
+                <RadzenText TextStyle="TextStyle.Body1">
+                    Maintenance Plan:
+                </RadzenText>
+                <RadzenDropDown TValue="MaintenanceType"
+                                Value="@Website.MaintenanceType"
+                                ValueChanged="MaintenanceChanged"
+                                Data="@Website.AddedMaintenanceTypes">
+                </RadzenDropDown>
+            </RadzenColumn>
+        }
+        <RadzenColumn>
+            @if (Website.IsAdded)
+            {
+                <RadzenButton Click="@RemoveWebsite">
+                    Remove
+                </RadzenButton>
+            }
+            else
+            {
+                <RadzenButton Click="@AddWebsite">
+                    Add
+                </RadzenButton>
+            }
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public UpdaterWebsite Website { get; set; }
+    
+    [Parameter]
+    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+    
+    public async Task MaintenanceChanged(MaintenanceType newValue)
+    {
+        Website.MaintenanceType = newValue;
+        await WebsiteChanged.InvokeAsync(Website);
+    }
+
+    private async Task AddWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.Regular;
+        await WebsiteChanged.InvokeAsync(Website);
+    }
+
+    private async Task RemoveWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.None;
+        await WebsiteChanged.InvokeAsync(Website);
+    }
+}

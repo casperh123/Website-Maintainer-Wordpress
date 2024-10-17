@@ -1,0 +1,58 @@
+@using Enhance.Client
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Infrastructure.Services
+@using Microsoft.AspNetCore.Authorization
+@using WebsiteMaintainer.Web.Components.Cards
+@inject IEnhanceService EnhanceService
+
+@attribute [Authorize]
+
+<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+    @if (!_enhanceWebsites.Any())
+    {
+        <p>No websites found.</p>
+    }
+    @foreach (UpdaterWebsite website in _filteredWebsites)
+    {
+        <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteAdded"/>
+    }
+</RadzenStack>
+
+@code {
+    [Parameter] 
+    public ApplicationUser User { get; set; }
+
+    [Parameter] 
+    public List<UpdaterWebsite> ExistingWebsites { get; set; }
+
+    [Parameter] 
+    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+
+    private List<UpdaterWebsite> _enhanceWebsites = [];
+    private List<UpdaterWebsite> _filteredWebsites = [];
+    
+    private EnhanceClient _client;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _enhanceWebsites = await EnhanceService.GetWebsites(User);
+    }
+
+    protected override void OnParametersSet()
+    {
+        FilterWebsites();
+    }
+
+    public async Task WebsiteAdded(UpdaterWebsite website)
+    {
+        await WebsiteChanged.InvokeAsync(website);
+    }
+
+    private void FilterWebsites()
+    {
+        _filteredWebsites = _enhanceWebsites
+            .Where(website => !ExistingWebsites.Contains(website))
+            .ToList();
+    }
+
+}

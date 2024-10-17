@@ -30,29 +30,29 @@ To contribute to this project, you should have your local tool manifest setup co
 
 Make sure the database has the correct schema applied to it, you will need to create and update the project migrations.
 
-    dotnet ef migrations add MigrationName -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
-    dotnet ef database update -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
+    dotnet ef migrations add MigrationName -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
+    dotnet ef database update -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
 
 To delete these clients, use
 
-sudo rm -rf src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance
+sudo rm -rf src/WebsiteMaintainer.Infrastructure/Clients/Enhance
 
 ### Running the application
 
 Run the application through .NET CLI
 
-    dotnet run --project src/EnhanceSiteUpdater.Web
+    dotnet run --project src/WebsiteMaintainer.Web
 
 To enable _Hot-readling_ while developing, run the application with
 
-    dotnet run --project src/EnhanceSiteUpdater.Web
+    dotnet run --project src/WebsiteMaintainer.Web
 
 ### Adding Api Clients to the project
 
 To add new Api clients to the project, we make use of Kiota.
 
     sudo dotnet tool restore
-    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=src/EnhanceSiteUpdater.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/EnhanceSiteUpdater.Infrastructure/Clients/Enhance --ebc false --co true
+    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=src/WebsiteMaintainer.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/WebsiteMaintainer.Infrastructure/Clients/Enhance --ebc false --co true
 
 
 ## License

@@ -1,0 +1,27 @@
+@inherits RadzenTextBox
+@using WebsiteMaintainer.Web.Components.Notifications
+
+<RadzenFormField Text="@Name" Variant="Variant.Text">
+    <ChildContent>
+        <RadzenTextBox ValueChanged="@UpdateText" Value="@Text"/>
+    </ChildContent>
+    <Helper>
+        <ErrorMessage Message="@Message"/>
+    </Helper>
+</RadzenFormField>
+
+@code {
+    [Parameter] 
+    public EventCallback<string> TextChanged { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter] 
+    public string Message { get; set; }
+
+    private async Task UpdateText(string text)
+    {
+        await TextChanged.InvokeAsync(text);
+    }
+}

@@ -1,7 +1,7 @@
-rm -rf ./src/EnhanceSiteUpdater.Infrastructure/Migrations
-rm -rf ./src/EnhanceSiteUpdater.Web/Data/app.db
+rm -rf ./src/WebsiteMaintainer.Infrastructure/Migrations
+rm -rf ./src/WebsiteMaintainer.Web/Data/app.db
 
-sqlite3 /src/EnhanceSiteUpdater.Web/Data/app.db | .quit
+sqlite3 /src/WebsiteMaintainer.Web/Data/app.db | .quit
 
-dotnet ef migrations add MigrationName -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
-dotnet ef database update -p src/EnhanceSiteUpdater.Infrastructure -s src/EnhanceSiteUpdater.Web
+dotnet ef migrations add MigrationName -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
+dotnet ef database update -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
