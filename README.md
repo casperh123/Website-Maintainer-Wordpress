@@ -1,5 +1,5 @@
-# EnhanceSiteUpdater
-nhanceSiteUpdater helps you to efficiently manage your WordPress sites hosted with an Enhance Control Panel. It provides a way to safely and efficiently update WordPress sites within your control panel.
+# Website Maintainer
+Website Maintainer helps you to efficiently manage your WordPress sites hosted with an Enhance Control Panel. It provides a way to safely and efficiently update WordPress sites within your control panel.
 
 ## Features
  - Bulk Site Maintenance: Maintain multiple WordPress sites from a single dashboard.
