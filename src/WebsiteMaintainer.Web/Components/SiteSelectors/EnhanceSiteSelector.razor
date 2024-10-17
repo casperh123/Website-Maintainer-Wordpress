@@ -12,7 +12,7 @@
     {
         <p>No websites found.</p>
     }
-    @foreach (UpdaterWebsite website in _filteredWebsites)
+    @foreach (Website website in _filteredWebsites)
     {
         <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteAdded"/>
     }
@@ -23,13 +23,13 @@
     public ApplicationUser User { get; set; }
 
     [Parameter] 
-    public List<UpdaterWebsite> ExistingWebsites { get; set; }
+    public List<Website> ExistingWebsites { get; set; }
 
     [Parameter] 
-    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+    public EventCallback<Website> WebsiteChanged { get; set; }
 
-    private List<UpdaterWebsite> _enhanceWebsites = [];
-    private List<UpdaterWebsite> _filteredWebsites = [];
+    private List<Website> _enhanceWebsites = [];
+    private List<Website> _filteredWebsites = [];
     
     private EnhanceClient _client;
 
@@ -43,7 +43,7 @@
         FilterWebsites();
     }
 
-    public async Task WebsiteAdded(UpdaterWebsite website)
+    public async Task WebsiteAdded(Website website)
     {
         await WebsiteChanged.InvokeAsync(website);
     }

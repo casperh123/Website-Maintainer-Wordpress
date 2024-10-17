@@ -2,13 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebsiteMaintainer.Core.Entities;
 
-public class UpdaterWebsite : IEquatable<UpdaterWebsite>
+public class Website : IEquatable<Website>
 {
     public string Domain { get; set; }
     public Kind Kind { get; set; }
     public MaintenanceType MaintenanceType { get; set; }
-
-    public UpdaterWebsite(string domain, Kind kind, MaintenanceType maintenanceType)
+    public Guid OriginId { get; set; }
+    
+    public Website(string domain, Kind kind, MaintenanceType maintenanceType)
     {
         Domain = domain;
         Kind = kind;
@@ -23,7 +24,7 @@ public class UpdaterWebsite : IEquatable<UpdaterWebsite>
 
     public List<MaintenanceType> AddedMaintenanceTypes => [MaintenanceType.Regular, MaintenanceType.Care];
 
-    public bool Equals(UpdaterWebsite? other)
+    public bool Equals(Website? other)
     {
         if (other == null)
             return false;
@@ -36,7 +37,7 @@ public class UpdaterWebsite : IEquatable<UpdaterWebsite>
         if (obj == null || obj.GetType() != GetType())
             return false;
 
-        UpdaterWebsite? other = obj as UpdaterWebsite;
+        Website? other = obj as Website;
 
         return Equals(other);
     }

@@ -1,13 +1,14 @@
 using Enhance.Client.Models;
 using WebsiteMaintainer.Core.Entities;
+using Website = WebsiteMaintainer.Core.Entities.Website;
 
 namespace WebsiteMaintainer.Infrastructure.EntityHelpers;
 
 public class EnhanceToCore
 {
-    public static UpdaterWebsite EnhanceWebsite(Enhance.Client.Models.Website website)
+    public static Website EnhanceWebsite(Enhance.Client.Models.Website website)
     {
-        return new UpdaterWebsite(
+        return new Website(
             website.Domain.Domain,
             EnhanceKind(website.Kind ?? WebsiteKind.Normal),
             MaintenanceType.None

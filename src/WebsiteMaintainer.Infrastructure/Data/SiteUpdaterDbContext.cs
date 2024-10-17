@@ -7,7 +7,7 @@ namespace WebsiteMaintainer.Infrastructure.Data;
 public class SiteUpdaterDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<ApplicationUser> Users { get; set; }
-    public DbSet<UpdaterWebsite> Websites { get; set; }
+    public DbSet<Website> Websites { get; set; }
 
     public SiteUpdaterDbContext(DbContextOptions<SiteUpdaterDbContext> options) : base(options)
     {
@@ -17,6 +17,6 @@ public class SiteUpdaterDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<UpdaterWebsite>().HasKey(website => website.Domain);
+        builder.Entity<Website>().HasKey(website => website.Domain);
     }
 }

@@ -43,10 +43,10 @@
 
 @code {
     [Parameter]
-    public UpdaterWebsite Website { get; set; }
+    public Website Website { get; set; }
     
     [Parameter]
-    public EventCallback<UpdaterWebsite> WebsiteChanged { get; set; }
+    public EventCallback<Website> WebsiteChanged { get; set; }
     
     public async Task MaintenanceChanged(MaintenanceType newValue)
     {

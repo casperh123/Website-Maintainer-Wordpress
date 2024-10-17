@@ -27,7 +27,7 @@ else
 <h2>Websites</h2>
 
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @foreach (UpdaterWebsite website in _websites)
+    @foreach (Website website in _websites)
     {
         <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
     }
@@ -36,7 +36,7 @@ else
 @code {
     private ApplicationUser _user { get; set; }
     
-    private List<UpdaterWebsite> _websites = [];
+    private List<Website> _websites = [];
 
     private bool _addWebsites { get; set; }
     
@@ -54,7 +54,7 @@ else
         _addWebsites = !_addWebsites;
     }
 
-    private async Task WebsiteChanged(UpdaterWebsite website)
+    private async Task WebsiteChanged(Website website)
     {
         if (website.MaintenanceType is MaintenanceType.None)
         {
