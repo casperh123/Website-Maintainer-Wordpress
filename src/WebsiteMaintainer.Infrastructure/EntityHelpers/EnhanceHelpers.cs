@@ -5,7 +5,7 @@ using Website = WebsiteMaintainer.Core.Entities.Website;
 
 namespace WebsiteMaintainer.Infrastructure.EntityHelpers;
 
-public class EnhanceToCore
+public class EnhanceHelpers
 {
     public static Website EnhanceWebsite(Enhance.Client.Models.Website website)
     {

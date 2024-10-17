@@ -45,7 +45,6 @@ else
         AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         _user = await UserManager.GetUserAsync(authenticationState.User);
         
-        
         _websites = await WebsiteRepository.GetAllAsync();
     }
 

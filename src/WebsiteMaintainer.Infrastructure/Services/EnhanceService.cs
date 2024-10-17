@@ -30,9 +30,15 @@ public class EnhanceService : IEnhanceService
         HttpClient httpClient = _httpFactory.CreateClient("client");
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
 
-        WebsitesListing websites = await client.Orgs[user.OrganizationId.Value].Websites.GetAsync(website => website.QueryParameters.RecursionAsRecursion = Recursion.Infinite);
+        WebsitesListing websites = await client
+            .Orgs[user.OrganizationId.Value]
+            .Websites.GetAsync(website =>
+            {
+                website.QueryParameters.RecursionAsRecursion = Recursion.Infinite;
+                website.QueryParameters.KindAsWebsiteKind = WebsiteKind.Normal;
+            });
         
-        return websites?.Items?.ConvertAll(EnhanceToCore.EnhanceWebsite) ?? [];
+        return websites?.Items?.ConvertAll(EnhanceHelpers.EnhanceWebsite) ?? [];
     }
 
     public async Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website)
