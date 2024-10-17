@@ -1,65 +1,45 @@
 @page "/enhance-maintenance"
 @using WebsiteMaintainer.Core.Entities
 @using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Identity
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Components.SiteSelectors
 @using WebsiteMaintainer.Core.Repository
-@inject UserManager<ApplicationUser> UserManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@using WebsiteMaintainer.Web.Services
+@using WebsiteMaintainer.Web.Components.Button
+@inject IUserService UserService
 @inject IWebsiteRepository WebsiteRepository
 
 @attribute [Authorize]
 
 <RadzenStack Gap="20px">
-    <h1>Enhance Website Maintenance Panel</h1>
+    <RadzenText TextStyle="TextStyle.H1">Enhance Website Maintenance Panel</RadzenText>
 
-    <RadzenRow >
-        <h2>Websites</h2>
+    <RadzenText TextStyle="TextStyle.H2" >
+        <RadzenHeading >Websites</RadzenHeading>
         
-        @if (_addWebsites)
-        {
-            <RadzenButton Click="@AddWebsites" Size="ButtonSize.ExtraSmall" Te>Close</RadzenButton>
-        }
-        else
-        {
-            <RadzenButton Click="@AddWebsites" Size="ButtonSize.ExtraSmall">Add Websites</RadzenButton>
-        }
-    </RadzenRow>
+        <ToggleButton Toggler="_addWebsites" OnText="Close" OffText="Add Websites"></ToggleButton>
+    </RadzenText>
 
     <EnhanceSiteSelector User="@_user" ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
 
     <RadzenStack  Gap="10px" Orientation="Orientation.Vertical">
         @foreach (Website website in _websites)
         {
-        <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
+            <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
         }
     </RadzenStack>
 </RadzenStack>
 
 @code {
-    private ApplicationUser _user { get; set; }
-    
-    private List<Website> _websites = [];
-
-    private bool _addWebsites { get; set; }
+    private ApplicationUser _user;
+    private List<Website> _websites;
+    private bool _addWebsites;
     
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        _user = await UserManager.GetUserAsync(authenticationState.User);
-        
+        _user = await UserService.GetCurrentUserAsync();
         _websites = await WebsiteRepository.GetAllAsync();
-
-        if (!_websites.Any())
-        {
-            _addWebsites = true;
-        }
-    }
-
-    private void AddWebsites()
-    {
-        _addWebsites = !_addWebsites;
+        _addWebsites = !_websites.Any();
     }
 
     private async Task WebsiteChanged(Website website)

@@ -1,0 +1,26 @@
+@inherits RadzenButton
+
+@if (Toggler)
+{
+    <RadzenButton Click="@Toggle" Size="@Size">@OnText</RadzenButton>
+}
+else
+{
+    <RadzenButton Click="@Toggle" Size="@Size">@OffText</RadzenButton>
+}
+
+@code {
+     [Parameter]
+    public bool Toggler { get; set; }
+    [Parameter]
+    
+    public string OnText { get; set; }
+    [Parameter]
+    
+    public string OffText { get; set; }
+
+    private void Toggle()
+    {
+        Toggler = !Toggler;
+    }
+}

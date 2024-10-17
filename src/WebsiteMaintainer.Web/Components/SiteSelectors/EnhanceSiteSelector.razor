@@ -3,14 +3,16 @@
 @using WebsiteMaintainer.Infrastructure.Services
 @using Microsoft.AspNetCore.Authorization
 @using WebsiteMaintainer.Web.Components.Cards
+@using WebsiteMaintainer.Web.Services
 @inject IEnhanceService EnhanceService
+@inject IUserService UserService
 
 @attribute [Authorize]
 
 @if (Showing)
 {
     <RadzenStack Gap="10px" Orientation="Orientation.Vertical" >
-        @if (!_enhanceWebsites.Any())
+        @if (!_filteredWebsites.Any())
         {
             <p>No websites found.</p>
         }
@@ -23,9 +25,6 @@
 
 @code {
     [Parameter] 
-    public ApplicationUser User { get; set; }
-
-    [Parameter] 
     public List<Website> ExistingWebsites { get; set; }
     
     [Parameter]
@@ -36,20 +35,21 @@
 
     private List<Website> _enhanceWebsites = [];
     private List<Website> _filteredWebsites = [];
-    
     private EnhanceClient _client;
 
     protected override async Task OnInitializedAsync()
     {
-        _enhanceWebsites = await EnhanceService.GetWebsites(User);
+        ApplicationUser user = await UserService.GetCurrentUserAsync();
+        _enhanceWebsites = await EnhanceService.GetWebsites(user);
     }
 
-    protected override void OnParametersSet()
+    protected override async void OnParametersSet()
     {
         FilterWebsites();
+        await InvokeAsync(StateHasChanged);
     }
 
-    public async Task AddWebsite(Website website)
+    private async Task AddWebsite(Website website)
     {
         await WebsiteAdded.InvokeAsync(website);
     }
