@@ -10,11 +10,13 @@ public class Website : IEquatable<Website>
     public Guid OriginId { get; set; }
     public Provider Provider { get; set; }
     
-    public Website(string domain, Kind kind, MaintenanceType maintenanceType)
+    public Website(string domain, Kind kind, MaintenanceType maintenanceType, Guid originId, Provider provider)
     {
         Domain = domain;
         Kind = kind;
         MaintenanceType = maintenanceType;
+        OriginId = originId;
+        Provider = provider;
     }
 
     public bool IsAdded => MaintenanceType switch

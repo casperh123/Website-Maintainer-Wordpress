@@ -13,6 +13,7 @@ namespace WebsiteMaintainer.Infrastructure.Services;
 public interface IEnhanceService
 {
     Task<List<Website>> GetWebsites(ApplicationUser user);
+    Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website);
 }
 
 public class EnhanceService : IEnhanceService
@@ -34,7 +35,7 @@ public class EnhanceService : IEnhanceService
         return websites?.Items?.ConvertAll(EnhanceToCore.EnhanceWebsite) ?? [];
     }
 
-    public async Task<WebsiteMaintenance> GetWebsiteMaintenance(ApplicationUser user, Website website)
+    public async Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website)
     {
         HttpClient httpClient = _httpFactory.CreateClient("client");
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
@@ -60,7 +61,7 @@ public class EnhanceService : IEnhanceService
             plugin.Update.HasValue && plugin.Update.Value == WPPluginUpdateAvailable.Available
         )).ToList() ?? [];    
 
-        return new WebsiteMaintenance(website, plugins);
+        return plugins;
     }
 
     private static EnhanceClient BuildClient(Uri baseurl, string apiKey, HttpClient httpClient) {

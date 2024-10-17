@@ -1,8 +1,10 @@
+@using Microsoft.EntityFrameworkCore
 @using WebsiteMaintainer.Web.Components.Badge
 @using WebsiteMaintainer.Core.Entities
-@using WebsiteMaintainer.Core.Repository
-@inject IWebsiteRepository WebsiteRepository
-
+@using WebsiteMaintainer.Infrastructure.Services
+@using WebsiteMaintainer.Web.Services
+@inject IEnhanceService EnhanceService;
+@inject IUserService UserService;
 <RadzenCard>
     <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
         <RadzenColumn>
@@ -11,8 +13,18 @@
             </RadzenText>
             <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
         </RadzenColumn>
-        <RadzenStack>
+        <RadzenStack JustifyContent="JustifyContent.Start">
+            <RadzenText TextStyle="TextStyle.Subtitle1">
+                Plugin Data:
+            </RadzenText>
             <RadzenText TextStyle="TextStyle.Body1">
+                Total Plugins: @TotalPlugins <br/>
+                Outdated: @UpdateablePlugins
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2"></RadzenText>
+        </RadzenStack>
+        <RadzenStack>
+            <RadzenText TextStyle="TextStyle.Body2">
                 Maintenance Plan:
             </RadzenText>
             <RadzenDropDown TValue="MaintenanceType"
@@ -22,20 +34,33 @@
             </RadzenDropDown>
         </RadzenStack>
         <RadzenStack>
-            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite">
-                Remove
-            </RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite" Icon="close" />
         </RadzenStack>
     </RadzenRow>
 </RadzenCard>
 
 @code {
+    
     [Parameter]
     public Website Website { get; set; }
     
     [Parameter]
     public EventCallback<Website> WebsiteChanged { get; set; }
-    
+
+    private List<Plugin> Plugins { get; set; }
+    private int TotalPlugins { set; get; }
+    private int UpdateablePlugins { get; set; }
+    private bool PluginDetailsOpen { get; set; }git 
+
+    protected override async void OnInitialized()
+    {
+        ApplicationUser user = await UserService.GetCurrentUserAsync();
+        Plugins = await EnhanceService.GetPlugins(user, Website);
+
+        UpdateablePlugins = Plugins.Count(plugin => plugin.UpdateAvailable);
+        TotalPlugins = Plugins.Count;
+    }
+
     public async Task MaintenanceChanged(MaintenanceType newValue)
     {
         Website.MaintenanceType = newValue;

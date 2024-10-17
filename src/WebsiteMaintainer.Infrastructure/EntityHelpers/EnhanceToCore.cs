@@ -1,4 +1,5 @@
 using Enhance.Client.Models;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using WebsiteMaintainer.Core.Entities;
 using Website = WebsiteMaintainer.Core.Entities.Website;
 
@@ -11,7 +12,9 @@ public class EnhanceToCore
         return new Website(
             website.Domain.Domain,
             EnhanceKind(website.Kind ?? WebsiteKind.Normal),
-            MaintenanceType.None
+            MaintenanceType.None,
+            website.Id ?? Guid.Empty,
+            Provider.Enhance
         );
     }
     
