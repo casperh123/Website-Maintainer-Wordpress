@@ -1,0 +1,50 @@
+@using WebsiteMaintainer.Web.Components.Badge
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Core.Repository
+@inject IWebsiteRepository WebsiteRepository
+
+<RadzenCard>
+    <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.H4">
+                @Website.Domain
+            </RadzenText>
+            <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
+        </RadzenColumn>
+        <RadzenStack>
+            <RadzenText TextStyle="TextStyle.Body1">
+                Maintenance Plan:
+            </RadzenText>
+            <RadzenDropDown TValue="MaintenanceType"
+                            Value="@Website.MaintenanceType"
+                            ValueChanged="MaintenanceChanged"
+                            Data="@Website.AddedMaintenanceTypes">
+            </RadzenDropDown>
+        </RadzenStack>
+        <RadzenStack>
+            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite">
+                Remove
+            </RadzenButton>
+        </RadzenStack>
+    </RadzenRow>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public Website Website { get; set; }
+    
+    [Parameter]
+    public EventCallback<Website> WebsiteChanged { get; set; }
+    
+    public async Task MaintenanceChanged(MaintenanceType newValue)
+    {
+        Website.MaintenanceType = newValue;
+        await WebsiteChanged.InvokeAsync(Website);
+    }
+
+    private async Task RemoveWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.None;
+        await WebsiteChanged.InvokeAsync(Website);
+    }
+}

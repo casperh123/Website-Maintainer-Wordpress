@@ -14,7 +14,7 @@
     }
     @foreach (Website website in _filteredWebsites)
     {
-        <UpdaterWebsiteCard Website="@website" WebsiteChanged="@WebsiteAdded"/>
+        <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
     }
 </RadzenStack>
 
@@ -26,7 +26,7 @@
     public List<Website> ExistingWebsites { get; set; }
 
     [Parameter] 
-    public EventCallback<Website> WebsiteChanged { get; set; }
+    public EventCallback<Website> WebsiteAdded { get; set; }
 
     private List<Website> _enhanceWebsites = [];
     private List<Website> _filteredWebsites = [];
@@ -43,9 +43,9 @@
         FilterWebsites();
     }
 
-    public async Task WebsiteAdded(Website website)
+    public async Task AddWebsite(Website website)
     {
-        await WebsiteChanged.InvokeAsync(website);
+        await WebsiteAdded.InvokeAsync(website);
     }
 
     private void FilterWebsites()

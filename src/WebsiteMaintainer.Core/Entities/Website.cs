@@ -8,6 +8,7 @@ public class Website : IEquatable<Website>
     public Kind Kind { get; set; }
     public MaintenanceType MaintenanceType { get; set; }
     public Guid OriginId { get; set; }
+    public Provider Provider { get; set; }
     
     public Website(string domain, Kind kind, MaintenanceType maintenanceType)
     {

@@ -1,0 +1,33 @@
+@using WebsiteMaintainer.Web.Components.Badge
+@using WebsiteMaintainer.Core.Entities
+@inject ContextMenuService ContextMenuService
+
+<RadzenCard>
+    <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.H4">
+                @Website.Domain
+            </RadzenText>
+            <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
+        </RadzenColumn>
+        <RadzenStack>
+            <RadzenButton Click="@AddWebsite">
+                Add
+            </RadzenButton>
+        </RadzenStack>
+    </RadzenRow>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public Website Website { get; set; }
+    
+    [Parameter]
+    public EventCallback<Website> WebsiteAdded { get; set; }
+    
+    private async Task AddWebsite()
+    {
+        Website.MaintenanceType = MaintenanceType.Regular;
+        await WebsiteAdded.InvokeAsync(Website);
+    }
+}
