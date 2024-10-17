@@ -11,26 +11,30 @@
 
 @attribute [Authorize]
 
-<h1>Enhance Website Maintenance Panel</h1>
+<RadzenStack Gap="20px">
+    <h1>Enhance Website Maintenance Panel</h1>
 
-<h2>Add Websites</h2>
-@if (_websites.Count is 0 || _addWebsites)
-{
-    <RadzenButton Click="@AddWebsites">Close</RadzenButton>
-    <EnhanceSiteSelector User="@_user" ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged"/>
-}
-else
-{
-    <RadzenButton Click="@AddWebsites">Add Websites</RadzenButton>
-}
+    <RadzenRow >
+        <h2>Websites</h2>
+        
+        @if (_addWebsites)
+        {
+            <RadzenButton Click="@AddWebsites" Size="ButtonSize.ExtraSmall" Te>Close</RadzenButton>
+        }
+        else
+        {
+            <RadzenButton Click="@AddWebsites" Size="ButtonSize.ExtraSmall">Add Websites</RadzenButton>
+        }
+    </RadzenRow>
 
-<h2>Websites</h2>
+    <EnhanceSiteSelector User="@_user" ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
 
-<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @foreach (Website website in _websites)
-    {
+    <RadzenStack  Gap="10px" Orientation="Orientation.Vertical">
+        @foreach (Website website in _websites)
+        {
         <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
-    }
+        }
+    </RadzenStack>
 </RadzenStack>
 
 @code {
@@ -46,6 +50,11 @@ else
         _user = await UserManager.GetUserAsync(authenticationState.User);
         
         _websites = await WebsiteRepository.GetAllAsync();
+
+        if (!_websites.Any())
+        {
+            _addWebsites = true;
+        }
     }
 
     private void AddWebsites()

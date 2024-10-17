@@ -1,13 +1,13 @@
 @using WebsiteMaintainer.Web.Components.Badge
 @using WebsiteMaintainer.Core.Entities
 
-<RadzenCard>
+<RadzenCard Variant="Variant.Outlined">
     <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
         <RadzenColumn>
             <RadzenText TextStyle="TextStyle.H4">
                 @Website.Domain
             </RadzenText>
-            <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
+            <WebsiteBadge WebsiteKind="@Website.Kind"/>
         </RadzenColumn>
         <RadzenStack>
             <RadzenButton Click="@AddWebsite">

@@ -2,22 +2,24 @@
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Infrastructure.Services
 @using Microsoft.AspNetCore.Authorization
-@using WebsiteMaintainer.Infrastructure.EntityHelpers
 @using WebsiteMaintainer.Web.Components.Cards
 @inject IEnhanceService EnhanceService
 
 @attribute [Authorize]
 
-<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @if (!_enhanceWebsites.Any())
-    {
-        <p>No websites found.</p>
-    }
-    @foreach (Website website in _filteredWebsites)
-    {
-        <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
-    }
-</RadzenStack>
+@if (Showing)
+{
+    <RadzenStack Gap="10px" Orientation="Orientation.Vertical" >
+        @if (!_enhanceWebsites.Any())
+        {
+            <p>No websites found.</p>
+        }
+        @foreach (Website website in _filteredWebsites)
+        {
+            <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
+        }
+    </RadzenStack>
+}
 
 @code {
     [Parameter] 
@@ -25,6 +27,9 @@
 
     [Parameter] 
     public List<Website> ExistingWebsites { get; set; }
+    
+    [Parameter]
+    public bool Showing { get; set; }
 
     [Parameter] 
     public EventCallback<Website> WebsiteAdded { get; set; }

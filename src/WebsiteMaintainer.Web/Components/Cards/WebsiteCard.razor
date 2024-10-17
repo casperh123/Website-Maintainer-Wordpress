@@ -11,7 +11,7 @@
             <RadzenText TextStyle="TextStyle.H4">
                 @Website.Domain
             </RadzenText>
-            <UpdaterWebsiteBadge WebsiteKind="@Website.Kind"/>
+            <WebsiteBadge WebsiteKind="@Website.Kind"/>
         </RadzenColumn>
         <RadzenColumn JustifyContent="JustifyContent.Start">
             @if (string.IsNullOrEmpty(ErrorMessage))
