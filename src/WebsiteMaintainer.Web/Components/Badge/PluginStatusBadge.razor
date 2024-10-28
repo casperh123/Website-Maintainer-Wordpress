@@ -1,0 +1,20 @@
+@using WebsiteMaintainer.Core.Entities
+
+@switch (PluginStatus)
+{
+    case PluginStatus.Active:
+        <RadzenBadge BadgeStyle="BadgeStyle.Success">@PluginStatus</RadzenBadge>
+        break;
+    case PluginStatus.Inactive:
+        <RadzenBadge BadgeStyle="BadgeStyle.Info">@PluginStatus</RadzenBadge>
+        break;
+    default:
+        <RadzenBadge BadgeStyle="BadgeStyle.Light">@PluginStatus</RadzenBadge>
+        break;
+}
+
+@code {
+
+    [Parameter] 
+    public PluginStatus PluginStatus { get; set; }
+}

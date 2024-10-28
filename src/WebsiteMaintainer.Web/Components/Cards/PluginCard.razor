@@ -1,0 +1,40 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Badge
+
+<RadzenCard Variant="Variant.Text">
+    <RadzenRow AlignItems="AlignItems.Center">
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.Subtitle2">
+                @Plugin.Name
+            </RadzenText>
+            <PluginStatusBadge PluginStatus="@Plugin.Status"/>
+                
+            
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenText TextStyle="TextStyle.Subtitle2">
+                Plugin Version:
+            </RadzenText>
+            <RadzenText>
+                @Plugin.Version;
+            </RadzenText>
+        </RadzenColumn>
+        <RadzenColumn>
+            @if (Plugin.UpdateAvailable)
+            {
+                <RadzenBadge BadgeStyle="BadgeStyle.Warning">Update Available</RadzenBadge>
+            }
+        </RadzenColumn>
+        <RadzenColumn>
+            @if (Plugin.UpdateAvailable)
+            {
+                <RadzenButton>Update</RadzenButton>
+            }
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenCard>
+
+@code {
+    [Parameter]
+    public Plugin Plugin { get; set; }
+}

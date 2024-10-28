@@ -3,8 +3,10 @@
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Notifications
+@using WebsiteMaintainer.Web.Components.Lists
 @inject IEnhanceService EnhanceService;
 @inject IUserService UserService;
+
 <RadzenCard>
     <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
         <RadzenColumn>
@@ -39,9 +41,10 @@
                             ValueChanged="MaintenanceChanged"
                             Data="@Website.AddedMaintenanceTypes">
             </RadzenDropDown>
-                <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite" Icon="close"/>
+            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite" Icon="close"/>
         </RadzenColumn>
     </RadzenRow>
+    <PluginList Plugins="Plugins"/>
 </RadzenCard>
 
 @code {
@@ -52,14 +55,15 @@
     [Parameter]
     public EventCallback<Website> WebsiteChanged { get; set; }
 
-    private List<Plugin>? Plugins { get; set; }
+    private List<Plugin> Plugins { get; set; } = [];
     private int TotalPlugins { set; get; }
     private int UpdateablePlugins { get; set; }
     private bool PluginDetailsOpen { get; set; }
-    private string ErrorMessage { get; set; } = string.Empty;
+    private string ErrorMessage { get; set; }
 
     protected override async void OnInitialized()
     {
+        ErrorMessage = string.Empty;
         ApplicationUser user = await UserService.GetCurrentUserAsync();
 
         try

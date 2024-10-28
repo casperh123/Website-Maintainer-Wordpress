@@ -1,0 +1,18 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Cards
+
+<RadzenColumn>
+    <RadzenText TextStyle="TextStyle.Subtitle1">
+        Plugins
+    </RadzenText>
+
+    @foreach (Plugin plugin in Plugins)
+    {
+        <PluginCard Plugin="@plugin"/>
+    }
+</RadzenColumn>
+
+@code {
+    [Parameter] 
+    public List<Plugin> Plugins { get; set; }
+}

@@ -11,14 +11,22 @@ public class EnhanceHelpers
     {
         return new Website(
             website.Domain.Domain,
-            EnhanceKind(website.Kind ?? WebsiteKind.Normal),
+            ToEntity(website.Kind ?? WebsiteKind.Normal),
             MaintenanceType.None,
             website.Id ?? Guid.Empty,
             Provider.Enhance
         );
     }
+
+    public static PluginStatus ToEntity(WPPluginStatus? pluginStatus) => pluginStatus switch
+    {
+        WPPluginStatus.Active => PluginStatus.Active,
+        WPPluginStatus.Inactive => PluginStatus.Inactive,
+        WPPluginStatus.Unknown => PluginStatus.Unknown,
+        _ => PluginStatus.Unknown
+    };
     
-    public static Kind EnhanceKind(WebsiteKind kind) => kind switch
+    public static Kind ToEntity(WebsiteKind kind) => kind switch
     {
         WebsiteKind.Normal => Kind.Normal,
         WebsiteKind.Roundcube => Kind.Roundcube,
