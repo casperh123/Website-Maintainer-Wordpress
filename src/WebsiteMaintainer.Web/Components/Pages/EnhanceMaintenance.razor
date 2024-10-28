@@ -6,7 +6,6 @@
 @using WebsiteMaintainer.Core.Repository
 @using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Button
-@inject IUserService UserService
 @inject IWebsiteRepository WebsiteRepository
 
 @attribute [Authorize]
@@ -17,7 +16,7 @@
     <RadzenText TextStyle="TextStyle.H2" >
         <RadzenHeading >Websites</RadzenHeading>
         
-        <ToggleButton Toggler="_addWebsites" OnText="Close" OffText="Add Websites"></ToggleButton>
+        <ToggleButton Disabled="_addWebsitesButtonDisabled" Toggler="_addWebsites" OnText="Close" OffText="Add Websites"></ToggleButton>
     </RadzenText>
 
     <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
@@ -33,11 +32,13 @@
 @code {
     private List<Website> _websites;
     private bool _addWebsites;
+    private bool _addWebsitesButtonDisabled;
     
     protected override async Task OnInitializedAsync()
     {
         _websites = await WebsiteRepository.GetAllAsync();
         _addWebsites = !_websites.Any();
+        _addWebsitesButtonDisabled = _websites.Count < 0;
     }
 
     private async Task WebsiteChanged(Website website)
@@ -56,5 +57,7 @@
                 _websites.Add(website);
             }
         }
+
+        _addWebsitesButtonDisabled = !_websites.Any();
     }
 }

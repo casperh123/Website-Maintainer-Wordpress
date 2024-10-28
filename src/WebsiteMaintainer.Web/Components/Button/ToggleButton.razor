@@ -7,13 +7,13 @@
 else
 {
     <RadzenButton Click="@Toggle" Size="@Size">@OffText</RadzenButton>
-}
+}   
 
 @code {
-     [Parameter]
-    public bool Toggler { get; set; }
     [Parameter]
+    public bool Toggler { get; set; }
     
+    [Parameter]
     public string OnText { get; set; }
     
     [Parameter]
