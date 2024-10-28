@@ -4,7 +4,6 @@
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Components.SiteSelectors
 @using WebsiteMaintainer.Core.Repository
-@using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Button
 @inject IWebsiteRepository WebsiteRepository
 
@@ -16,15 +15,22 @@
     <RadzenText TextStyle="TextStyle.H2" >
         <RadzenHeading >Websites</RadzenHeading>
         
-        <ToggleButton Disabled="_addWebsitesButtonDisabled" Toggler="_addWebsites" OnText="Close" OffText="Add Websites"></ToggleButton>
+        <ToggleButton @bind-Value="_addWebsites" Disabled="!_websites.Any()" OnText="Close" OffText="Add Websites"></ToggleButton>
     </RadzenText>
 
     <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
 
-    <RadzenStack  Gap="10px" Orientation="Orientation.Vertical">
-        @foreach (Website website in _websites)
+    <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+        @if (_websites.Any())
         {
-            <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
+            @foreach (Website website in _websites)
+            {
+                <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
+            }
+        }
+        else
+        {
+            <p>No websites are saved</p>
         }
     </RadzenStack>
 </RadzenStack>
@@ -32,13 +38,11 @@
 @code {
     private List<Website> _websites;
     private bool _addWebsites;
-    private bool _addWebsitesButtonDisabled;
     
     protected override async Task OnInitializedAsync()
     {
         _websites = await WebsiteRepository.GetAllAsync();
         _addWebsites = !_websites.Any();
-        _addWebsitesButtonDisabled = _websites.Count < 0;
     }
 
     private async Task WebsiteChanged(Website website)
@@ -58,6 +62,9 @@
             }
         }
 
-        _addWebsitesButtonDisabled = !_websites.Any();
+        if (!_websites.Any())
+        {
+            _addWebsites = true;
+        }
     }
 }

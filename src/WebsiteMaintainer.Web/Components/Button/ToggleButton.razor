@@ -1,26 +1,37 @@
 @inherits RadzenButton
 
-@if (Toggler)
+@if (Value)
 {
-    <RadzenButton Click="@Toggle" Size="@Size">@OnText</RadzenButton>
+    <RadzenButton Click="@Toggle" Disabled="Disabled" Size="@Size">@OnText</RadzenButton>
 }
 else
 {
-    <RadzenButton Click="@Toggle" Size="@Size">@OffText</RadzenButton>
+    <RadzenButton Click="@Toggle" Disabled="Disabled" Size="@Size">@OffText</RadzenButton>
 }   
 
 @code {
     [Parameter]
-    public bool Toggler { get; set; }
+    public EventCallback<bool> OnToggle { get; set; }
+    
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; }
+
+    [Parameter] 
+    public bool StartOpen { get; set; }
     
     [Parameter]
     public string OnText { get; set; }
     
     [Parameter]
     public string OffText { get; set; }
+
+    [Parameter]
+    public bool Value { get; set; }
     
     private void Toggle()
     {
-        Toggler = !Toggler;
+        Value = !Value;
+        OnToggle.InvokeAsync(Value);
+        ValueChanged.InvokeAsync(Value);
     }
 }
