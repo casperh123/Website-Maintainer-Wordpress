@@ -1,13 +1,10 @@
 @using Enhance.Client
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Infrastructure.Services
-@using Microsoft.AspNetCore.Authorization
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Services
 @inject IEnhanceService EnhanceService
 @inject IUserService UserService
-
-@attribute [Authorize]
 
 @if (Showing)
 {
