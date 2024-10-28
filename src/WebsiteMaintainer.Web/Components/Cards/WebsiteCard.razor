@@ -8,43 +8,60 @@
 @inject IUserService UserService;
 
 <RadzenCard>
-    <RadzenRow Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
-        <RadzenColumn>
+    <RadzenRow JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
+        <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start">
             <RadzenText TextStyle="TextStyle.H4">
                 @Website.Domain
             </RadzenText>
-            <WebsiteBadge WebsiteKind="@Website.Kind"/>
-        </RadzenColumn>
-        <RadzenColumn JustifyContent="JustifyContent.Start">
-            @if (string.IsNullOrEmpty(ErrorMessage))
-            {
-                <RadzenText TextStyle="TextStyle.Subtitle1">
-                    Plugin Data:
-                </RadzenText>
-                <RadzenText TextStyle="TextStyle.Body1">
-                    Total Plugins: @TotalPlugins <br/>
-                    Outdated: @UpdateablePlugins
-                </RadzenText>
-                <RadzenText TextStyle="TextStyle.Body2"></RadzenText>
-            }
-            else
-            {
-                <ErrorMessage Message="@ErrorMessage"/>
-            }
-        </RadzenColumn>
-        <RadzenColumn >
-            <RadzenText TextStyle="TextStyle.Body2">
-                Maintenance Plan:
-            </RadzenText>
-            <RadzenDropDown TValue="MaintenanceType"
-                            Value="@Website.MaintenanceType"
-                            ValueChanged="MaintenanceChanged"
-                            Data="@Website.AddedMaintenanceTypes">
-            </RadzenDropDown>
-            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@RemoveWebsite" Icon="close"/>
-        </RadzenColumn>
+            <WebsiteTypeBadge WebsiteKind="@Website.Kind"/>
+        </RadzenStack>
+            <RadzenRow>
+                <RadzenColumn JustifyContent="JustifyContent.Start">
+                    @if (string.IsNullOrEmpty(ErrorMessage))
+                    {
+                    <RadzenText TextStyle="TextStyle.Subtitle1">
+                        Plugin Data:
+                    </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1">
+                        Total Plugins: @TotalPlugins <br/>
+                        Outdated: @UpdateablePlugins
+                    </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2"></RadzenText>
+                    }
+                    else
+                    {
+                    <ErrorMessage Message="@ErrorMessage"/>
+                    }
+                </RadzenColumn>
+                <RadzenRow  AlignItems="AlignItems.Center">
+                    <RadzenStack Orientation="Orientation.Vertical">
+                        <RadzenText TextStyle="TextStyle.Subtitle1">
+                            Maintenance Plan:
+                        </RadzenText>
+                        <RadzenDropDown TValue="MaintenanceType"
+                                        Value="@Website.MaintenanceType"
+                                        ValueChanged="MaintenanceChanged"
+                                        Data="@Website.AddedMaintenanceTypes">
+                        </RadzenDropDown>
+                    </RadzenStack>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Click="@RemoveWebsite"/>
+                </RadzenRow>
+                <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+                    @if (ShowMore)
+                    {
+                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_up"/>
+                    }
+                    else
+                    {
+                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_down"/>
+                    }
+                </RadzenStack>
+            </RadzenRow>
     </RadzenRow>
-    <PluginList Plugins="Plugins"/>
+    @if (ShowMore)
+    {
+        <PluginList Plugins="Plugins"/>
+    }
 </RadzenCard>
 
 @code {
@@ -58,7 +75,7 @@
     private List<Plugin> Plugins { get; set; } = [];
     private int TotalPlugins { set; get; }
     private int UpdateablePlugins { get; set; }
-    private bool PluginDetailsOpen { get; set; }
+    private bool ShowMore { get; set; }
     private string ErrorMessage { get; set; }
 
     protected override async void OnInitialized()
@@ -90,5 +107,10 @@
     {
         Website.MaintenanceType = MaintenanceType.None;
         await WebsiteChanged.InvokeAsync(Website);
+    }
+
+    private void _toggle()
+    {
+        ShowMore = !ShowMore;
     }
 }
