@@ -20,7 +20,7 @@
         <ToggleButton Toggler="_addWebsites" OnText="Close" OffText="Add Websites"></ToggleButton>
     </RadzenText>
 
-    <EnhanceSiteSelector User="@_user" ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
+    <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
 
     <RadzenStack  Gap="10px" Orientation="Orientation.Vertical">
         @foreach (Website website in _websites)
@@ -31,13 +31,11 @@
 </RadzenStack>
 
 @code {
-    private ApplicationUser _user;
     private List<Website> _websites;
     private bool _addWebsites;
     
     protected override async Task OnInitializedAsync()
     {
-        _user = await UserService.GetCurrentUserAsync();
         _websites = await WebsiteRepository.GetAllAsync();
         _addWebsites = !_websites.Any();
     }
