@@ -38,7 +38,7 @@
                 <Template Context="plugin">
                     @if (plugin.UpdateAvailable)
                     {
-                        <RadzenButton Click="UpdateWebsite">
+                        <RadzenButton Click="() => UpdateWebsite(plugin)">
                             Update
                         </RadzenButton>
                     }
@@ -49,12 +49,15 @@
 </RadzenStack>
 
 @code {
+    [Parameter]
+    public Website Website { get; set; }
+    
     [Parameter] 
     public List<Plugin> Plugins { get; set; }
 
     private int[] _pageSizes = [5, 10, 25, 50, 100,];
 
-    private async Task UpdateWebsite()
+    private async Task UpdateWebsite(Plugin plugin)
     {
         
     }
