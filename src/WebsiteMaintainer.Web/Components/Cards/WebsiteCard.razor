@@ -15,10 +15,10 @@
             </RadzenText>
             <WebsiteTypeBadge WebsiteKind="@Website.Kind"/>
         </RadzenStack>
-            <RadzenRow>
-                <RadzenColumn JustifyContent="JustifyContent.Start">
-                    @if (string.IsNullOrEmpty(ErrorMessage))
-                    {
+        <RadzenRow>
+            <RadzenColumn JustifyContent="JustifyContent.Start">
+                @if (string.IsNullOrEmpty(ErrorMessage))
+                {
                     <RadzenText TextStyle="TextStyle.Subtitle1">
                         Plugin Data:
                     </RadzenText>
@@ -27,36 +27,36 @@
                         Outdated: @UpdateablePlugins
                     </RadzenText>
                     <RadzenText TextStyle="TextStyle.Body2"></RadzenText>
-                    }
-                    else
-                    {
+                }
+                else
+                {
                     <ErrorMessage Message="@ErrorMessage"/>
-                    }
-                </RadzenColumn>
-                <RadzenRow  AlignItems="AlignItems.Center">
-                    <RadzenStack Orientation="Orientation.Vertical">
-                        <RadzenText TextStyle="TextStyle.Subtitle1">
-                            Maintenance Plan:
-                        </RadzenText>
-                        <RadzenDropDown TValue="MaintenanceType"
-                                        Value="@Website.MaintenanceType"
-                                        ValueChanged="MaintenanceChanged"
-                                        Data="@Website.AddedMaintenanceTypes">
-                        </RadzenDropDown>
-                    </RadzenStack>
-                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Click="@RemoveWebsite"/>
-                </RadzenRow>
-                <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
-                    @if (ShowMore)
-                    {
-                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_up"/>
-                    }
-                    else
-                    {
-                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_down"/>
-                    }
+                }
+            </RadzenColumn>
+            <RadzenRow  AlignItems="AlignItems.Center">
+                <RadzenStack Orientation="Orientation.Vertical">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">
+                        Maintenance Plan:
+                    </RadzenText>
+                    <RadzenDropDown TValue="MaintenanceType"
+                                    Value="@Website.MaintenanceType"
+                                    ValueChanged="MaintenanceChanged"
+                                    Data="@Website.AddedMaintenanceTypes">
+                    </RadzenDropDown>
                 </RadzenStack>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Click="@RemoveWebsite"/>
             </RadzenRow>
+            <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+                @if (ShowMore)
+                {
+                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_up"/>
+                }
+                else
+                {
+                    <RadzenButton Click="_toggle" Icon="keyboard_arrow_down"/>
+                }
+            </RadzenStack>
+        </RadzenRow>
     </RadzenRow>
     @if (ShowMore)
     {
