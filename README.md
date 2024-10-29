@@ -31,7 +31,8 @@ The project is shipped with a local SQLite database, and uses Asp.Net Individual
 
 ### Setup Project Tools
 
-To contribute to this project, you should have your local tool manifest setup correctly. The project is dependent on EF Migrations
+To contribute to, or use, this project, you should have your local tool manifest setup correctly. The project is 
+dependent on EF Migrations and Microsoft Kiota.
 
     dotnet new tool-manifest   
     dotnet tool install --local dotnet-ef
@@ -41,13 +42,18 @@ To contribute to this project, you should have your local tool manifest setup co
 ### Create and apply migrations
 
 Make sure the database has the correct schema applied to it, you will need to create and update the project migrations.
+This is also needed to seed the database when you first setup the application.
 
-    dotnet ef migrations add MigrationName -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
-    dotnet ef database update -p src/WebsiteMaintainer.Infrastructure -s src/WebsiteMaintainer.Web
+    generate-migrations.sh
 
-To delete these clients, use
+This script will delete the old migrations (Should they exist), and add and apply new ones.
 
-sudo rm -rf src/WebsiteMaintainer.Infrastructure/Clients/Enhance
+### Adding Api Clients to the project
+
+To add new Api clients to the project, we make use of Kiota.
+Modify the generate-clients.sh script to include your new client, and then run:
+
+    ./generate-clients.sh
 
 ### Running the application
 
@@ -58,14 +64,6 @@ Run the application through .NET CLI
 To enable _Hot-readling_ while developing, run the application with
 
     dotnet run --project src/WebsiteMaintainer.Web
-
-### Adding Api Clients to the project
-
-To add new Api clients to the project, we make use of Kiota.
-
-    sudo dotnet tool restore
-    sudo dotnet kiota generate -l CSharp -c EnhanceClient -n Enhance.Client -d=src/WebsiteMaintainer.Infrastructure/ApiSpecifications/enhance-api.yaml -o=./src/WebsiteMaintainer.Infrastructure/Clients/Enhance --ebc false --co true
-
 
 ## License
 
