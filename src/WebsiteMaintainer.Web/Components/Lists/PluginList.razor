@@ -1,11 +1,48 @@
+@using Radzen.Blazor.Rendering
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Web.Components.Cards
+@using WebsiteMaintainer.Web.Components.Badge
 
 <RadzenStack Style="margin: 20px 0">
-    @foreach (Plugin plugin in Plugins)
-    {
-        <PluginCard Plugin="@plugin"/>
-    }
+    
+    <RadzenDataGrid Data="Plugins.AsQueryable()"
+                    AllowSorting="true" 
+                    PageSize="10" 
+                    AllowPaging="true" 
+                    PagerHorizontalAlign="HorizontalAlign.Left" 
+                    ShowPagingSummary="true"
+                    PageSizeOptions="new []{5, 10, 15, 20, 30, 40}">
+        
+        <Columns>
+            <RadzenDataGridColumn Property="@nameof(Plugin.Name)" Title="Name" Filterable="true">
+                <Template Context="plugin">
+                    <RadzenText>
+                        @plugin.Name
+                    </RadzenText>
+                    <PluginStatusBadge PluginStatus="plugin.Status"/>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn Property="@nameof(Plugin.Version)" Title="Plugin Version"/>
+            <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update Available" Filterable="true" 
+                                  TextAlign="TextAlign.Center">
+                <Template Context="plugin">
+                    @if (plugin.UpdateAvailable)
+                    {
+                        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceEvenly">
+                            <RadzenStack>
+                                <RadzenBadge BadgeStyle="BadgeStyle.Warning">
+                                    Update Available
+                                </RadzenBadge>
+                            </RadzenStack>
+                            <RadzenButton>
+                                Update
+                            </RadzenButton>
+                        </RadzenRow>
+                    }
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
 </RadzenStack>
 
 @code {
