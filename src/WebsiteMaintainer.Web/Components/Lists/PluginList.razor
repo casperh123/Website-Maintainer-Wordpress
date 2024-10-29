@@ -1,3 +1,4 @@
+@using Microsoft.EntityFrameworkCore
 @using Radzen.Blazor.Rendering
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Web.Components.Cards
@@ -11,33 +12,35 @@
                     AllowPaging="true" 
                     PagerHorizontalAlign="HorizontalAlign.Left" 
                     ShowPagingSummary="true"
-                    PageSizeOptions="new []{5, 10, 15, 20, 30, 40}">
+                    PageSizeOptions="@_pageSizes">
         
         <Columns>
             <RadzenDataGridColumn Property="@nameof(Plugin.Name)" Title="Name" Filterable="true">
                 <Template Context="plugin">
-                    <RadzenText>
+                    <RadzenText TextStyle="TextStyle.Subtitle1">
                         @plugin.Name
                     </RadzenText>
-                    <PluginStatusBadge PluginStatus="plugin.Status"/>
+                    <RadzenRow>
+                        <PluginStatusBadge PluginStatus="plugin.Status"/>
+                        
+                        @if (plugin.UpdateAvailable)
+                        {
+                            <RadzenBadge BadgeStyle="BadgeStyle.Warning">
+                                Update Available
+                            </RadzenBadge>
+                        }
+                    </RadzenRow>
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn Property="@nameof(Plugin.Version)" Title="Plugin Version"/>
-            <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update Available" Filterable="true" 
+            <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update" Filterable="true" 
                                   TextAlign="TextAlign.Center">
                 <Template Context="plugin">
                     @if (plugin.UpdateAvailable)
                     {
-                        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceEvenly">
-                            <RadzenStack>
-                                <RadzenBadge BadgeStyle="BadgeStyle.Warning">
-                                    Update Available
-                                </RadzenBadge>
-                            </RadzenStack>
-                            <RadzenButton>
-                                Update
-                            </RadzenButton>
-                        </RadzenRow>
+                        <RadzenButton Click="UpdateWebsite">
+                            Update
+                        </RadzenButton>
                     }
                 </Template>
             </RadzenDataGridColumn>
@@ -48,4 +51,11 @@
 @code {
     [Parameter] 
     public List<Plugin> Plugins { get; set; }
+
+    private int[] _pageSizes = [5, 10, 25, 50, 100,];
+
+    private async Task UpdateWebsite()
+    {
+        
+    }
 }
