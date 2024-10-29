@@ -4,6 +4,7 @@
 @using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Notifications
 @using WebsiteMaintainer.Web.Components.Lists
+@using WebsiteMaintainer.Web.Components.Detail
 @inject IEnhanceService EnhanceService;
 @inject IUserService UserService;
 
@@ -60,7 +61,7 @@
     </RadzenRow>
     @if (ShowMore)
     {
-        <PluginList Plugins="Plugins"/>
+        <WebsiteDetails Plugins="Plugins"/>
     }
 </RadzenCard>
 
@@ -72,7 +73,7 @@
     [Parameter]
     public EventCallback<Website> WebsiteChanged { get; set; }
 
-    private List<Plugin> Plugins { get; set; } = [];
+    private List<Plugin> Plugins { get; set; }
     private int TotalPlugins { set; get; }
     private int UpdateablePlugins { get; set; }
     private bool ShowMore { get; set; }

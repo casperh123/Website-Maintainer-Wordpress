@@ -1,0 +1,10 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Lists
+<RadzenStack>
+    <PluginList Plugins="@Plugins"/>
+</RadzenStack>
+
+@code {
+    [Parameter] 
+    public List<Plugin> Plugins { get; set; }
+}
