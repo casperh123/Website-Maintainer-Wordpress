@@ -38,7 +38,6 @@ dependent on EF Migrations and Microsoft Kiota.
     dotnet tool install --local dotnet-ef
     dotnet tool install --local Microsoft.OpenApi.Kiota
 
-
 ### Create and apply migrations
 
 Make sure the database has the correct schema applied to it, you will need to create and update the project migrations.
@@ -60,6 +59,10 @@ Modify the generate-clients.sh script to include your new client, and then run:
 Run the application through .NET CLI
 
     dotnet run --project src/WebsiteMaintainer.Web
+
+or:
+
+    dotnet watch --project= src/WebsiteMaintainer.Web
 
 To enable _Hot-readling_ while developing, run the application with
 
