@@ -1,13 +1,25 @@
 # Website Maintainer
-Website Maintainer helps you to efficiently manage your WordPress sites hosted with an Enhance Control Panel. It provides a way to safely and efficiently update WordPress sites within your control panel.
+Website Maintainer is a tool designed to help WordPress website administrators efficiently and securely manage multiple 
+WordPress sites hosted on an Enhance Control Panel. The project aims to enforce better devops protocols for updating 
+WordPress websites while streamlining the maintenance process.
+
+## Project Overview
+The primary goal of Website Maintainer is to address the common challenges faced by WordPress website administrators 
+when managing their sites. Traditional WordPress maintenance can be time-consuming, error-prone, and lack the necessary 
+safeguards to ensure a smooth and secure update process. Website Maintainer aims to solve these issues by providing the 
+following key features:
 
 ## Features
- - Bulk Site Maintenance: Maintain multiple WordPress sites from a single dashboard.
- - Selective Maintenance: Choose which sites are maintained by you and set different acceptence criteria for each.
- - Safe Updates: Automatically back up sites before updating and perform both automatic and manual reviews.
- - Persistent Database: Keep track of maintained websites in a persistent database.
- - API Integration: Add more websites through API integration with the Enhance Control Panel.
-
+- Bulk Site Maintenance: Maintain multiple WordPress sites from a single, centralized dashboard, reducing the overhead 
+of managing sites individually.
+- Selective Maintenance: Choose which sites are maintained and set different acceptance criteria for each, allowing for 
+more granular control over the update process.
+- Safe Updates: Automatically back up sites before updating, and perform both automatic and manual reviews to ensure 
+the integrity of the updated websites.
+- Persistent Database: Keep track of maintained websites in a persistent database, providing a comprehensive overview 
+of the managed sites and their update history.
+- API Integration: Integrate with the Enhance Control Panel API to seamlessly add more websites to the maintenance 
+system, reducing the need for manual site onboarding.
 ## Getting Started
 
 ### Prerequisites
