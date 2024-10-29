@@ -1,16 +1,12 @@
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Web.Components.Cards
 
-<RadzenColumn>
-    <RadzenText TextStyle="TextStyle.Subtitle1">
-        Plugins
-    </RadzenText>
-
+<RadzenStack Style="margin: 20px 0">
     @foreach (Plugin plugin in Plugins)
     {
         <PluginCard Plugin="@plugin"/>
     }
-</RadzenColumn>
+</RadzenStack>
 
 @code {
     [Parameter] 

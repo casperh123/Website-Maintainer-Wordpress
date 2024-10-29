@@ -1,15 +1,13 @@
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Web.Components.Badge
 
-<RadzenCard Variant="Variant.Text">
+<RadzenCard Variant="Variant.Outlined">
     <RadzenRow AlignItems="AlignItems.Center">
         <RadzenColumn>
             <RadzenText TextStyle="TextStyle.Subtitle2">
                 @Plugin.Name
             </RadzenText>
             <PluginStatusBadge PluginStatus="@Plugin.Status"/>
-                
-            
         </RadzenColumn>
         <RadzenColumn>
             <RadzenText TextStyle="TextStyle.Subtitle2">
