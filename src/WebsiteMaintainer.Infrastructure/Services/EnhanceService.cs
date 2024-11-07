@@ -66,7 +66,7 @@ public class EnhanceService : IEnhanceService
 
     public async Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin)
     {
-        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
+        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
         Guid wordPressId = await GetWordPressId(client, user, website.OriginId);
 
         await client.Orgs[user.OrganizationId.Value]
