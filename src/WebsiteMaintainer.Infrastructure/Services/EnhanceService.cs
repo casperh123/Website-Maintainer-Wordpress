@@ -18,11 +18,11 @@ public interface IEnhanceService
 
 public class EnhanceService : IEnhanceService
 {
-    private HttpClient _httpClient;
+    private IHttpClientFactory _httpClientFactory;
 
     public EnhanceService(IHttpClientFactory httpFactory)
     {
-        _httpClient = httpFactory.CreateClient("client");
+        _httpClientFactory = httpFactory;
     }
 
     public async Task<List<Website>> GetWebsites(ApplicationUser user)
@@ -87,11 +87,14 @@ public class EnhanceService : IEnhanceService
         return apps.Items[0].Id ?? new Guid();
     }
     
-    private EnhanceClient BuildClient(Uri baseurl, string apiKey) {
-        _httpClient.BaseAddress = baseurl;
+    private EnhanceClient BuildClient(Uri baseurl, string apiKey)
+    {
+        HttpClient httpClient = _httpClientFactory.CreateClient("client");
+        
+        httpClient.BaseAddress = baseurl;
         
         IAuthenticationProvider authenticationProvider = new ApiKeyAuthenticationProvider(apiKey, "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
-        IRequestAdapter requestAdapter = new HttpClientRequestAdapter(authenticationProvider, httpClient: _httpClient);
+        IRequestAdapter requestAdapter = new HttpClientRequestAdapter(authenticationProvider, httpClient: httpClient);
         
         return new EnhanceClient(requestAdapter);
     }
