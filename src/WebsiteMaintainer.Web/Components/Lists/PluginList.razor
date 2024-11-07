@@ -1,8 +1,12 @@
 @using Microsoft.EntityFrameworkCore
 @using Radzen.Blazor.Rendering
 @using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Components.Badge
+@using WebsiteMaintainer.Web.Services
+@inject IEnhanceService EnhanceService
+@inject IUserService UserService
 
 <RadzenStack Style="margin: 20px 0">
     
@@ -59,6 +63,8 @@
 
     private async Task UpdateWebsite(Plugin plugin)
     {
-        
+        ApplicationUser user = await UserService.GetCurrentUserAsync();
+
+        await EnhanceService.UpdatePlugin(user, Website, plugin);
     }
 }

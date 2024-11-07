@@ -1,5 +1,9 @@
 @using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Badge
+@using WebsiteMaintainer.Web.Services
+@inject IEnhanceService EnhanceService
+@inject IUserService UserService
 
 <RadzenCard Variant="Variant.Outlined">
     <RadzenRow AlignItems="AlignItems.Center">
@@ -26,7 +30,7 @@
         <RadzenColumn>
             @if (Plugin.UpdateAvailable)
             {
-                <RadzenButton>Update</RadzenButton>
+                <RadzenButton Click="UpdatePlugin">Update</RadzenButton>
             }
         </RadzenColumn>
     </RadzenRow>
@@ -35,4 +39,11 @@
 @code {
     [Parameter]
     public Plugin Plugin { get; set; }
+
+    public EventCallback<Plugin> PluginUpdatet;
+
+    public async Task UpdatePlugin()
+    {
+        await PluginUpdatet.InvokeAsync(Plugin);
+    }
 }

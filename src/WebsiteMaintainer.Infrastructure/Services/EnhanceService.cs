@@ -13,6 +13,7 @@ public interface IEnhanceService
 {
     Task<List<Website>> GetWebsites(ApplicationUser user);
     Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website);
+    Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin);
 }
 
 public class EnhanceService : IEnhanceService
@@ -68,6 +69,26 @@ public class EnhanceService : IEnhanceService
         )).ToList() ?? [];    
 
         return plugins;
+    }
+
+    public async Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin)
+    {
+        HttpClient httpClient = _httpFactory.CreateClient("client");
+        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);    
+        
+        WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
+            .Websites[website.OriginId]
+            .Apps.GetAsync();
+        
+        Guid appId = apps.Items[0].Id ?? new Guid();
+
+        await client.Orgs[user.OrganizationId.Value]
+            .Websites[website.OriginId]
+            .Apps[appId]
+            .Wordpress
+            .Plugins[plugin.Name]
+            .Version
+            .PatchAsync();
     }
 
     private static EnhanceClient BuildClient(Uri baseurl, string apiKey, HttpClient httpClient) {
