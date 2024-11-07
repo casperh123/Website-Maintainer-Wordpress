@@ -18,17 +18,16 @@ public interface IEnhanceService
 
 public class EnhanceService : IEnhanceService
 {
-    private IHttpClientFactory _httpFactory;
+    private HttpClient _httpClient;
 
     public EnhanceService(IHttpClientFactory httpFactory)
     {
-        _httpFactory = httpFactory;
+        _httpClient = httpFactory.CreateClient("client");
     }
 
     public async Task<List<Website>> GetWebsites(ApplicationUser user)
     {
-        HttpClient httpClient = _httpFactory.CreateClient("client");
-        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
+        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
 
         WebsitesListing websites = await client
             .Orgs[user.OrganizationId.Value]
@@ -43,8 +42,7 @@ public class EnhanceService : IEnhanceService
 
     public async Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website)
     {
-        HttpClient httpClient = _httpFactory.CreateClient("client");
-        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
+        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
 
         WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
             .Websites[website.OriginId]
@@ -91,11 +89,11 @@ public class EnhanceService : IEnhanceService
             .PatchAsync();
     }
 
-    private static EnhanceClient BuildClient(Uri baseurl, string apiKey, HttpClient httpClient) {
-        httpClient.BaseAddress = baseurl;
+    private EnhanceClient BuildClient(Uri baseurl, string apiKey) {
+        _httpClient.BaseAddress = baseurl;
         
         IAuthenticationProvider authenticationProvider = new ApiKeyAuthenticationProvider(apiKey, "Authorization", ApiKeyAuthenticationProvider.KeyLocation.Header);
-        IRequestAdapter requestAdapter = new HttpClientRequestAdapter(authenticationProvider, httpClient: httpClient);
+        IRequestAdapter requestAdapter = new HttpClientRequestAdapter(authenticationProvider, httpClient: _httpClient);
         
         return new EnhanceClient(requestAdapter);
     }
