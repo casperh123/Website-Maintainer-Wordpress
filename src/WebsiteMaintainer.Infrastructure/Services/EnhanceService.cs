@@ -43,12 +43,7 @@ public class EnhanceService : IEnhanceService
     public async Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website)
     {
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
-
-        WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
-            .Websites[website.OriginId]
-            .Apps.GetAsync();
-        
-        Guid appId = apps.Items[0].Id ?? new Guid();
+        Guid appId = await GetWordPressId(client, user, website.OriginId);
 
         WpPluginsFullListing pluginListing = await client.Orgs[user.OrganizationId.Value]
             .Websites[website.OriginId]
@@ -71,24 +66,27 @@ public class EnhanceService : IEnhanceService
 
     public async Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin)
     {
-        HttpClient httpClient = _httpFactory.CreateClient("client");
-        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);    
-        
-        WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
-            .Websites[website.OriginId]
-            .Apps.GetAsync();
-        
-        Guid appId = apps.Items[0].Id ?? new Guid();
+        EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey, httpClient);
+        Guid wordPressId = await GetWordPressId(client, user, website.OriginId);
 
         await client.Orgs[user.OrganizationId.Value]
             .Websites[website.OriginId]
-            .Apps[appId]
+            .Apps[wordPressId]
             .Wordpress
             .Plugins[plugin.Name]
             .Version
             .PatchAsync();
     }
 
+    private async Task<Guid> GetWordPressId(EnhanceClient client, ApplicationUser user, Guid websiteId)
+    {
+        WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
+            .Websites[websiteId]
+            .Apps.GetAsync();
+        
+        return apps.Items[0].Id ?? new Guid();
+    }
+    
     private EnhanceClient BuildClient(Uri baseurl, string apiKey) {
         _httpClient.BaseAddress = baseurl;
         
