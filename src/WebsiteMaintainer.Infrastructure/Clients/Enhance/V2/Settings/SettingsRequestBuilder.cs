@@ -14,7 +14,7 @@ namespace Enhance.Client.V2.Settings
     /// <summary>
     /// Builds and executes requests for operations under \v2\settings
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class SettingsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The backup property</summary>

@@ -15,7 +15,7 @@ namespace Enhance.Client.Orgs.Item.Import.Server.Item
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\import\server\{server_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithServer_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The account property</summary>

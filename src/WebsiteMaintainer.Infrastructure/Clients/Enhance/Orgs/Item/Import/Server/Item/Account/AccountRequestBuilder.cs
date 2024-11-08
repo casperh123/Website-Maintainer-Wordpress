@@ -12,7 +12,7 @@ namespace Enhance.Client.Orgs.Item.Import.Server.Item.Account
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\import\server\{server_id}\account
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class AccountRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.orgs.item.import.server.item.account.item collection</summary>

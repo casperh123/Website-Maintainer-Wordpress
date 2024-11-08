@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// An organization&apos;s subscription to a plan. This allows the subscriber to use the subscribed to resources up until the quota defined in the plan is exhausted. Includes details about the subscription as well as the current usage of the resources.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class Subscription : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

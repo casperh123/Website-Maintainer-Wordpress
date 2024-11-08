@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Demo mode is a special mode that allows users to try out the application without having to sign up.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class DemoMode : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

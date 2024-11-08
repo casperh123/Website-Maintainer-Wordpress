@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Domains
     /// <summary>
     /// Builds and executes requests for operations under \v2\domains
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class DomainsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.v2.domains.item collection</summary>

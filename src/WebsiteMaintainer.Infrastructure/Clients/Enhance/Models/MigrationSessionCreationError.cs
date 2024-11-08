@@ -8,7 +8,7 @@ using System.IO;
 using System;
 namespace Enhance.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     #pragma warning disable CS1591
     public partial class MigrationSessionCreationError : ApiException, IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591

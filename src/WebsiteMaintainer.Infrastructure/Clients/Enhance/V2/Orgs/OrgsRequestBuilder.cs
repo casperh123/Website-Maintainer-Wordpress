@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Orgs
     /// <summary>
     /// Builds and executes requests for operations under \v2\orgs
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class OrgsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.v2.orgs.item collection</summary>

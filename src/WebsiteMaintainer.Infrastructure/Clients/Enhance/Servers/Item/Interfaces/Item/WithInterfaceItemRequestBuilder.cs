@@ -12,7 +12,7 @@ namespace Enhance.Client.Servers.Item.Interfaces.Item
     /// <summary>
     /// Builds and executes requests for operations under \servers\{server_id}\interfaces\{interface}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithInterfaceItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The ips property</summary>

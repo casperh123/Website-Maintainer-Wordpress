@@ -14,7 +14,7 @@ namespace Enhance.Client.V2.Orgs.Item
     /// <summary>
     /// Builds and executes requests for operations under \v2\orgs\{org_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithOrg_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The activities property</summary>

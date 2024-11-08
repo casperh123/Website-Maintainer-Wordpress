@@ -2,7 +2,7 @@
   "descriptionHash": "280E95BFF6D8072B12C7EDA940CC757EE12C84B8D4C46D175DF18F84472A8967E86A719946CB70DD0DF68E227AAA631774921A5F957D5F4A215DD383472E704D",
   "descriptionLocation": "../../ApiSpecifications/enhance-api.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.19.1",
+  "kiotaVersion": "1.19.0",
   "clientClassName": "EnhanceClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "Enhance.Client",

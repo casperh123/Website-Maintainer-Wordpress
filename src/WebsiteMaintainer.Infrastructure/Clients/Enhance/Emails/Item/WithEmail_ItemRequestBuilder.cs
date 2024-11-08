@@ -12,7 +12,7 @@ namespace Enhance.Client.Emails.Item
     /// <summary>
     /// Builds and executes requests for operations under \emails\{email_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithEmail_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The spam_thresholds property</summary>

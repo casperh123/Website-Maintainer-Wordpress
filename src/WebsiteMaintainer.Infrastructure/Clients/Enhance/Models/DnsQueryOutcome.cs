@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Detailed DNS query outcome, walking from root DNS to all the way back to IP addresses for a domain
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class DnsQueryOutcome : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

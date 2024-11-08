@@ -12,7 +12,7 @@ namespace Enhance.Client.Servers.Item.Services
     /// <summary>
     /// Builds and executes requests for operations under \servers\{server_id}\services
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class ServicesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.servers.item.services.item collection</summary>

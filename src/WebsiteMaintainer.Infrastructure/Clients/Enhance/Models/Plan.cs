@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// A plan (or sometimes referred to as a package) defines a set of resources a reseller can offer for customer organizations to subscribe to.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class Plan : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

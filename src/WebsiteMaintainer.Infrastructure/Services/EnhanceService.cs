@@ -16,15 +16,8 @@ public interface IEnhanceService
     Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin);
 }
 
-public class EnhanceService : IEnhanceService
+public class EnhanceService(IHttpClientFactory httpFactory) : IEnhanceService
 {
-    private IHttpClientFactory _httpClientFactory;
-
-    public EnhanceService(IHttpClientFactory httpFactory)
-    {
-        _httpClientFactory = httpFactory;
-    }
-
     public async Task<List<Website>> GetWebsites(ApplicationUser user)
     {
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
@@ -89,7 +82,7 @@ public class EnhanceService : IEnhanceService
     
     private EnhanceClient BuildClient(Uri baseurl, string apiKey)
     {
-        HttpClient httpClient = _httpClientFactory.CreateClient("client");
+        HttpClient httpClient = httpFactory.CreateClient("client");
         
         httpClient.BaseAddress = baseurl;
         

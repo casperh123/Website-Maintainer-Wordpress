@@ -12,7 +12,7 @@ namespace Enhance.Client.Servers.Master.Roles
     /// <summary>
     /// Builds and executes requests for operations under \servers\master\roles
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class RolesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The control property</summary>

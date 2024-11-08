@@ -13,7 +13,7 @@ namespace Enhance.Client.Orgs.Item.Websites.Item.Ssh
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\websites\{website_id}\ssh
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class SshRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The keys property</summary>

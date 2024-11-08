@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Orgs.Item.Import.Upload
     /// <summary>
     /// Builds and executes requests for operations under \v2\orgs\{org_id}\import\upload
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class UploadRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.v2.orgs.item.import.upload.item collection</summary>

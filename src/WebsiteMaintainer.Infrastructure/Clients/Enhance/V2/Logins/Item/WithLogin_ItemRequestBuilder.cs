@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Logins.Item
     /// <summary>
     /// Builds and executes requests for operations under \v2\logins\{login_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithLogin_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The password property</summary>

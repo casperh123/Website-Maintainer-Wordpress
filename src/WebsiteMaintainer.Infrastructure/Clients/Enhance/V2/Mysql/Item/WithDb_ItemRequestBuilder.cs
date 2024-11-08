@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Mysql.Item
     /// <summary>
     /// Builds and executes requests for operations under \v2\mysql\{db_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithDb_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The sql property</summary>

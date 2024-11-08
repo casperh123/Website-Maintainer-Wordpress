@@ -4,7 +4,7 @@ using System;
 namespace Enhance.Client.Models
 {
     /// <summary>The role of the member in the organization.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public enum Role
     {
         [EnumMember(Value = "Owner")]

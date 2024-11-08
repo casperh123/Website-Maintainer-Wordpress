@@ -15,7 +15,7 @@ namespace Enhance.Client.EmailClient
     /// <summary>
     /// Builds and executes requests for operations under \email-client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class EmailClientRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The autoresponders property</summary>

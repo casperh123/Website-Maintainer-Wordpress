@@ -11,7 +11,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Composed type wrapper for classes <see cref="bool"/>, <see cref="double"/>, <see cref="global::Enhance.Client.Models.ServiceSettingValueMember1"/>, <see cref="global::Enhance.Client.Models.SmartHostSettings"/>, <see cref="string"/>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class ServiceSettingValue : IComposedTypeWrapper, IParsable
     {
         /// <summary>Composed type representation for type <see cref="bool"/></summary>

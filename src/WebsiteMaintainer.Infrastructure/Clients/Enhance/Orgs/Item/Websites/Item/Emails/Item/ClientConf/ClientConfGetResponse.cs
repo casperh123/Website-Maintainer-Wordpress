@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Enhance.Client.Orgs.Item.Websites.Item.Emails.Item.ClientConf
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     #pragma warning disable CS1591
     public partial class ClientConfGetResponse : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591

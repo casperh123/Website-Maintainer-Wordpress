@@ -11,7 +11,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Composed type wrapper for classes <see cref="global::Enhance.Client.Models.UpdateCrontabValueCmd"/>, <see cref="global::Enhance.Client.Models.UpdateCrontabValueVariable"/>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class UpdateCrontabValue : IComposedTypeWrapper, IParsable
     {
         /// <summary>Composed type representation for type <see cref="global::Enhance.Client.Models.UpdateCrontabValueCmd"/></summary>

@@ -12,7 +12,7 @@ namespace Enhance.Client.V2.Logins
     /// <summary>
     /// Builds and executes requests for operations under \v2\logins
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class LoginsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.v2.logins.item collection</summary>

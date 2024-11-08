@@ -20,7 +20,7 @@ namespace Enhance.Client.V2
     /// <summary>
     /// Builds and executes requests for operations under \v2
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class V2RequestBuilder : BaseRequestBuilder
     {
         /// <summary>The apps property</summary>

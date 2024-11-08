@@ -4,7 +4,7 @@ using System;
 namespace Enhance.Client.Models
 {
     /// <summary>Different activities that happen in orchd. There will be a lot of changes to the values of this enum as time goes by, consider this non-exhausive and be graceful with unknown values.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public enum ActivityKind
     {
         [EnumMember(Value = "added")]

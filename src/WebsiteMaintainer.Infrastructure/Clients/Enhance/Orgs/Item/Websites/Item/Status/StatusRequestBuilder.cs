@@ -12,7 +12,7 @@ namespace Enhance.Client.Orgs.Item.Websites.Item.Status
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\websites\{website_id}\status
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class StatusRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The backup property</summary>

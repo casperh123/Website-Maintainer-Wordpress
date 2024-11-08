@@ -12,7 +12,7 @@ namespace Enhance.Client.Orgs.Item.Customers.Item
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\customers\{customer_org_id}
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WithCustomer_org_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The subscriptions property</summary>

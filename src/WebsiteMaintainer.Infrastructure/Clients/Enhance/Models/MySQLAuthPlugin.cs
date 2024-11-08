@@ -4,7 +4,7 @@ using System;
 namespace Enhance.Client.Models
 {
     /// <summary>See https://dev.mysql.com/doc/refman/8.0/en/authentication-plugins.html for list of plugins which MySQL supports. If not provided, the user will use whatever defaults the mysql server it&apos;s being created uses.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public enum MySQLAuthPlugin
     {
         [EnumMember(Value = "caching_sha2_password")]

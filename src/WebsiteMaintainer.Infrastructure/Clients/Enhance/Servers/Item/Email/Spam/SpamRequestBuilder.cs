@@ -12,7 +12,7 @@ namespace Enhance.Client.Servers.Item.Email.Spam
     /// <summary>
     /// Builds and executes requests for operations under \servers\{server_id}\email\spam
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class SpamRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The outbound_scanning property</summary>

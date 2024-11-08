@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Describes the filename and additional plugin information. The filename is the name of the plugin php file, e.g. &quot;bbpress.php&quot;. If the plugin kind is &quot;file&quot;, then the file name refers to e.g. &quot;wp-content/plugins/bbpress.php&quot;. If the kind is &quot;dir&quot;, then the name refers to &quot;wp-content/plugins/bbpress/bbpress.php&quot;. The name of the dir is always the same as the name of the file without the php suffix.https://developer.wordpress.org/plugins/plugin-basics/header-requirements/#header-fields
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WpPlugin : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

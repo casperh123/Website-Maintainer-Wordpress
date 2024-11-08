@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Each Metrics entry represts an hourly window of banwidth usage Note: depending upon the polling time, most recent hour values might not      be complete yet and are subject to change if fetched at a later time.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class MetricsEntry : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// If this object is present, the website&apos;s .htaccess will have a new set of rules which redirect all secondary domains to this primary domain with 301 header. If this object is missing, any existing rules will be removed.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class CanonicalRedirect : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

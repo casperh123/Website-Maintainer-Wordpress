@@ -13,7 +13,7 @@ namespace Enhance.Client.Orgs.Item.Stats
     /// <summary>
     /// Builds and executes requests for operations under \orgs\{org_id}\stats
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class StatsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The customers property</summary>

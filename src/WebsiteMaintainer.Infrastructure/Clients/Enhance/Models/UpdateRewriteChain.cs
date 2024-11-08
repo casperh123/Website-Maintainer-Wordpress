@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// If the `rule` property is missing, we will delete a rule on the given line number instead. If just the `conds` property is missing, it defauls to an empty array.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class UpdateRewriteChain : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

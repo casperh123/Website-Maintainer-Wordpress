@@ -12,7 +12,7 @@ namespace Enhance.Client.Websites
     /// <summary>
     /// Builds and executes requests for operations under \websites
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class WebsitesRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.websites.item collection</summary>

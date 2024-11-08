@@ -12,7 +12,7 @@ namespace Enhance.Client.Install.Latest_available_version
     /// <summary>
     /// Builds and executes requests for operations under \install\latest_available_version
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class Latest_available_versionRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.install.latest_available_version.item collection</summary>

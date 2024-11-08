@@ -12,7 +12,7 @@ namespace Enhance.Client.Servers.Item.Webserver.Litespeed
     /// <summary>
     /// Builds and executes requests for operations under \servers\{server_id}\webserver\litespeed
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class LitespeedRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The password property</summary>

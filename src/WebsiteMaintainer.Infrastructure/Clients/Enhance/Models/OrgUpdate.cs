@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Enhance.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     #pragma warning disable CS1591
     public partial class OrgUpdate : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
@@ -85,7 +85,7 @@ namespace Enhance.Client.Models
         /// <summary>
         /// Composed type wrapper for classes <see cref="global::Enhance.Client.Models.Unset"/>, <see cref="string"/>
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
         public partial class OrgUpdate_slackNotificationWebhookUrl : IComposedTypeWrapper, IParsable
         {
             /// <summary>Composed type representation for type <see cref="string"/></summary>

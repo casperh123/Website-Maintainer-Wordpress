@@ -14,7 +14,7 @@ namespace Enhance.Client.Settings.Orchd
     /// <summary>
     /// Builds and executes requests for operations under \settings\orchd
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class OrchdRequestBuilder : BaseRequestBuilder
     {
         /// <summary>The loginPolicy property</summary>

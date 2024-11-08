@@ -4,7 +4,7 @@ using System;
 namespace Enhance.Client.Models
 {
     /// <summary>Resolved = domain resolves to our servers. ForeignServer = domain resolves but points to somewhere else. Failed = DNS query failed for the domain (potentially not configured). Unknown = Not queried. Error = There was an internal error. Mixed = Website&apos;s domains resolved with different statuses.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public enum DnsStatus
     {
         [EnumMember(Value = "Resolved")]

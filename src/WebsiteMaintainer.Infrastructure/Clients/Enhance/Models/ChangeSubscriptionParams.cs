@@ -7,7 +7,7 @@ using System.IO;
 using System;
 namespace Enhance.Client.Models
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     #pragma warning disable CS1591
     public partial class ChangeSubscriptionParams : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
@@ -63,7 +63,7 @@ namespace Enhance.Client.Models
         /// <summary>
         /// Composed type wrapper for classes <see cref="global::Enhance.Client.Models.Unset"/>, <see cref="int"/>
         /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
         public partial class ChangeSubscriptionParams_subscriptionId : IComposedTypeWrapper, IParsable
         {
             /// <summary>Composed type representation for type <see cref="int"/></summary>

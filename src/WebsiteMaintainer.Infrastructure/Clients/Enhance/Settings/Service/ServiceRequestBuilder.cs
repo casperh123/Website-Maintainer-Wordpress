@@ -12,7 +12,7 @@ namespace Enhance.Client.Settings.Service
     /// <summary>
     /// Builds and executes requests for operations under \settings\service
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class ServiceRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the Enhance.Client.settings.service.item collection</summary>

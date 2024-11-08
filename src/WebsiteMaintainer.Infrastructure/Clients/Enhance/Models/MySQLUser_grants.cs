@@ -10,7 +10,7 @@ namespace Enhance.Client.Models
     /// <summary>
     /// Table names mapped to a list of privileges on that table. The wildcard &quot;*&quot; means the privileges are granted for all tables.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public partial class MySQLUser_grants : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

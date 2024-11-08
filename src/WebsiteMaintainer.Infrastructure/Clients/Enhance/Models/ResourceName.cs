@@ -4,7 +4,7 @@ using System;
 namespace Enhance.Client.Models
 {
     /// <summary>The name of the resource. Must be unique within a plan.Note: for arbitrary string casting please use `camelCase` format</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.19.0")]
     public enum ResourceName
     {
         [EnumMember(Value = "customers")]
