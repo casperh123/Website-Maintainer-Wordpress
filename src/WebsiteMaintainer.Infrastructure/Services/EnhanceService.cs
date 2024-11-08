@@ -1,3 +1,4 @@
+using System.Net;
 using Enhance.Client;
 using Enhance.Client.Models;
 using WebsiteMaintainer.Core.Entities;
@@ -20,7 +21,12 @@ public interface IEnhanceService
 public class EnhanceService : IEnhanceService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private const string HttpClientName = "enhance-client";
+    private const string HttpClientName = "client";
+
+    public EnhanceService(IHttpClientFactory httpClientFactory)
+    {
+        _httpClientFactory = httpClientFactory;
+    }
     
     public async Task<List<Website>> GetWebsites(ApplicationUser user)
     {
@@ -28,14 +34,22 @@ public class EnhanceService : IEnhanceService
         
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
         Guid organizationId = user.OrganizationId.Value;
-        
-        WebsitesListing? websites = await client
-            .Orgs[organizationId]
-            .Websites.GetAsync(website =>
-            {
-                website.QueryParameters.RecursionAsRecursion = Recursion.Infinite;
-                website.QueryParameters.KindAsWebsiteKind = WebsiteKind.Normal;
-            });
+        WebsitesListing? websites = new WebsitesListing();
+
+        try
+        {
+            websites = await client
+                .Orgs[organizationId]
+                .Websites.GetAsync(website =>
+                {
+                    website.QueryParameters.RecursionAsRecursion = Recursion.Infinite;
+                    website.QueryParameters.KindAsWebsiteKind = WebsiteKind.Normal;
+                });
+        }
+        catch (ApiException apiException)
+        {
+            ThrowProperException(apiException);
+        }
         
         return websites.Items.ConvertAll(EnhanceHelpers.EnhanceWebsite) ?? [];
     }
@@ -84,11 +98,19 @@ public class EnhanceService : IEnhanceService
     {
         Guid organizationId = user.OrganizationId.Value;
         
-        WebsiteAppsFullListing? apps = await client.Orgs[user.OrganizationId.Value]
+        WebsiteAppsFullListing? apps = await client.Orgs[organizationId]
             .Websites[websiteId]
             .Apps.GetAsync();
         
         return apps.Items[0].Id ?? new Guid();
+    }
+
+    private void ThrowProperException(ApiException exception)
+    {
+        if (exception.ResponseStatusCode is 403)
+        {
+            throw new InvalidUserCredentials("User does not have access to the requested resource");
+        }
     }
 
     private void ValidateUserCredentials(ApplicationUser user)
