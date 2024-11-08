@@ -4,6 +4,7 @@ using WebsiteMaintainer.Core.Entities;
 using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
+using WebsiteMaintainer.Core.Exceptions;
 using WebsiteMaintainer.Infrastructure.EntityHelpers;
 using Website = WebsiteMaintainer.Core.Entities.Website;
 
@@ -16,25 +17,32 @@ public interface IEnhanceService
     Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin);
 }
 
-public class EnhanceService(IHttpClientFactory httpFactory) : IEnhanceService
+public class EnhanceService : IEnhanceService
 {
+    private readonly IHttpClientFactory _httpClientFactory;
+    private const string HttpClientName = "enhance-client";
+    
     public async Task<List<Website>> GetWebsites(ApplicationUser user)
     {
+        ValidateUserCredentials(user);
+        
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
-
-        WebsitesListing websites = await client
-            .Orgs[user.OrganizationId.Value]
+        Guid organizationId = user.OrganizationId.Value;
+        
+        WebsitesListing? websites = await client
+            .Orgs[organizationId]
             .Websites.GetAsync(website =>
             {
                 website.QueryParameters.RecursionAsRecursion = Recursion.Infinite;
                 website.QueryParameters.KindAsWebsiteKind = WebsiteKind.Normal;
             });
         
-        return websites?.Items?.ConvertAll(EnhanceHelpers.EnhanceWebsite) ?? [];
+        return websites.Items.ConvertAll(EnhanceHelpers.EnhanceWebsite) ?? [];
     }
 
     public async Task<List<Plugin>> GetPlugins(ApplicationUser user, Website website)
     {
+        ValidateUserCredentials(user);
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
         Guid appId = await GetWordPressId(client, user, website.OriginId);
 
@@ -59,6 +67,7 @@ public class EnhanceService(IHttpClientFactory httpFactory) : IEnhanceService
 
     public async Task UpdatePlugin(ApplicationUser user, Website website, Plugin plugin)
     {
+        ValidateUserCredentials(user);
         EnhanceClient client = BuildClient(user.ControlPanelUrl, user.BearerApiKey);
         Guid wordPressId = await GetWordPressId(client, user, website.OriginId);
 
@@ -73,16 +82,43 @@ public class EnhanceService(IHttpClientFactory httpFactory) : IEnhanceService
 
     private async Task<Guid> GetWordPressId(EnhanceClient client, ApplicationUser user, Guid websiteId)
     {
-        WebsiteAppsFullListing apps = await client.Orgs[user.OrganizationId.Value]
+        Guid organizationId = user.OrganizationId.Value;
+        
+        WebsiteAppsFullListing? apps = await client.Orgs[user.OrganizationId.Value]
             .Websites[websiteId]
             .Apps.GetAsync();
         
         return apps.Items[0].Id ?? new Guid();
     }
+
+    private void ValidateUserCredentials(ApplicationUser user)
+    {
+        List<string> validationErrors = [];
+
+        if (user.ControlPanelUrl is null)
+        {
+            validationErrors.Add("Please provide a valid contolpanel Url");
+        }
+
+        if (user.OrganizationId is null)
+        {
+            validationErrors.Add("Please provide a valid organization Id");
+        }
+
+        if (user.ApiKey is null)
+        {
+            validationErrors.Add("Please provade a valid API key");
+        }
+
+        if (validationErrors.Any())
+        {
+            throw new InvalidUserCredentials(string.Join(Environment.NewLine, validationErrors));
+        }
+    }
     
     private EnhanceClient BuildClient(Uri baseurl, string apiKey)
     {
-        HttpClient httpClient = httpFactory.CreateClient("client");
+        HttpClient httpClient = _httpClientFactory.CreateClient(HttpClientName);
         
         httpClient.BaseAddress = baseurl;
         
