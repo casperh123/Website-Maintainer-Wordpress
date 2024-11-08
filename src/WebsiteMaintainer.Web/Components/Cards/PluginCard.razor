@@ -40,10 +40,11 @@
     [Parameter]
     public Plugin Plugin { get; set; }
 
-    public EventCallback<Plugin> PluginUpdatet;
+    [Parameter]
+    public EventCallback<Plugin> PluginUpdated { get; set; }
 
     public async Task UpdatePlugin()
     {
-        await PluginUpdatet.InvokeAsync(Plugin);
+        await PluginUpdated.InvokeAsync(Plugin);
     }
 }

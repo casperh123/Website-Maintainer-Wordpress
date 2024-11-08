@@ -7,14 +7,14 @@
 
 @if (Showing)
 {
-    <RadzenStack Gap="10px" Orientation="Orientation.Vertical" >
-        @if (!_filteredWebsites.Any())
-        {
-            <p>No websites found.</p>
-        }
+    <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
         @foreach (Website website in _filteredWebsites)
         {
             <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
+        }
+        @if (!_filteredWebsites.Any())
+        {
+            <p>No websites found.</p>
         }
     </RadzenStack>
 }
@@ -31,6 +31,7 @@
 
     private List<Website> _enhanceWebsites = [];
     private List<Website> _filteredWebsites = [];
+    private string _errorMessage;
 
     protected override async Task OnInitializedAsync()
     {

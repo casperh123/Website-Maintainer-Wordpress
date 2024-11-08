@@ -21,16 +21,20 @@
     <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
 
     <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-        @if (_websites.Any())
+        @if (_websites == null)
+        {
+            <p>Loading websites...</p>
+        }
+        else if(!_websites.Any())
+        {
+            <p>No websites are saved</p>
+        }
+        else
         {
             @foreach (Website website in _websites)
             {
                 <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
             }
-        }
-        else
-        {
-            <p>No websites are saved</p>
         }
     </RadzenStack>
 </RadzenStack>
