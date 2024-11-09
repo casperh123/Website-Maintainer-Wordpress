@@ -28,10 +28,12 @@
     [Parameter] 
     public List<Website> ExistingWebsites { get; set; }
 
+    [Parameter]
+    public List<Website> EnhanceWebsites { get; set; }
+
     [Parameter] 
     public EventCallback<Website> WebsiteAdded { get; set; }
 
-    private List<Website> _enhanceWebsites;
     private List<Website> _filteredWebsites;
 
     protected override async void OnParametersSet()
@@ -47,7 +49,7 @@
 
     private void FilterWebsites()
     {
-        _filteredWebsites = _enhanceWebsites
+        _filteredWebsites = EnhanceWebsites
             .Where(website => !ExistingWebsites.Contains(website))
             .ToList();
     }

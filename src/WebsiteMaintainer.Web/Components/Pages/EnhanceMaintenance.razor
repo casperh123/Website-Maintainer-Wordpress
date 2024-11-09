@@ -4,8 +4,12 @@
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Components.SiteSelectors
 @using WebsiteMaintainer.Core.Repository
+@using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Button
+@using WebsiteMaintainer.Web.Services
 @inject IWebsiteRepository WebsiteRepository
+@inject IEnhanceService EnhanceService
+@inject IUserService UserService
 
 @attribute [Authorize]
 
@@ -20,7 +24,7 @@
     
     @if (_addWebsites)
     {
-        <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged"/>
+        <EnhanceSiteSelector ExistingWebsites="_websites" EnhanceWebsites="_enhanceWebsites" WebsiteAdded="@WebsiteChanged"/>
     }
     
     <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
@@ -44,11 +48,14 @@
 
 @code {
     private List<Website> _websites;
+    private List<Website> _enhanceWebsites;
     private bool _addWebsites;
     
     protected override async Task OnInitializedAsync()
     {
+        ApplicationUser user = await UserService.GetCurrentUserAsync();
         _websites = await WebsiteRepository.GetAllAsync();
+        _enhanceWebsites = await EnhanceService.GetWebsites(user);
         _addWebsites = !_websites.Any();
     }
 
