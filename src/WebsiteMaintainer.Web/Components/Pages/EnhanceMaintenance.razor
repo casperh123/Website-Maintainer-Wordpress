@@ -17,9 +17,12 @@
         
         <ToggleButton @bind-Value="_addWebsites" Disabled="!_websites.Any()" OnText="Close" OffText="Add Websites"></ToggleButton>
     </RadzenText>
-
-    <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged" Showing="_addWebsites"/>
-
+    
+    @if (_addWebsites)
+    {
+        <EnhanceSiteSelector ExistingWebsites="_websites" WebsiteAdded="@WebsiteChanged"/>
+    }
+    
     <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
         @if (_websites == null)
         {

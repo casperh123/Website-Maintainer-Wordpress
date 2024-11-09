@@ -40,12 +40,21 @@
             <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update" Filterable="true" 
                                   TextAlign="TextAlign.Center">
                 <Template Context="plugin">
-                    @if (plugin.UpdateAvailable)
-                    {
-                        <RadzenButton Click="() => UpdateWebsite(plugin)">
-                            Update
-                        </RadzenButton>
-                    }
+                    <ErrorBoundary>
+                        <ChildContent>
+                            @if (plugin.UpdateAvailable)
+                            {
+                            <RadzenButton Click="() => UpdateWebsite(plugin)">
+                                Update
+                            </RadzenButton>
+                            }
+                        </ChildContent>
+                        <ErrorContent>
+                            <RadzenBadge BadgeStyle="BadgeStyle.Warning">
+                                An error happened while updating the plugin
+                            </RadzenBadge>
+                        </ErrorContent>
+                    </ErrorBoundary>
                 </Template>
             </RadzenDataGridColumn>
         </Columns>

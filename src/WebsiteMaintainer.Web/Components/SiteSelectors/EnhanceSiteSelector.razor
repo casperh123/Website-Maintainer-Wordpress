@@ -1,43 +1,38 @@
 @using WebsiteMaintainer.Core.Entities
-@using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Services
-@inject IEnhanceService EnhanceService
 @inject IUserService UserService
 
-@if (Showing)
-{
-    <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+<RadzenStack Gap="10px" Orientation="Orientation.Vertical">
+    @if (_filteredWebsites is null)
+    {
+        <RadzenText>
+            Loading...
+        </RadzenText>
+    }
+    @if (!_filteredWebsites.Any())
+    {
+        <p>No websites found.</p>
+    }
+    else
+    {
         @foreach (Website website in _filteredWebsites)
         {
             <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
         }
-        @if (!_filteredWebsites.Any())
-        {
-            <p>No websites found.</p>
-        }
-    </RadzenStack>
-}
+    }
+</RadzenStack>
+
 
 @code {
     [Parameter] 
     public List<Website> ExistingWebsites { get; set; }
-    
-    [Parameter]
-    public bool Showing { get; set; }
 
     [Parameter] 
     public EventCallback<Website> WebsiteAdded { get; set; }
 
-    private List<Website> _enhanceWebsites = [];
-    private List<Website> _filteredWebsites = [];
-    private string _errorMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        ApplicationUser user = await UserService.GetCurrentUserAsync();
-        _enhanceWebsites = await EnhanceService.GetWebsites(user);
-    }
+    private List<Website> _enhanceWebsites;
+    private List<Website> _filteredWebsites;
 
     protected override async void OnParametersSet()
     {

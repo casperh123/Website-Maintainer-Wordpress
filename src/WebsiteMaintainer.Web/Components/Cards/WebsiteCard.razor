@@ -27,7 +27,6 @@
                         Total Plugins: @TotalPlugins <br/>
                         Outdated: @UpdateablePlugins
                     </RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2"></RadzenText>
                 }
                 else
                 {
@@ -90,7 +89,7 @@
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+            ErrorMessage = "Unable to retrieve plugins";
         }
 
         UpdateablePlugins = Plugins?.Count(plugin => plugin.UpdateAvailable) ?? 0;
