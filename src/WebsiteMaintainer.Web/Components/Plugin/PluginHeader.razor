@@ -1,0 +1,21 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Badge
+
+<RadzenText TextStyle="TextStyle.Subtitle1">
+    @Plugin.Name
+</RadzenText>
+<RadzenRow>
+    <PluginStatusBadge PluginStatus="Plugin.Status"/>
+
+    @if (Plugin.UpdateAvailable)
+    {
+        <RadzenBadge BadgeStyle="BadgeStyle.Warning">
+            Update Available
+        </RadzenBadge>
+    }
+</RadzenRow>
+
+@code {
+    [Parameter]
+    public required Plugin Plugin { get; set; }
+}
