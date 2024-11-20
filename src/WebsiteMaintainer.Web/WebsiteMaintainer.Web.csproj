@@ -27,7 +27,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Components\Plugin\PluginDetails\" />
       <Folder Include="Data\" />
       <Folder Include="Services\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Button\UpdateButton.razor" />
     </ItemGroup>
 </Project>

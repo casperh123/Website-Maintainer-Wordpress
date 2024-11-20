@@ -1,6 +1,8 @@
+using WebsiteMaintainer.Core.Interfaces;
+
 namespace WebsiteMaintainer.Core.Entities;
 
-public class Plugin
+public class Plugin : IUpdateable
 {
     public Plugin(
         string name, 

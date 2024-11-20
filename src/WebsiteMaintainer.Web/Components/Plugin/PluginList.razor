@@ -3,6 +3,7 @@
 @using WebsiteMaintainer.Web.Components.Badge
 @using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Plugin.PluginDetails
+@using WebsiteMaintainer.Web.Components.Button
 @inject IEnhanceService EnhanceService
 @inject IUserService UserService
 
@@ -38,7 +39,7 @@
             <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update" Filterable="true" 
                                   TextAlign="TextAlign.Center">
                 <Template Context="plugin">
-                    <UpdatePluginButton Plugin="plugin" PluginChanged="UpdateWebsite"/>
+                    <UpdateButton Plugin="plugin" PluginChanged="UpdateWebsite"/>
                 </Template>
             </RadzenDataGridColumn>
         </Columns>

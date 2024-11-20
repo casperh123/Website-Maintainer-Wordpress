@@ -1,10 +1,10 @@
-@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Core.Interfaces
 
-@typeparam TItem : Updateable
+@typeparam TItem where TItem : IUpdateable
 
 <ErrorBoundary>
     <ChildContent>
-        @if (Plugin.UpdateAvailable)
+        @if (Item.UpdateAvailable)
         {
             <RadzenButton Click="HandlePluginChanged" Disabled="@_isUpdating">
                 @(_isUpdating ? "Updating..." : "Update")

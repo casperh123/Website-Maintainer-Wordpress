@@ -1,6 +1,10 @@
 namespace WebsiteMaintainer.Core.Interfaces;
 
-public interface Updateable
+public interface IUpdateable
 {
-    
+    bool UpdateAvailable
+    {
+        get;
+        set;
+    }
 }
