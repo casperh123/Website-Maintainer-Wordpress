@@ -1,0 +1,48 @@
+@using WebsiteMaintainer.Core.Entities
+
+@typeparam TItem : Updateable
+
+<ErrorBoundary>
+    <ChildContent>
+        @if (Plugin.UpdateAvailable)
+        {
+            <RadzenButton Click="HandlePluginChanged" Disabled="@_isUpdating">
+                @(_isUpdating ? "Updating..." : "Update")
+            </RadzenButton>
+        }
+    </ChildContent>
+    <ErrorContent>
+        <RadzenBadge BadgeStyle="BadgeStyle.Warning">
+            An error happened while updating the plugin
+        </RadzenBadge>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code
+{
+    [Parameter]
+    public required TItem Item { get; set; }
+    
+    [Parameter] 
+    public required EventCallback<TItem> ItemChanged { get; set; }
+
+    private bool _isUpdating;
+    
+    private async Task HandlePluginChanged()
+    {
+        if (!ItemChanged.HasDelegate)
+        {
+            return;
+        }
+
+        _isUpdating = true;
+        try
+        {
+            await ItemChanged.InvokeAsync(Item);
+        }
+        finally
+        {
+            _isUpdating = false;
+        }
+    }
+}

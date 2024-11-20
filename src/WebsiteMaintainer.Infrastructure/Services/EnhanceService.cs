@@ -72,7 +72,7 @@ public class EnhanceService : IEnhanceService
             plugin.Name ?? "N/A",
             plugin.Uri ?? "N/A",
             plugin.Version ?? "N/A",
-            plugin.Update.HasValue && plugin.Update.Value == WPPluginUpdateAvailable.Available,
+            plugin.Update is WPPluginUpdateAvailable.Available,
             EnhanceHelpers.ToEntity(plugin.Status)
         )).ToList() ?? [];    
 

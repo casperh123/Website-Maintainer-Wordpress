@@ -1,10 +1,13 @@
 @using WebsiteMaintainer.Core.Entities
-@using WebsiteMaintainer.Web.Components.Lists
+@using WebsiteMaintainer.Web.Components.Plugin
 <RadzenStack>
-    <PluginList Plugins="@Plugins"/>
+    <PluginList Website="Website" Plugins="Plugins"/>
 </RadzenStack>
 
 @code {
+    [Parameter]
+    public Website Website { get; set; }
+    
     [Parameter] 
     public List<Plugin> Plugins { get; set; }
 }
