@@ -2,7 +2,6 @@
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Badge
 @using WebsiteMaintainer.Web.Services
-@using WebsiteMaintainer.Web.Components.Plugin.PluginDetails
 @using WebsiteMaintainer.Web.Components.Button
 @inject IEnhanceService EnhanceService
 @inject IUserService UserService
@@ -39,7 +38,7 @@
             <RadzenDataGridColumn Property="@nameof(Plugin.UpdateAvailable)" Title="Update" Filterable="true" 
                                   TextAlign="TextAlign.Center">
                 <Template Context="plugin">
-                    <UpdateButton Plugin="plugin" PluginChanged="UpdateWebsite"/>
+                    <UpdateButton TItem="Plugin" Item="plugin" ItemChanged="UpdateWebsite"/>
                 </Template>
             </RadzenDataGridColumn>
         </Columns>
@@ -58,7 +57,10 @@
     private async Task UpdateWebsite(Plugin plugin)
     {
         ApplicationUser user = await UserService.GetCurrentUserAsync();
-
+        
         await EnhanceService.UpdatePlugin(user, Website, plugin);
+        
+
+        plugin.UpdateAvailable = false;
     }
 }
