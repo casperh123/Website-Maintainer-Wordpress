@@ -39,6 +39,10 @@
     private async Task AddWebsite(Website website)
     {
         Websites.Add(website);
-        await WebsitesChanged.InvokeAsync(Websites);
+        
+        if (WebsitesChanged.HasDelegate)
+        {
+            await WebsitesChanged.InvokeAsync(Websites);    
+        }
     }
 }
