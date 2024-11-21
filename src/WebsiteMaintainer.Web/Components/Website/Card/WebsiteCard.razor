@@ -2,8 +2,8 @@
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Services
 @using WebsiteMaintainer.Web.Components.Plugin
-@using WebsiteMaintainer.Web.Components.Maintenance
-@using WebsiteMaintainer.Web.Components.Details
+@using WebsiteMaintainer.Web.Components.Website.Details
+@using WebsiteMaintainer.Web.Components.Website.Maintenance
 @inject IEnhanceService EnhanceService;
 @inject IUserService UserService;
 
@@ -15,7 +15,7 @@
                 <PluginsDetails Plugins="Plugins"/>
             </RadzenColumn>
             <RadzenRow AlignItems="AlignItems.Center">
-                <MaintenanceSelect Maintenance="Website.MaintenanceType" MaintenanceChanged="MaintenanceChanged" />
+                <WebsiteMaintenanceSelect Maintenance="Website.MaintenanceType" MaintenanceChanged="MaintenanceChanged" />
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Click="@RemoveWebsite"/>
             </RadzenRow>
             <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
