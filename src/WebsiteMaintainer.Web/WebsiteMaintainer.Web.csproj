@@ -27,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Components\Shared\" />
       <Folder Include="Data\" />
       <Folder Include="Services\" />
     </ItemGroup>
@@ -35,7 +36,6 @@
       <AdditionalFiles Include="Components\Button\UpdateButton.razor" />
       <AdditionalFiles Include="Components\Website\Badge\WebsiteTypeBadge.razor" />
       <AdditionalFiles Include="Components\Website\Card\WebsiteCard.razor" />
-      <AdditionalFiles Include="Components\Website\Card\WebsiteDetails.razor" />
       <AdditionalFiles Include="Components\Website\Details\WebsiteDetails.razor" />
       <AdditionalFiles Include="Components\Website\WebsiteSelector\EnhanceSiteSelector.razor" />
     </ItemGroup>

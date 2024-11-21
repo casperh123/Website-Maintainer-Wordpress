@@ -48,5 +48,7 @@
         await EnhanceService.UpdatePlugin(user, Website, plugin);
         
         plugin.UpdateAvailable = false;
+        
+        StateHasChanged();
     }
 }
