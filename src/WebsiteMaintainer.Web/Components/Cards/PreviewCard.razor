@@ -19,7 +19,7 @@
 
 @code {
     [Parameter]
-    public Website Website { get; set; }
+    public required Website Website { get; set; }
     
     [Parameter]
     public EventCallback<Website> WebsiteAdded { get; set; }

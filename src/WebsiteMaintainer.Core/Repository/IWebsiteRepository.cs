@@ -6,10 +6,11 @@ namespace WebsiteMaintainer.Core.Repository;
 
 public interface IWebsiteRepository
 {
-    Task Add(Website website);
-    Task AddOrUpdate(Website website);
-    Task<Website?> Get(string domain);
-    Task<bool> Exists(Website website);
-    Task Delete(Website website);
-    Task<List<Website>> GetAllAsync();
+    Task AddAsync(Website website);
+    Task AddOrUpdateAsync(Website website);
+    Task<Website?> GetAsync(string domain);
+    Task<bool> ExistsAsync(Website website);
+    Task DeleteAsync(Website website);
+    Task DeleteRangeAsync(IEnumerable<Website> websites);
+    Task<IEnumerable<Website>> GetAllAsync();
 }

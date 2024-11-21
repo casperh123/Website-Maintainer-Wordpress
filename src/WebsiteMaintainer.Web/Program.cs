@@ -62,6 +62,7 @@ builder.Services.AddScoped<IWebsiteRepository, WebsiteRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEnhanceService, EnhanceService>();
+builder.Services.AddScoped<IWebsiteService, WebsiteService>();
 
 WebApplication app = builder.Build();
 

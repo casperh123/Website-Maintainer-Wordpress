@@ -4,7 +4,7 @@ using WebsiteMaintainer.Infrastructure.Data;
 
 namespace WebsiteMaintainer.Infrastructure.Repository;
 
-public class UserRepository(SiteUpdaterDbContext context) : BaseRepository(context), IUserRepository
+public class UserRepository(SiteUpdaterDbContext dbContext) : BaseRepository(dbContext), IUserRepository
 {
     public async Task UpdateUser(ApplicationUser user)
     {

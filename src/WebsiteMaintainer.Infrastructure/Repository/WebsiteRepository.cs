@@ -5,46 +5,56 @@ using WebsiteMaintainer.Infrastructure.Data;
 
 namespace WebsiteMaintainer.Infrastructure.Repository;
 
-public class WebsiteRepository(SiteUpdaterDbContext context) : BaseRepository(context), IWebsiteRepository
+public class WebsiteRepository(SiteUpdaterDbContext dbContext) : BaseRepository(dbContext), IWebsiteRepository
 {
-    public async Task Add(Website website)
+    public async Task AddAsync(Website website)
     {
-        context.Add(website);
-        await context.SaveChangesAsync();
+        Db.Add(website);
+        await Db.SaveChangesAsync();
     }
 
-    public async Task AddOrUpdate(Website website)
+    public async Task AddOrUpdateAsync(Website website)
     {
-        if (await context.Websites.ContainsAsync(website))
+        if (await Db.Websites.ContainsAsync(website))
         {
-            context.Update(website);
+            Db.Update(website);
         }
         else
         {
-            context.Add(website);
+            Db.Add(website);
         }
         
-        await context.SaveChangesAsync();
+        await Db.SaveChangesAsync();
     }
 
-    public async Task<Website?> Get(string domain)
+    public async Task<Website?> GetAsync(string domain)
     {
-        return await context.Websites.FindAsync(domain);
+        return await Db.Websites.FindAsync(domain);
     }
 
-    public async Task<bool> Exists(Website website)
+    public async Task<bool> ExistsAsync(Website website)
     {
-        return await context.Websites.ContainsAsync(website);
+        return await Db.Websites.ContainsAsync(website);
     }
 
-    public async Task Delete(Website website)
+    public async Task DeleteAsync(Website website)
     {
-        context.Remove(website);
-        await context.SaveChangesAsync();
+        Db.Remove(website);
+        await Db.SaveChangesAsync();
     }
 
-    public async Task<List<Website>> GetAllAsync()
+    public async Task DeleteRangeAsync(IEnumerable<Website> websites)
     {
-        return await context.Websites.ToListAsync();
+        foreach (Website website in websites)
+        {
+            Db.Remove(website);
+        }
+        
+        await Db.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Website>> GetAllAsync()
+    {
+        return await Db.Websites.ToListAsync();
     }
 }

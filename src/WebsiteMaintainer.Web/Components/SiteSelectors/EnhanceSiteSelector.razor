@@ -4,54 +4,41 @@
 @inject IUserService UserService
 
 <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
-    @if (_filteredWebsites is null)
+    @if (FilteredWebsites is null)
     {
         <RadzenText>
             Loading...
         </RadzenText>
     }
-    @if (!_filteredWebsites.Any())
+    @if (!FilteredWebsites.Any())
     {
         <p>No websites found.</p>
     }
     else
     {
-        @foreach (Website website in _filteredWebsites)
+        @foreach (Website website in FilteredWebsites)
         {
-            <PreviewCard Website="@website" WebsiteAdded="@AddWebsite"/>
+            <PreviewCard Website="website" WebsiteAdded="AddWebsite"/>
         }
     }
 </RadzenStack>
 
-
 @code {
     [Parameter] 
-    public List<Website> ExistingWebsites { get; set; }
-
-    [Parameter]
-    public List<Website> EnhanceWebsites { get; set; }
+    public required List<Website> Websites { get; set; }
 
     [Parameter] 
-    public EventCallback<Website> WebsiteAdded { get; set; }
+    public EventCallback<List<Website>> WebsitesChanged { get; set; }
 
-    private List<Website> _filteredWebsites;
+    [Parameter]
+    public required List<Website> EnhanceWebsites { get; set; }
 
-    protected override async void OnParametersSet()
-    {
-        FilterWebsites();
-        await InvokeAsync(StateHasChanged);
-    }
+    private IEnumerable<Website> FilteredWebsites => EnhanceWebsites
+        .Where(website => !Websites.Contains(website));
 
     private async Task AddWebsite(Website website)
     {
-        await WebsiteAdded.InvokeAsync(website);
+        Websites.Add(website);
+        await WebsitesChanged.InvokeAsync(Websites);
     }
-
-    private void FilterWebsites()
-    {
-        _filteredWebsites = EnhanceWebsites
-            .Where(website => !ExistingWebsites.Contains(website))
-            .ToList();
-    }
-
 }

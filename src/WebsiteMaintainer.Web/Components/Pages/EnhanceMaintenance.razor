@@ -3,11 +3,10 @@
 @using Microsoft.AspNetCore.Authorization
 @using WebsiteMaintainer.Web.Components.Cards
 @using WebsiteMaintainer.Web.Components.SiteSelectors
-@using WebsiteMaintainer.Core.Repository
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Components.Button
 @using WebsiteMaintainer.Web.Services
-@inject IWebsiteRepository WebsiteRepository
+@inject IWebsiteService WebsiteService
 @inject IEnhanceService EnhanceService
 @inject IUserService UserService
 
@@ -18,13 +17,12 @@
 
     <RadzenText TextStyle="TextStyle.H2" >
         <RadzenHeading >Websites</RadzenHeading>
-        
         <ToggleButton @bind-Value="_addWebsites" Disabled="!_websites.Any()" OnText="Close" OffText="Add Websites"></ToggleButton>
     </RadzenText>
     
     @if (_addWebsites)
     {
-        <EnhanceSiteSelector ExistingWebsites="_websites" EnhanceWebsites="_enhanceWebsites" WebsiteAdded="@WebsiteChanged"/>
+        <EnhanceSiteSelector Websites="_websites" EnhanceWebsites="_enhanceWebsites" WebsitesChanged="WebsitesChanged"/>
     }
     
     <RadzenStack Gap="10px" Orientation="Orientation.Vertical">
@@ -40,7 +38,7 @@
         {
             @foreach (Website website in _websites)
             {
-                <WebsiteCard Website="@website" WebsiteChanged="@WebsiteChanged"/>
+                <WebsiteCard Website="@website" WebsiteChanged="WebsiteAdded"/>
             }
         }
     </RadzenStack>
@@ -54,31 +52,18 @@
     protected override async Task OnInitializedAsync()
     {
         ApplicationUser user = await UserService.GetCurrentUserAsync();
-        _websites = await WebsiteRepository.GetAllAsync();
+        _websites = await WebsiteService.GetWebsitesAsync();
         _enhanceWebsites = await EnhanceService.GetWebsites(user);
         _addWebsites = !_websites.Any();
     }
 
-    private async Task WebsiteChanged(Website website)
+    private async Task WebsitesChanged(List<Website> websites)
     {
-        if (website.MaintenanceType is MaintenanceType.None)
-        {
-            await WebsiteRepository.Delete(website);
-            _websites.Remove(website);
-        }
-        else
-        {
-            await WebsiteRepository.AddOrUpdate(website);
-            
-            if (!_websites.Contains(website))
-            {
-                _websites.Add(website);
-            }
-        }
+        _websites = await WebsiteService.SynchronizeMaintainedWebsitesAsync(websites);
+    }
 
-        if (!_websites.Any())
-        {
-            _addWebsites = true;
-        }
+    private async Task WebsiteAdded(Website website)
+    {
+        _websites = await WebsiteService.SynchronizeMaintainedWebsitesAsync(_websites);
     }
 }
