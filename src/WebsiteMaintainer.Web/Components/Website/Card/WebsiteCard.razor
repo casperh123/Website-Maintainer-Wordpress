@@ -1,4 +1,3 @@
-@using WebsiteMaintainer.Web.Components.Badge
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Services
@@ -10,12 +9,7 @@
 
 <RadzenCard>
     <RadzenRow JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
-        <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start">
-            <RadzenText TextStyle="TextStyle.H4">
-                @Website.Domain
-            </RadzenText>
-            <WebsiteTypeBadge WebsiteKind="@Website.Kind"/>
-        </RadzenStack>
+        <WebsiteHeader Domain="@Website.Domain" Kind="@Website.Kind"/>
         <RadzenRow>
             <RadzenColumn JustifyContent="JustifyContent.Start">
                 <PluginsDetails Plugins="Plugins"/>

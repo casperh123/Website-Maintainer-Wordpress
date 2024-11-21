@@ -1,0 +1,16 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Website.Badge
+<RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start">
+    <RadzenText TextStyle="TextStyle.H4">
+        @Domain
+    </RadzenText>
+    <WebsiteTypeBadge WebsiteKind="Kind"/>
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public required string Domain { get; set; }
+    
+    [Parameter]
+    public required Kind Kind { get; set; }
+}

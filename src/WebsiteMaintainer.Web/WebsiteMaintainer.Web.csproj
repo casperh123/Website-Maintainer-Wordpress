@@ -33,5 +33,7 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Components\Button\UpdateButton.razor" />
+      <AdditionalFiles Include="Components\Website\Badge\WebsiteTypeBadge.razor" />
+      <AdditionalFiles Include="Components\Website\Card\WebsiteCard.razor" />
     </ItemGroup>
 </Project>
