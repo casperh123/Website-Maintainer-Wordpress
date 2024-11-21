@@ -25,7 +25,7 @@ public class Website : IEquatable<Website>
         _ => true
     };
 
-    public List<MaintenanceType> AddedMaintenanceTypes => [MaintenanceType.Regular, MaintenanceType.Care];
+    public static List<MaintenanceType> AddedMaintenanceTypes => [MaintenanceType.Regular, MaintenanceType.Care];
 
     public bool Equals(Website? other)
     {

@@ -1,0 +1,28 @@
+@using WebsiteMaintainer.Core.Entities
+@using WebsiteMaintainer.Web.Components.Notifications
+
+@if (string.IsNullOrEmpty(ErrorMessage))
+{
+    <RadzenText TextStyle="TextStyle.Subtitle1">
+        Plugin Data:
+    </RadzenText>
+    <RadzenText TextStyle="TextStyle.Body1">
+        Total Plugins: @TotalPlugins <br/>
+        Outdated: @UpdateablePlugins
+    </RadzenText>
+}
+else
+{
+    <ErrorMessage Message="@ErrorMessage"/>
+}
+
+@code {
+    [Parameter]
+    public required IEnumerable<Plugin> Plugins { get; set; }
+    
+    [Parameter]
+    public string? ErrorMessage { get; set; }
+
+    private int UpdateablePlugins => Plugins.Count(plugin => plugin.UpdateAvailable);
+    private int TotalPlugins => Plugins.Count();
+}

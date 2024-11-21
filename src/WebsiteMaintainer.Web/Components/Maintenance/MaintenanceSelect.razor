@@ -1,0 +1,20 @@
+@using WebsiteMaintainer.Core.Entities
+<RadzenStack Orientation="Orientation.Vertical">
+    <RadzenText TextStyle="TextStyle.Subtitle1">
+        Maintenance Plan:
+    </RadzenText>
+    <RadzenDropDown TValue="MaintenanceType"
+                    Value="Maintenance"
+                    ValueChanged="MaintenanceChanged"
+                    Data="@Website.AddedMaintenanceTypes">
+    </RadzenDropDown>
+</RadzenStack>
+
+@code {
+
+    [Parameter]
+    public required MaintenanceType Maintenance { get; set; }
+        
+    [Parameter]
+    public EventCallback<MaintenanceType> MaintenanceChanged { get; set; }
+}

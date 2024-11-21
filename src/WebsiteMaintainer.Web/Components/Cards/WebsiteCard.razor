@@ -2,8 +2,9 @@
 @using WebsiteMaintainer.Core.Entities
 @using WebsiteMaintainer.Infrastructure.Services
 @using WebsiteMaintainer.Web.Services
-@using WebsiteMaintainer.Web.Components.Notifications
-@using WebsiteMaintainer.Web.Components.Detail
+@using WebsiteMaintainer.Web.Components.Plugin
+@using WebsiteMaintainer.Web.Components.Maintenance
+@using WebsiteMaintainer.Web.Components.Details
 @inject IEnhanceService EnhanceService;
 @inject IUserService UserService;
 
@@ -17,32 +18,10 @@
         </RadzenStack>
         <RadzenRow>
             <RadzenColumn JustifyContent="JustifyContent.Start">
-                @if (string.IsNullOrEmpty(ErrorMessage))
-                {
-                    <RadzenText TextStyle="TextStyle.Subtitle1">
-                        Plugin Data:
-                    </RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body1">
-                        Total Plugins: @TotalPlugins <br/>
-                        Outdated: @UpdateablePlugins
-                    </RadzenText>
-                }
-                else
-                {
-                    <ErrorMessage Message="@ErrorMessage"/>
-                }
+                <PluginsDetails Plugins="Plugins"/>
             </RadzenColumn>
-            <RadzenRow  AlignItems="AlignItems.Center">
-                <RadzenStack Orientation="Orientation.Vertical">
-                    <RadzenText TextStyle="TextStyle.Subtitle1">
-                        Maintenance Plan:
-                    </RadzenText>
-                    <RadzenDropDown TValue="MaintenanceType"
-                                    Value="@Website.MaintenanceType"
-                                    ValueChanged="MaintenanceChanged"
-                                    Data="@Website.AddedMaintenanceTypes">
-                    </RadzenDropDown>
-                </RadzenStack>
+            <RadzenRow AlignItems="AlignItems.Center">
+                <MaintenanceSelect Maintenance="Website.MaintenanceType" MaintenanceChanged="MaintenanceChanged" />
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Click="@RemoveWebsite"/>
             </RadzenRow>
             <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
@@ -71,7 +50,7 @@
     [Parameter]
     public EventCallback<Website> WebsiteChanged { get; set; }
 
-    private List<Plugin> Plugins { get; set; }
+    private List<Plugin> Plugins { get; set; } = [];
     private int TotalPlugins { set; get; }
     private int UpdateablePlugins { get; set; }
     private bool ShowMore { get; set; }
