@@ -16,7 +16,7 @@
 @code {
 
     [Parameter]
-    public WebsiteKind? Kind { get; set; }
+    public required WebsiteKind Kind { get; set; }
 
     private string WebsiteKindString => Kind switch {
         WebsiteKind.Normal => "Normal",
@@ -25,5 +25,6 @@
         WebsiteKind.ControlPanel => "Control Panel",
         WebsiteKind.PhpMyAdmin => "PHPMyAdmin",
         WebsiteKind.ServerHostname => "Server Host Name",
+        _ => "Unknown"
     };
 }
